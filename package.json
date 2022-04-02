@@ -1,7 +1,11 @@
 {
   "name": "nechleba",
   "version": "1.0.0",
-  "description": "",
+  "engines": {
+    "node": "14.17.6"
+  },
+  "private": "true",
+  "description": "Website of Joseph Nechleba",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
