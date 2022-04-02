@@ -15,4 +15,5 @@ exports.connect = () => {
             console.log("database connection failed. exiting now...");
             process.exit(1);
         });
+    mongoose.Promise = global.Promise;
 };
