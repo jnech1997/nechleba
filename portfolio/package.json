@@ -11,7 +11,7 @@
     "build-locale:en": "ng build --configuration production --i18n-locale en --i18n-format xlf --i18n-file translate/messages.en.xlf --output-path=dist/en --baseHref /en/",
     "build-locale:es": "ng build --configuration production --i18n-locale es --i18n-format xlf --i18n-file translate/messages.es.xlf --output-path=dist/es --baseHref /es/",
     "build-locale": "npm run build-locale:en && npm run build-locale:es",
-    "postinstall": "ng build --aot -prod"
+    "postinstall": "ng build --configuration production"
   },
   "private": true,
   "dependencies": {
