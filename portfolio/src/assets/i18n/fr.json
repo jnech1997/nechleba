@@ -1,0 +1,26 @@
+{
+  "HOME": {
+    "MISSION": "Imaginer. Conception. Développer."
+  },
+  "ABOUT": {
+    "INTRO": "Bonjour tout le monde, mon nom est",
+    "SCHOOL": "L'informatique",
+    "WORK": "Développeur logiciel chez",
+    "EMAIL": "Veuillez envoyer toutes vos demandes à",
+    "RESUME": "C.V.",
+    "WELCOME": "Bienvenue"
+  },
+  "MENU": {
+    "HOME": "Accueil",
+    "ABOUT": "Sur",
+    "PROJECTS": "Projets",
+    "RESUME": "C.V.",
+    "CONTACT": "Contacter"
+  },
+  "LANGUAGE": {
+    "SELECT": "Choisissez votre langue",
+    "CANCEL": "Annuler",
+    "UPDATE": "Mettre à jour",
+    "LANGUAGE": "Français"
+  }
+}

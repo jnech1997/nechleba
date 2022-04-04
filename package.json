@@ -2,7 +2,8 @@
   "name": "nechleba",
   "version": "1.0.0",
   "engines": {
-    "node": "14.17.6"
+    "node": "14.17.6",
+    "npm": "6.14.15"
   },
   "private": "true",
   "description": "Website of Joseph Nechleba",
@@ -10,7 +11,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "cd portfolio && npm install --save"
   },
   "keywords": [],
   "author": "",

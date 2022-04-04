@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(express.json());
-app.use(express.static(__dirname + '/dist/portfolio'));
+app.use(express.static(__dirname + '/portfolio/dist/portfolio'));
 
 app.use('/api', apiRouter);
 

@@ -1,0 +1,168 @@
+.application-shell-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.content {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+
+.footer {
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.footer-lightmode {
+  background-color: #abb7b7;
+}
+
+.footer-darkmode {
+  background-color: #455a64;
+}
+
+.footer-text {
+  font-size: 13px;
+}
+
+h1.app-name {
+  margin-left: 8px;
+}
+
+.header {
+  position: relative;
+  justify-content: center;
+  display: flex;
+  padding: 10px;
+}
+
+.icon {
+  padding: 0 0 0 2%;
+  cursor: pointer
+}
+
+.icon-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.is-mobile .toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+.is-mobile .sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+}
+
+.light-mode-header {
+  background-image: linear-gradient(to top right, #f3f1ef, #67809f);
+}
+
+.linked-in-link {
+  text-decoration: none;
+  color: #f3f1ef;
+  display: flex;
+}
+
+.dark-mode-header {
+  background-image: linear-gradient(to top right, #455a64, #67809f);
+}
+
+.links-logos-container {
+  height: calc(95vh - 10px);
+  overflow: hidden;
+}
+
+.profile-container {
+  padding: 5px;
+  display: flex;
+}
+
+.profile-picture {
+  height: 100px;
+  margin-right: 10px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.side-logos-mobile {
+  font-size: 2rem;
+}
+
+.sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+.sidenav-container-mobile {
+  margin-top: 56px;
+}
+
+.sidenav-links {
+  margin: 10px;
+}
+
+.sidenav-left {
+  width: 70%;
+  height: 100%;
+  float: left;
+}
+
+.sidenav-right {
+  float: left;
+  width: 30%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.sidenav-right-lightmode {
+  background-color: #e8ecf1;
+}
+
+.sidenav-right-darkmode {
+  background-color: #2979ff;
+}
+
+.signature {
+  font-family: 'Noto Sans', cursive;
+  font-size: 1.25rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.signature-mobile {
+  font-size: 1.5rem;
+}
+
+.signature-container {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.spacer-sidenav {
+  padding: 20px;
+  margin: 20px;
+}
+

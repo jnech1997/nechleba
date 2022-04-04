@@ -1,0 +1,91 @@
+<div
+  [class.m2app-dark]="darkMode"
+  class="application-shell-container"
+  [class.is-mobile]="mobileQuery.matches"
+>
+  <!-- HEADER -->
+  <mat-toolbar color="primary" class="toolbar">
+    <mat-toolbar-row>
+      <a mat-button (click)="snav.toggle()" (keydown.enter)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </a>
+      <span class="spacer"></span>
+      <!-- icons for changing the theme to dark mode, translation of the page-->
+      <mat-icon *ngIf="darkMode" (click)="onModeChange()" (keyup.enter)="onModeChange()" class="icon" tabindex="0">nights_stay</mat-icon>
+      <mat-icon *ngIf="!darkMode" (click)="onModeChange()" (keyup.enter)="onModeChange()" class="icon" tabindex="0">wb_sunny</mat-icon>
+      <mat-icon (click)="openDialog()" (keydown.enter)="openDialog()" class="icon" tabindex="0">translate</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <!-- SIDENAV -->
+  <mat-sidenav-container
+    class="sidenav-container"
+    [ngClass]="mobileQuery.matches ? 'sidenav-container-mobile' : ''"
+  >
+    <mat-sidenav
+      class="sidenav"
+      #snav
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56"
+      [opened]="!mobileQuery.matches"
+      (click)="snav.toggle()"
+    >
+      <div
+        class="header"
+        [ngClass]="!darkMode ? 'light-mode-header' : 'dark-mode-header'"
+      >
+        <a class="linked-in-link" href="https://www.linkedin.com/in/joseph-nechleba-594ba9103/">
+          <div class="profile-container">
+            <img class="profile-picture" src="https://media-exp1.licdn.com/dms/image/C4D03AQG1dDzH6D2uqA/profile-displayphoto-shrink_400_400/0/1645553929115?e=1651104000&v=beta&t=7QoScVnMSv8PXUESRH3jDu8ibjM6BRhjhnXsyUcIJpU" alt="Profile Picture"/>
+          </div>
+          <div  class="signature-container">
+            <p class="signature" [ngClass]="mobileQuery.matches ? 'signature-mobile' : ''">
+              @Joseph Nechleba
+            </p>
+          </div>
+        </a>
+      </div>
+      <div class="links-logos-container">
+        <div class="sidenav-left">
+          <div class="spacer-sidenav"></div>
+          <mat-nav-list>
+            <a mat-list-item routerLink=".">{{'MENU.HOME' | translate}}</a>
+            <a mat-list-item routerLink="about">{{'MENU.ABOUT' | translate}}</a>
+            <a mat-list-item routerLink="projects">{{'MENU.PROJECTS' | translate}}</a>
+            <a mat-list-item href="../../assets/UpdatedResume.pdf">{{'MENU.RESUME' | translate}}</a>
+          </mat-nav-list>
+        </div>
+        <div
+          class="sidenav-right"
+          [ngClass]="!darkMode ? 'sidenav-right-lightmode' : 'sidenav-right-darkmode'"
+        >
+          <a class="icon-link" href="https://github.com/jnech1997">
+            <i class="side-logos-mobile fab fa-github-alt"></i>
+          </a>
+          <a class="icon-link" href="https://www.facebook.com/joe.nechleba.1">
+            <i class="side-logos-mobile fab fa-facebook"></i>
+          </a>
+          <a class="icon-link" href="https://www.youtube.com/channel/UCjbQokWG7vTFIJcW6GhliaA?view_as=subscriber">
+            <i class="side-logos-mobile fab fa-youtube"></i>
+          </a>
+          <a class="icon-link" href="https://joenechleba.wordpress.com/">
+            <i class="side-logos-mobile fab fa-wordpress-simple"></i>
+          </a>
+        </div>
+      </div>
+      <!-- FOOTER -->
+      <div
+        class="footer"
+        [ngClass]="!darkMode ? 'footer-lightmode' : 'footer-darkmode'"
+      >
+        <p class="footer-text">&#169; 2022</p>
+      </div>
+    </mat-sidenav>
+
+    <!-- CONTENT OUTLET -->
+    <mat-sidenav-content class="content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

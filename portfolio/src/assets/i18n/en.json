@@ -1,0 +1,26 @@
+{
+  "HOME": {
+    "MISSION": "Imagine. Design. Develop."
+  },
+  "ABOUT": {
+    "INTRO": "Hello World, my name is",
+    "SCHOOL": "Computer Science",
+    "WORK": "Software Developer at",
+    "EMAIL": "Please send all inquiries to",
+    "RESUME": "Resume",
+    "WELCOME": "Welcome"
+  },
+  "MENU": {
+    "HOME": "Home",
+    "ABOUT": "About",
+    "PROJECTS": "Projects",
+    "RESUME": "Resume",
+    "CONTACT": "Contact"
+  },
+  "LANGUAGE": {
+    "SELECT": "Select your language",
+    "CANCEL": "Cancel",
+    "UPDATE": "Update",
+    "LANGUAGE": "English"
+  }
+}

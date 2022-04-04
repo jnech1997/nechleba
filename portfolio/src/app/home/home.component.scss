@@ -1,0 +1,21 @@
+.home-background {
+  max-height: calc(100vh - 56px);
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.home-image {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.welcome-message {
+  font-size: 5em;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top: 15px;
+  color: #e4f1fe;
+  font-family: 'Sacramento';
+}

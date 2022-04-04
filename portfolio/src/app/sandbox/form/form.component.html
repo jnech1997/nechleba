@@ -1,0 +1,19 @@
+<mat-card class="form-container">
+    <h2>Welcome to the Matrix</h2>
+    <form class="login-form" [formGroup]="loginFormControl" (ngSubmit)="onSubmit()">
+        <mat-form-field class="username" appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="username">
+        </mat-form-field>
+        <mat-form-field class="password" appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <button class="submit-button" type="submit" [disabled]="!loginFormControl.valid" mat-button>Login</button>
+    </form>
+</mat-card>
+
+

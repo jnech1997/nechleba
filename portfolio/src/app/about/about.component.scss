@@ -1,0 +1,178 @@
+.fakeScreen {
+  background-color: #151515;
+  margin: 0;
+  flex: 1;
+  padding: 20px;
+  background-image: linear-gradient(to bottom right, #151515, #22313f)
+}
+
+.line1 {
+  color: #00FF41;
+}
+
+.line2 {
+  color: #CDEE69;
+}
+
+.line3 {
+  color: #E09690;
+  text-decoration: none;
+}
+
+.line4 {
+  color: #9CD9F0;
+  text-decoration: none;
+}
+
+.line5-bash {
+  color: #00FF41;
+}
+
+.line5-resume {
+  color: #00FF41;
+  text-decoration: underline;
+}
+
+.line6 {
+  color: #BF55EC;
+  text-decoration: none;
+}
+
+.line7 {
+  color: #fff;
+}
+
+.overallDiv {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.separator {
+  height: 1%;
+  background-color: silver;
+}
+
+.shell-script {
+  margin-top: 3vh;
+  text-align: left;
+  font-size: 1.25rem;
+  font-family: monospace;
+  white-space: normal;
+}
+
+.terminal-container {
+  height: calc(100vh - 64px);
+  width: 100%;
+  position: absolute;
+  position: -webkit-sticky;
+  top: 0px;
+  display: flex;
+  flex-flow: column;
+}
+
+
+.bottomImage {
+  width: 100%;
+  background-image: linear-gradient(140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
+  background-repeat: round;
+}
+
+
+.cursor {
+  -webkit-animation: blink 1s infinite;
+  -moz-animation: blink 1s infinite;
+  -o-animation: blink 1s infinite;
+  animation: blink 1s infinite;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+// mobile
+@media only screen and (max-width: 600px) {
+  .bottomImage {
+    width: 100%;
+    background-image: linear-gradient(140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
+    background-repeat: round;
+  }
+}
+
+// tablet
+@media (orientation: portrait) and (min-width: 601px) and (max-width: 1024px) {
+  .bottomImage {
+    width: 100%;
+    background-image: linear-gradient(140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
+    background-repeat: round;
+  }
+}

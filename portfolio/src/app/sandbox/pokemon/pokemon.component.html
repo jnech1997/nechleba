@@ -1,0 +1,10 @@
+<div class="pokemon-container">
+    <div *ngFor="let p of pokemon" class='square'>
+      <div class='table'>
+        <div class='table-cell'>
+            <img class="pokemon-image" src="{{p.img.replace('http://','https://')}}">
+            <em><h3 class='description'>{{p.name}}</h3></em>
+        </div>
+      </div>
+    </div>
+</div>
