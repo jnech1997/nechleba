@@ -8,7 +8,7 @@ const app = express();
 
 if (process.env.NODE_ENV === 'production') {
     app.use((req, res, next) => {
-      if (req.header('x-forwarded-proto') !== 'https')
+      if (req.header('x-forwarded-proto') !== 'http')
         res.redirect(`http://${req.header('host')}${req.url}`)
       else
         next()
