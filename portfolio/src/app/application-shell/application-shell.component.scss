@@ -87,6 +87,7 @@ h1.app-name {
 .profile-container {
   padding: 5px;
   display: flex;
+  z-index: 1;
 }
 
 .profile-picture {
