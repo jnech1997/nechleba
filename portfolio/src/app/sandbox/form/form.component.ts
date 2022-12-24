@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -8,9 +8,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class FormComponent {
 
-  loginFormControl = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl('')
+  loginFormControl = new UntypedFormGroup({
+    username: new UntypedFormControl(''),
+    password: new UntypedFormControl('')
   });
 
   hide = true;
