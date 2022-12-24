@@ -6,7 +6,7 @@ import {
     OnDestroy
 } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { LanguageDialogComponent } from '../language-dialog/language-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
