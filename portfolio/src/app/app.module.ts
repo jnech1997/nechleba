@@ -7,14 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatListModule as MatListModule } from '@angular/material/list';
+import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { ApplicationShellComponent } from './application-shell/application-shell.component';
 import { AboutComponent } from './about/about.component';
 import { ProjectsComponent } from './projects/projects.component';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatDialogModule as MatDialogModule } from '@angular/material/dialog';
 import { LanguageDialogComponent } from './language-dialog/language-dialog.component';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatSelectModule as MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -46,6 +47,7 @@ import { SandboxModule } from './sandbox/sandbox.module';
         MatButtonModule,
         MatDialogModule,
         MatSelectModule,
+        MatProgressSpinnerModule,
         // ngx-translate and the loader module
         HttpClientModule,
         TranslateModule.forRoot({

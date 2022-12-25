@@ -7,7 +7,7 @@
   <mat-toolbar color="primary" class="toolbar">
     <mat-toolbar-row>
       <a mat-button (click)="snav.toggle()" (keydown.enter)="snav.toggle()">
-        <mat-icon>menu</mat-icon>
+        <mat-icon class="hamburger-menu">menu</mat-icon>
       </a>
       <span class="spacer"></span>
       <!-- icons for changing the theme to dark mode, translation of the page-->
@@ -50,10 +50,26 @@
         <div class="sidenav-left">
           <div class="spacer-sidenav"></div>
           <mat-nav-list>
-            <a mat-list-item routerLink=".">{{'MENU.HOME' | translate}}</a>
-            <a mat-list-item routerLink="about">{{'MENU.ABOUT' | translate}}</a>
-            <a mat-list-item routerLink="projects">{{'MENU.PROJECTS' | translate}}</a>
-            <a mat-list-item href="../../assets/UpdatedResume.pdf">{{'MENU.RESUME' | translate}}</a>
+            <a mat-list-item routerLink=".">
+              <span class="menu-item">
+                {{'MENU.HOME' | translate}}
+              </span>
+            </a>
+            <a mat-list-item routerLink="about">
+              <span class="menu-item">
+                {{'MENU.ABOUT' | translate}}
+              </span>
+            </a>
+            <a mat-list-item routerLink="projects">
+              <span class="menu-item">
+                {{'MENU.PROJECTS' | translate}}
+              </span>
+            </a>
+            <a mat-list-item href="../../assets/UpdatedResume.pdf">
+              <span class="menu-item">
+                {{'MENU.RESUME' | translate}}
+              </span>
+            </a>
           </mat-nav-list>
         </div>
         <div
