@@ -8,13 +8,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class PokemonComponent implements OnInit {
 
-  pokemon = null;
+  pokemon = [];
+  loading = true;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.http.get('/api/pokemon').subscribe((pokemon_list) => {
+      this.loading = false;
       this.pokemon = pokemon_list["list_pokemon"].filter((pokemon) => this.isValidPokemon(pokemon));
+    }, (error: any) => {
+      console.debug("request to database failed");
     });
   }
 

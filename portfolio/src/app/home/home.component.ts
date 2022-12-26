@@ -8,9 +8,16 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HomeComponent implements OnInit {
 
+  loading = true;
+
   constructor(private translate: TranslateService) { }
 
   ngOnInit() {
+  }
+
+  /** On load of the home screen, set loading tracker to false */
+  onLoad() {
+    this.loading = false;
   }
 
 }

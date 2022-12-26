@@ -10,6 +10,7 @@ import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { MatCardModule as MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule as MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -29,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SandboxModule { }

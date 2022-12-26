@@ -1,4 +1,7 @@
-<div class="pokemon-container">
+<div *ngIf="loading" class="spinner-container">
+  <mat-spinner color="accent"></mat-spinner>
+</div>
+<div *ngIf="!loading" class="pokemon-container">
     <div *ngFor="let p of pokemon" class='square'>
       <div class='table'>
         <div class='table-cell'>

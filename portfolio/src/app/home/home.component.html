@@ -1,4 +1,7 @@
+<div *ngIf="loading" class="spinner-container">
+  <mat-spinner color="accent"></mat-spinner>
+</div>
 <div class="home-background">
-  <img class="home-image" src="../../assets/images/home.jpg"/>
-  <p class="welcome-message">{{'HOME.MISSION' | translate}}</p>
+  <img (load)="onLoad()" class="home-image" src="../../assets/images/home.jpg"/>
+  <p *ngIf="!loading" class="welcome-message">{{'HOME.MISSION' | translate}}</p>
 </div>
