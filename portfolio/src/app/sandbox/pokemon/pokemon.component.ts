@@ -8,8 +8,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class PokemonComponent implements OnInit {
 
-  pokemon = [];
-  loading = true;
+  public pokemon = [];
+  public loading = true;
 
   constructor(private http: HttpClient) { }
 
