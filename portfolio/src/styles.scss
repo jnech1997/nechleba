@@ -1,12 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'custom_theme.scss';
+@import "~@fortawesome/fontawesome-free/css/all.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 16px;}
 
 /* Spinner container styling for loading spinner on component level */
 .spinner-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh - 64px);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 64px);
+}
