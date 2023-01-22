@@ -1,0 +1,37 @@
+<mat-card class="form-container">
+    <h2>Welcome to the Matrix</h2>
+    <form class="login-form" [formGroup]="loginFormControl" (ngSubmit)="onSubmit()">
+        <mat-form-field class="email" appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input matInput type="text" autocomplete="email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field *ngIf="register" class="firstName" appearance="fill">
+            <mat-label>{{register ? 'Enter your first name' : 'First Name'}}</mat-label>
+            <input matInput type="text" autocomplete="name" formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field *ngIf="register" class="lastName" appearance="fill">
+            <mat-label>{{register ? 'Enter your last name' : 'Last Name'}}</mat-label>
+            <input matInput type="text" autocomplete="family-name" formControlName="lastName">
+        </mat-form-field>
+        <mat-form-field class="password" appearance="fill">
+            <mat-label>{{register ? 'Enter a password' : 'Password'}}</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" autocomplete="current-password" formControlName="password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <div class="alert alert-danger">
+            <div *ngIf="!!requestError">
+                {{requestError}}
+            </div>
+        </div>
+        <a mat-button class="submit-button" (click)="toggleRegister()">
+            {{register ? 'Already an existing user? Please Login.' : 'Not an existing user? Please Register.'}} 
+        </a>
+        <button class="submit-button" type="submit" [disabled]="loginFormControl.invalid" mat-button>
+            {{register ? 'Sign Up' : 'Login'}}
+        </button>
+    </form>
+</mat-card>
+
+

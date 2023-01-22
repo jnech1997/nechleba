@@ -24,6 +24,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { DataVisualizationsComponent } from './data-visualizations/data-visualizations.component';
 import { DataVisualizationComponent } from './data-visualization/data-visualization.component';
 import { SandboxModule } from './sandbox/sandbox.module';
+import { AuthService } from './services/auth.service';
+import { ServerService } from './services/server.service';
 
 @NgModule({
     declarations: [
@@ -59,7 +61,11 @@ import { SandboxModule } from './sandbox/sandbox.module';
         }),
         SandboxModule
     ],
-    providers: [TranslateService],
+    providers: [
+        TranslateService, 
+        AuthService, 
+        ServerService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

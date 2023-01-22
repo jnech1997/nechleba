@@ -1,0 +1,19 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 1rem;
+}
+
+.profile {
+    text-align: left;
+}
+
+.profile-list-item {
+    font-size: 1.15rem;
+    font-weight: bold;
+}
+
+.user-picture {
+    border-radius: 50% !important;
+}

@@ -3,35 +3,51 @@ import {
     ChangeDetectorRef,
     ElementRef,
     ViewChild,
-    OnDestroy
+    OnDestroy,
+    OnInit
 } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { LanguageDialogComponent } from '../language-dialog/language-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+import { ServerService } from '../services/server.service';
 
 @Component({
   selector: 'application-shell',
   templateUrl: './application-shell.component.html',
   styleUrls: ['./application-shell.component.scss']
 })
-export class ApplicationShellComponent implements OnDestroy {
+export class ApplicationShellComponent implements OnDestroy, OnInit {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
   @ViewChild('snav', {static: false}) snav: ElementRef;
   darkMode : boolean = !!(sessionStorage.getItem('darkMode')) ? coerceBooleanProperty(sessionStorage.getItem('darkMode')) : true;
   language : string;
+  user : any;
 
   constructor(
       changeDetectorRef: ChangeDetectorRef,
       media: MediaMatcher,
       public dialog: MatDialog,
-      private translate: TranslateService
+      private translate: TranslateService,
+      private authService: AuthService,
+      private server: ServerService,
+      private router: Router
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 900px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+  }
+
+  ngOnInit(): void {
+    this.server.request('GET', '/profile').subscribe((user: any) => {
+      if (user) {
+        this.user = user;
+      }
+    });
   }
 
   openDialog(): void {
@@ -56,6 +72,18 @@ export class ApplicationShellComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  currentUserName() {
+    return this.user.firstName;
+  }
+
+  onProfile() {
+    this.router.navigateByUrl('/sandbox/profile');
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 
 }

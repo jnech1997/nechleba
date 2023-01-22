@@ -10,6 +10,14 @@
         <mat-icon class="hamburger-menu">menu</mat-icon>
       </a>
       <span class="spacer"></span>
+      <!-- welcome/profile if user is logged in -->
+      <a *ngIf="authService.isLoggedIn | async as isLoggedIn" mat-button (click)="onProfile()" (keydown.enter)="onProfile()">
+        {{'ABOUT.WELCOME' | translate}}, {{currentUserName()}}
+      </a>
+      <!-- logout if user is logged in -->
+      <a *ngIf="authService.isLoggedIn | async as isLoggedIn" mat-button (click)="onLogout()" (keydown.enter)="onLogout()">
+        Log Out
+      </a>
       <!-- icons for changing the theme to dark mode, translation of the page-->
       <mat-icon *ngIf="darkMode" (click)="onModeChange()" (keyup.enter)="onModeChange()" class="icon" tabindex="0">nights_stay</mat-icon>
       <mat-icon *ngIf="!darkMode" (click)="onModeChange()" (keyup.enter)="onModeChange()" class="icon" tabindex="0">wb_sunny</mat-icon>

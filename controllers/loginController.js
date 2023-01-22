@@ -1,0 +1,102 @@
+const bcrypt = require("bcryptjs/dist/bcrypt");
+const jwt = require('jsonwebtoken');
+// import user context
+const User = require('../models/user');
+
+// register a new user
+exports.register = async function (req, res) {
+    try {
+        // Get user input
+        console.log(req.body);
+        const { firstName, lastName, email, password } = req.body;
+
+        // Validate user input
+        // console.log(firstName);
+        // console.log(lastName);
+        // console.log(email);
+        // console.log(password);
+        if (!(email && password && firstName && lastName)) {
+            res.status(400).send('All input is required');
+        }
+
+        // Validate if user exists in our database
+        const oldUser = await User.findOne({ email });
+
+        if (oldUser) {
+            return res.status(409).send('User Already Exists. Please Login');
+        }
+
+        // generate salt to hash password. 10 is the rounds/cost of processing data, not the length
+        // the length of the salt is hardcoded in bcrypt
+        // the point of salting is to randomize the password hashes stored so that there can not be a 
+        // precomputed table of common hashes to passwords that a malicious hacker could easily look through
+        // if they wanted to hack it, they'd have to computationally iterate with the hash algorithm (which is one
+        // way) until they found the password. 
+        // because a random salt is used for every password, they'd have to do this with every passwod and salt combo
+        // which is computationally intensive
+
+        const salt = await bcrypt.genSalt(10);
+        // Encrypt user password
+        encryptedUserPassword = await bcrypt.hash(password, salt);
+
+        // Create user in our database
+        const user = await User.create({
+            first_name: firstName,
+            last_name: lastName,
+            email: email.toLowerCase(), // sanitize
+            password: encryptedUserPassword
+        });
+        return res.status(201).json(user);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+// login a user
+exports.login = async function (req, res) {
+    try {
+        const { email, password } = req.body;
+
+        // Validate user input
+        if (!(email && password) ) {
+            res.status(400).send("All input is required");
+        }
+
+        // Validate if user exists in our database
+        const user = await User.findOne({ email });
+
+        if (user && (await bcrypt.compare(password, user.password))) {
+            // Create token
+            const token = jwt.sign(
+                { user_id: user._id, email },
+                process.env.TOKEN_KEY,
+                { expiresIn: "1h" }
+            );
+            // save user token
+            user.token = token;
+            return res.status(200).json(user);
+        }
+        return res.status(400).send("Invalid Credentials");
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// return the user profile information
+exports.profile = async function(req, res) {
+    try {
+        // Get id of authenticated user
+        const id = req.userId;
+        // Validate if user exists in our database
+        const user = await User.findById(id);
+        // User profile information
+        const userInformation = { 
+            "firstName": user.first_name,
+            "lastName": user.last_name,
+            "email": user.email
+        }
+        return res.status(200).json(userInformation);
+    } catch (err) {
+        console.log(err);
+    }
+}

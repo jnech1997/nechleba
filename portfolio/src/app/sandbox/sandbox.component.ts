@@ -14,9 +14,9 @@ export class SandboxComponent implements OnInit {
       "description": "CSS Grid"
     },
     {
-      "routerLink": "/sandbox/form",
+      "routerLink": "/sandbox/login",
       "pathImg": "../assets/images/angular.png",
-      "description": "Angular Form"
+      "description": "Angular Login"
     },
     {
       "routerLink": "/sandbox/pokemon",
