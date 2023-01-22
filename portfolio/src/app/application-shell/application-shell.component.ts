@@ -3,8 +3,7 @@ import {
     ChangeDetectorRef,
     ElementRef,
     ViewChild,
-    OnDestroy,
-    OnInit
+    OnDestroy
 } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
@@ -20,7 +19,7 @@ import { ServerService } from '../services/server.service';
   templateUrl: './application-shell.component.html',
   styleUrls: ['./application-shell.component.scss']
 })
-export class ApplicationShellComponent implements OnDestroy, OnInit {
+export class ApplicationShellComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
   @ViewChild('snav', {static: false}) snav: ElementRef;
@@ -40,16 +39,6 @@ export class ApplicationShellComponent implements OnDestroy, OnInit {
     this.mobileQuery = media.matchMedia('(max-width: 900px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-  }
-
-  ngOnInit(): void {
-    this.server.request('GET', '/profile').subscribe((user: any) => {
-      if (user) {
-        this.user = user;
-      }
-    }, (error: any) => {
-      console.log(error);
-    });
   }
 
   openDialog(): void {
@@ -74,10 +63,6 @@ export class ApplicationShellComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
-  }
-
-  currentUserName() {
-    return this.user?.firstName;
   }
 
   onProfile() {

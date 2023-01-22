@@ -12,7 +12,7 @@
       <span class="spacer"></span>
       <!-- welcome/profile if user is logged in -->
       <a *ngIf="authService.isLoggedIn | async as isLoggedIn" mat-button (click)="onProfile()" (keydown.enter)="onProfile()">
-        {{'ABOUT.WELCOME' | translate}}, {{currentUserName()}}
+        Profile
       </a>
       <!-- logout if user is logged in -->
       <a *ngIf="authService.isLoggedIn | async as isLoggedIn" mat-button (click)="onLogout()" (keydown.enter)="onLogout()">

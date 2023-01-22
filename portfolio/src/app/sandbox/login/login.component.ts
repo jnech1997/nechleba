@@ -3,7 +3,6 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ServerService } from 'src/app/services/server.service';
-import { skip } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
