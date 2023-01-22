@@ -47,6 +47,8 @@ export class ApplicationShellComponent implements OnDestroy, OnInit {
       if (user) {
         this.user = user;
       }
+    }, (error: any) => {
+      console.log(error);
     });
   }
 
@@ -75,7 +77,7 @@ export class ApplicationShellComponent implements OnDestroy, OnInit {
   }
 
   currentUserName() {
-    return this.user.firstName;
+    return this.user?.firstName;
   }
 
   onProfile() {
