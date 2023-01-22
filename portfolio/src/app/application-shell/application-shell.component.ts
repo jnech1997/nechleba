@@ -33,7 +33,7 @@ export class ApplicationShellComponent implements OnDestroy, OnInit {
       media: MediaMatcher,
       public dialog: MatDialog,
       private translate: TranslateService,
-      private authService: AuthService,
+      public authService: AuthService,
       private server: ServerService,
       private router: Router
   ) {
