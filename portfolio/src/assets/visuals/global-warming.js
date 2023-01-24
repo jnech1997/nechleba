@@ -1,6 +1,6 @@
 // https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data
 
-document.getElementById("title").innerHTML = "Recent Global Temperature Change: 1900 - 2012";
+document.getElementById("title").innerHTML = "Max Average-Monthly Temperatures: 1850 - 2012";
 
 var styles = `
 svg {
@@ -39,7 +39,7 @@ scriptd3.addEventListener('load', function() {
     // d3 loaded
     // svg width/height/margin settings
     const margin = { top: 30, right: 120, bottom: 30, left: 50 },
-    width = 1260 - margin.left - margin.right,
+    width = 960 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom,
     xAxisLabelPadding = 100;
     // d3 line settings
@@ -59,30 +59,34 @@ scriptd3.addEventListener('load', function() {
     // Data taken from Lawrence Berkeley National Laboratory
     d3.csv("/assets/data/GlobalLandTemperaturesByCountry.csv", function(error, data) {
         if (error) throw error;
-        // Average yearly temperatures by month into one average temperature per year
+        // Get array of monthly temperatures for a country for a given year
+        // relies on this data already being sorted by country per year
         let currentYear = 1743;
         let currentYearEntries = 0;
-        let currentYearTempSum = 0;
+        let currentYearTemps = [];
         let recentUpdateIndex = 0;
         for (let i = 0; i < data.length; i++) {
+            // relies on the data being continuous by country, and by country per year
             const tempMonth = parseFloat(data[i].AverageTemperature);
             if (!!tempMonth) {
                 const year = data[i].dt.substring(0, 4);
                 if (currentYear != year) {
-                    const averageYearTemp = currentYearTempSum / currentYearEntries;
-                    data[recentUpdateIndex]["AverageYearTemperature"] = averageYearTemp;
+                    // new year processed
+                    const maxMonthlyTemp = Math.max(...currentYearTemps);
+                    // update max average monthly temperature for that year
+                    data[recentUpdateIndex]["MaxMonthlyTemp"] = maxMonthlyTemp;
+                    // reset
                     currentYear = year;
                     currentYearEntries = 1;
-                    currentYearTempSum = tempMonth;
+                    currentYearTemps = [tempMonth];
                 }
                 else {
                     recentUpdateIndex = i;
-                    currentYearTempSum = currentYearTempSum + tempMonth;
+                    currentYearTemps = currentYearTemps.concat([tempMonth]);
                     currentYearEntries = currentYearEntries + 1;
                 }   
             }
         }
-
         // Process data into d3 mappings
         var dataByCountry = d3.nest()
         .key(function(d) { return d.Country; })
@@ -92,17 +96,20 @@ scriptd3.addEventListener('load', function() {
         var parseDate = d3.timeParse("%Y-%m-%d")
         var formatDate = d3.timeFormat("%Y")
 
+        // Actually filter and return data for display
         const series = dataByCountry.filter((d)=> {
             return true;
         }).map(d => ({
             name: d.key, // name of country
             values: d.values.filter((v) => {
-                return !!v.AverageYearTemperature && parseInt(formatDate(parseDate(v.dt))) != "2013" && parseInt(formatDate(parseDate(v.dt))) >= 1900
+                const dateLessThan2012 = parseInt(formatDate(parseDate(v.dt))) <= 2012;
+                const dateGreaterThan1850 = parseInt(formatDate(parseDate(v.dt))) >= 1850;
+                return !!v.MaxMonthlyTemp && dateLessThan2012 && dateGreaterThan1850;
             }).map(function(v) {
                 return {
                     name: d.key,
                     date: new Date(parseDate(v.dt)),
-                    AverageYearTemperature: +((v.AverageYearTemperature * 9/5) + 32)
+                    MaxMonthlyTemp: v.MaxMonthlyTemp
                 }
             })
         }));
@@ -113,7 +120,7 @@ scriptd3.addEventListener('load', function() {
         .domain(d3.extent(series[0].values, d => d.date));
 
         var yScale = d3.scaleLinear()
-        .domain([-10, 90])
+        .domain([-4, 38])
         .range([height, 0]);
 
         // Line Color
@@ -122,7 +129,7 @@ scriptd3.addEventListener('load', function() {
         // Add lines into SVG
         var line = d3.line()
         .x(d => xScale(d.date))
-        .y(d => yScale(d.AverageYearTemperature));
+        .y(d => yScale(d.MaxMonthlyTemp));
 
         let lines = svg.append('g')
         .attr('class', 'lines');
@@ -135,7 +142,7 @@ scriptd3.addEventListener('load', function() {
             svg.append("text")
                 .attr("class", "title-text")
                 .style("fill", color(i))        
-                .text(d.name)
+                .text('Country: ' + d.name)
                 .attr("text-anchor", "middle")
                 .attr("x", (width)/2)
                 .attr("y", 0);
@@ -174,7 +181,11 @@ scriptd3.addEventListener('load', function() {
         svg.append("g")
         .attr("class", "x axis")
         .attr("transform", `translate(0, ${height})`)
-        .call(xAxis);
+        .call(xAxis)
+        .append('text')
+        .attr('x', 25)
+        .attr("fill", "#000")
+        .text("Year")
 
         svg.append("g")
         .attr("class", "y axis")
@@ -184,6 +195,6 @@ scriptd3.addEventListener('load', function() {
         .attr("transform", "rotate(-90)")
         .attr("fill", "#000")
         .text("Total values")
-        .text("Average Temperature in Degrees Fahrenheit");
+        .text("Max average-monthly temperature in a given year (Celsius)");
      });
   });

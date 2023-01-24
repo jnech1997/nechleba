@@ -21,8 +21,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { TranslateService } from '@ngx-translate/core';
-import { DataVisualizationsComponent } from './data-visualizations/data-visualizations.component';
-import { DataVisualizationComponent } from './data-visualization/data-visualization.component';
 import { SandboxModule } from './sandbox/sandbox.module';
 import { AuthService } from './services/auth.service';
 import { ServerService } from './services/server.service';
@@ -34,9 +32,7 @@ import { ServerService } from './services/server.service';
         AboutComponent,
         ProjectsComponent,
         LanguageDialogComponent,
-        HomeComponent,
-        DataVisualizationsComponent,
-        DataVisualizationComponent
+        HomeComponent
     ],
     imports: [
         BrowserModule,

@@ -16,6 +16,8 @@ import { PokemonComponent } from './pokemon/pokemon.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { DataVisualizationsComponent } from './data-visualizations/data-visualizations.component';
+import { DataVisualizationComponent } from '../data-visualization/data-visualization.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     LoginComponent,
     PokemonComponent,
     ProfileComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    DataVisualizationsComponent,
+    DataVisualizationComponent
   ],
   imports: [
     CommonModule,

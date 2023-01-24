@@ -39,7 +39,7 @@ export class BreadcrumbService {
       // Add an element for the current route part
       if (route.data.breadcrumb) {
         const breadcrumb = {
-          label: route.data.breadcrumb,
+          label: this.getLabel(route.data, routeUrl),
           url: '/' + routeUrl.join('/')
         }
         breadcrumbs.push(breadcrumb);
@@ -48,4 +48,9 @@ export class BreadcrumbService {
       this.addBreadcrumb(route.firstChild, routeUrl, breadcrumbs);
     }
   }
+
+  private getLabel(data: Data, url: string[]) { 
+    // The breadcrumb can be defined as a static string or as a function to construct the breadcrumb element out of the route data 
+    return data.breadcrumb === 'id' ? url[url.length - 1] : data.breadcrumb; 
+  } 
 }

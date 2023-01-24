@@ -1,0 +1,13 @@
+<div *ngIf="graphOutlet.isActivated == false" class="projects-container">
+  <div *ngFor="let project of projects" class='square'>
+    <div class='table'>
+      <div class='table-cell'>
+        <a class='links' routerLink="{{project.routerLink}}" [state]="project.state">
+          <img src='{{project.pathImg}}' alt='{{project.alt}}'>
+          <em><h3 class='description'>{{project.description}}</h3></em>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet #graphOutlet="outlet"></router-outlet>
