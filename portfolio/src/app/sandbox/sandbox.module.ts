@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ProfileComponent } from './profile/profile.component';
     CssGridComponent,
     LoginComponent,
     PokemonComponent,
-    ProfileComponent
+    ProfileComponent,
+    BreadcrumbComponent
   ],
   imports: [
     CommonModule,

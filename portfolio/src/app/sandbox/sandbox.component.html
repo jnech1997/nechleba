@@ -1,16 +1,18 @@
-<div class="projects-container">
-    <div *ngFor="let project of projects" class='square'>
-      <div class='table'>
-        <div class='table-cell'>
-          <a *ngIf="!!project.href" class="links" href="{{project.href}}">
-            <img src="{{project.pathImg}}">
-            <em><h3 class='description'>{{project.description}}</h3></em>
+<app-breadcrumb></app-breadcrumb>
+<div *ngIf="outlet.isActivated == false" class="projects-container">
+  <div *ngFor="let project of projects" class='square'>
+    <div class='table'>
+      <div class='table-cell'>
+        <a *ngIf="!!project.href" class="links" href="{{project.href}}">
+          <img src="{{project.pathImg}}">
+          <em><h3 class='description'>{{project.description}}</h3></em>
+        </a>
+        <a *ngIf="!!project.routerLink" class="links" routerLink="{{project.routerLink}}">
+          <img src='{{project.pathImg}}'>
+          <em><h3 class='description'>{{project.description}}</h3></em>
           </a>
-          <a *ngIf="!!project.routerLink" class="links" routerLink="{{project.routerLink}}">
-            <img src='{{project.pathImg}}'>
-            <em><h3 class='description'>{{project.description}}</h3></em>
-            </a>
-        </div>
       </div>
     </div>
   </div>
+</div>
+<router-outlet #outlet="outlet"></router-outlet>

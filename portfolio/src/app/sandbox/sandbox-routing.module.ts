@@ -7,12 +7,13 @@ import { ProfileComponent } from './profile/profile.component';
 import { SandboxComponent } from './sandbox.component';
 
 const routes: Routes = [
-  { path: '', component: SandboxComponent },
-  { path: 'cssgrid', component: CssGridComponent},
-  { path: 'pokemon', component: PokemonComponent},
-  { path: 'register', component: LoginComponent, data: {register: true}},
-  { path: 'login', component: LoginComponent, data: {register: false}},
-  { path: 'profile', component: ProfileComponent}
+  { path: '', component: SandboxComponent, data: {breadcrumb: 'Sandbox'}, children: [
+    { path: 'cssgrid', component: CssGridComponent, data: {breadcrumb: 'CSS Grid'}},
+    { path: 'pokemon', component: PokemonComponent, data: {breadcrumb: 'Pokemon'}},
+    { path: 'register', component: LoginComponent, data: {register: true, breadcrumb: 'Register'}},
+    { path: 'login', component: LoginComponent, data: {register: false, breadcrumb: 'Login'}},
+    { path: 'profile', component: ProfileComponent, data: {breadcrumb: 'Profile'}}
+  ]}
 ];
 
 @NgModule({
