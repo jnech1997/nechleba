@@ -4,7 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-pokemon',
   templateUrl: './pokemon.component.html',
-  styleUrls: ['./pokemon.component.scss']
+  styleUrls: ['./pokemon.component.scss'],
+  standalone: false
 })
 export class PokemonComponent implements OnInit {
 

@@ -17,7 +17,7 @@
   "dependencies": {
     "@angular-devkit/build-angular": "^19.0.6",
     "@angular/animations": "^19.0.5",
-    "@angular/cdk": "^18.2.14",
+    "@angular/cdk": "^19.0.4",
     "@angular/cli": "^19.0.6",
     "@angular/common": "^19.0.5",
     "@angular/compiler": "^19.0.5",
@@ -25,7 +25,7 @@
     "@angular/core": "^19.0.5",
     "@angular/forms": "^19.0.5",
     "@angular/localize": "^19.0.5",
-    "@angular/material": "^18.2.14",
+    "@angular/material": "^19.0.4",
     "@angular/platform-browser": "^19.0.5",
     "@angular/platform-browser-dynamic": "^19.0.5",
     "@angular/router": "^19.0.5",
@@ -54,6 +54,7 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
-    "tslint": "~6.1.0"
+    "tslint": "~6.1.0",
+    "webpack": "^5.97.1"
   }
 }

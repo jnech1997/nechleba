@@ -4,7 +4,8 @@ import { MatDialog as MatDialog, MatDialogRef as MatDialogRef, MAT_DIALOG_DATA a
 @Component({
   selector: 'app-language-dialog',
   templateUrl: './language-dialog.component.html',
-  styleUrls: ['./language-dialog.component.scss']
+  styleUrls: ['./language-dialog.component.scss'],
+  standalone: false
 })
 export class LanguageDialogComponent {
  languages = [

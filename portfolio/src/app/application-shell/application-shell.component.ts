@@ -17,7 +17,8 @@ import { ServerService } from '../services/server.service';
 @Component({
   selector: 'application-shell',
   templateUrl: './application-shell.component.html',
-  styleUrls: ['./application-shell.component.scss']
+  styleUrls: ['./application-shell.component.scss'],
+  standalone: false
 })
 export class ApplicationShellComponent implements OnDestroy {
   mobileQuery: MediaQueryList;

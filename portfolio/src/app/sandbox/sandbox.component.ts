@@ -3,7 +3,8 @@ import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/co
 @Component({
   selector: 'app-sandbox',
   templateUrl: './sandbox.component.html',
-  styleUrls: ['./sandbox.component.scss']
+  styleUrls: ['./sandbox.component.scss'],
+  standalone: false
 })
 export class SandboxComponent implements AfterViewInit {
 

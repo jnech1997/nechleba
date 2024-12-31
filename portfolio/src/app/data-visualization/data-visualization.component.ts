@@ -6,7 +6,8 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-data-visualization',
   templateUrl: './data-visualization.component.html',
-  styleUrls: ['./data-visualization.component.scss']
+  styleUrls: ['./data-visualization.component.scss'],
+  standalone: false
 })
 export class DataVisualizationComponent implements OnInit {
 

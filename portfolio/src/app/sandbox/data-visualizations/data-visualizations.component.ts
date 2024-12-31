@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-data-visualizations',
   templateUrl: './data-visualizations.component.html',
-  styleUrls: ['./data-visualizations.component.scss']
+  styleUrls: ['./data-visualizations.component.scss'],
+  standalone: false
 })
 export class DataVisualizationsComponent implements OnInit {
 
