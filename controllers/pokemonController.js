@@ -3,10 +3,9 @@ var Pokemon = require('../models/pokemon');
 // Return list of all Pokemon.
 exports.pokemon_list = function (req, res, next) {
     Pokemon.find()
-        .then((res) => {
+        .then((list_pokemon) => {
             // Successful, so render.
-            console.log(res);
-            res.json({res});
+            res.json({list_pokemon});
         }).catch((err) => {
             return next(err);
         });
