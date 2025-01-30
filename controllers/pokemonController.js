@@ -4,9 +4,11 @@ var Pokemon = require('../models/pokemon');
 exports.pokemon_list = function (req, res, next) {
     Pokemon.find()
         .sort([['name', 'ascending']])
-        .exec(function (err, list_pokemon) {
-            if (err) { return next(err); }
+        .then((res) => {
+            console.log("res is: ", res);
             // Successful, so render.
             res.json({list_pokemon});
-        })
+        }).catch((err) => {
+            return next(err);
+        });
 };
