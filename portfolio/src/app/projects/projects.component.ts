@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'app-projects',
@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
   standalone: false
 })
 export class ProjectsComponent {
+
+  public loading = true;
 
   public projects: any[] = [
     {
@@ -56,5 +58,9 @@ export class ProjectsComponent {
     }
   ];
 
-  constructor() { }
+  constructor() {}
+
+  ngAfterViewInit() : void {
+   this.loading = false;
+  }
 }
