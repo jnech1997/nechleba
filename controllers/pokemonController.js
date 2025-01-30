@@ -5,7 +5,8 @@ exports.pokemon_list = function (req, res, next) {
     Pokemon.find()
         .then((res) => {
             // Successful, so render.
-            res.json({list_pokemon});
+            console.log(res);
+            res.json({res});
         }).catch((err) => {
             return next(err);
         });
