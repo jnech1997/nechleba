@@ -8,14 +8,12 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-locale:en": "ng build --configuration production --i18n-locale en --i18n-format xlf --i18n-file translate/messages.en.xlf --output-path=dist/en --baseHref /en/",
-    "build-locale:es": "ng build --configuration production --i18n-locale es --i18n-format xlf --i18n-file translate/messages.es.xlf --output-path=dist/es --baseHref /es/",
-    "build-locale": "npm run build-locale:en && npm run build-locale:es",
     "postinstall": "ng build --configuration production"
   },
   "private": true,
   "dependencies": {
     "@angular-devkit/build-angular": "^19.0.6",
+    "@angular-eslint/schematics": "^19.0.2",
     "@angular/animations": "^19.0.5",
     "@angular/cdk": "^19.0.4",
     "@angular/cli": "^19.0.6",
@@ -39,22 +37,30 @@
     "zone.js": "^0.15.0"
   },
   "devDependencies": {
+    "@angular-eslint/eslint-plugin": "^19.0.2",
+    "@angular-eslint/eslint-plugin-template": "^19.0.2",
     "@angular/language-service": "^19.0.5",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^7.0.2",
+    "@typescript-eslint/parser": "^8.22.0",
     "ajv": "^8.11.2",
-    "codelyzer": "^6.0.0",
-    "jasmine-core": "~3.6.0",
-    "jasmine-spec-reporter": "~5.0.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsdoc": "^50.6.3",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
     "karma": "^6.3.4",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
-    "tslint": "~6.1.0",
     "webpack": "^5.97.1"
+  },
+  "overrides": {
+    "undici": "^6.11.1",
+    "vite": "~4.5.9"
   }
 }
