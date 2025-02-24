@@ -22,6 +22,11 @@ export class ProjectsComponent {
       "description": "Angular Login"
     },
     {
+      "href": "https://github.com/jnech1997/matrix",
+      "pathImg": "../assets/images/java.png",
+      "description": "Matrix Calculator"
+    },
+    {
       "href": "https://www.youtube.com/watch?v=Lyq2RXXD3mE",
       "pathImg": "../assets/images/python.png",
       "description": "Duckie Detector"
@@ -30,11 +35,6 @@ export class ProjectsComponent {
       "href": "https://jnech1997.github.io/projects/jellyHopWeb/index.html",
       "pathImg": "../assets/images/jelly.png",
       "description": "Jelly Hop Platformer"
-    },
-    {
-      "href": "https://github.com/jnech1997/SortingMethodsLinkedList",
-      "pathImg": "../assets/images/java.png",
-      "description": "Sorting Methods"
     },
     {
       "href": "https://jnech1997.github.io/projects/nameDraw/index.html",
@@ -47,9 +47,9 @@ export class ProjectsComponent {
       "description": "Othello in OCaml"
     },
     {
-      "href": "https://github.com/jnech1997/matrix",
+      "href": "https://github.com/jnech1997/SortingMethodsLinkedList",
       "pathImg": "../assets/images/java.png",
-      "description": "Matrix Calculator"
+      "description": "Sorting Methods"
     },
     {
       "routerLink": "/sandbox",
