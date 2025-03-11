@@ -12,6 +12,11 @@ export class ProjectsComponent {
 
   public projects: any[] = [
     {
+      "href": "https://jnech1997.github.io/projects/starsCanvas/index.html",
+      "pathImg": "../assets/images/javascript.png",
+      "description": "Star Canvas Animation"
+    },
+    {
       "href": "https://jnech1997.github.io/projects/d3GraphVisualization/index.html",
       "pathImg": "../assets/images/javascript.png",
       "description": "BFS vs DFS"
