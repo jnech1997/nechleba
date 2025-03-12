@@ -22,7 +22,7 @@ export class ProjectsComponent {
       "description": "BFS vs DFS"
     },
     {
-      "href": "https://www.josephnechleba.com/#/sandbox/login",
+      "routerLink": "./sandbox/login",
       "pathImg": "../assets/images/angular.png",
       "description": "Angular Login"
     },
@@ -57,7 +57,7 @@ export class ProjectsComponent {
       "description": "Sorting Methods"
     },
     {
-      "routerLink": "/sandbox",
+      "routerLink": "./sandbox",
       "pathImg": "../assets/images/angular.png",
       "description": "Sandbox"
     }

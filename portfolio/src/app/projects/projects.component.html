@@ -1,7 +1,8 @@
 <div *ngIf="loading" class="spinner-container">
   <mat-spinner color="accent"></mat-spinner>
 </div>
-<div *ngIf="!loading" class="projects-container">
+<app-breadcrumb></app-breadcrumb> 
+<div *ngIf="outlet.isActivated == false" class="projects-container">
   <div *ngFor="let project of projects" class='square'>
     <div class='table'>
       <div class='table-cell'>
@@ -17,3 +18,4 @@
     </div>
   </div>
 </div>
+<router-outlet #outlet="outlet"></router-outlet>

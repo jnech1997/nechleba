@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SandboxRoutingModule } from './sandbox-routing.module';
-import { SandboxComponent } from './sandbox.component';
+import { ProjectsRoutingModule } from './projects-routing.module';
+import { SandboxComponent } from './sandbox/sandbox.component';
 import { CssGridComponent } from './css-grid/css-grid.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,9 +15,10 @@ import { MatListModule } from '@angular/material/list';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
-import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { DataVisualizationsComponent } from './data-visualizations/data-visualizations.component';
-import { DataVisualizationComponent } from '../data-visualization/data-visualization.component';
+import { DataVisualizationComponent } from './data-visualization/data-visualization.component';
+import { BreadcrumbModule } from '../breadcrumb/breadcrumb.module';
+import { ProjectsComponent } from './projects.component';
 
 @NgModule({
   declarations: [
@@ -26,14 +27,14 @@ import { DataVisualizationComponent } from '../data-visualization/data-visualiza
     LoginComponent,
     PokemonComponent,
     ProfileComponent,
-    BreadcrumbComponent,
     DataVisualizationsComponent,
-    DataVisualizationComponent
+    DataVisualizationComponent,
+    ProjectsComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    SandboxRoutingModule,
+    ProjectsRoutingModule,
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
@@ -41,7 +42,11 @@ import { DataVisualizationComponent } from '../data-visualization/data-visualiza
     MatButtonModule,
     MatListModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BreadcrumbModule
+  ],
+  exports: [
+    ProjectsComponent
   ]
 })
-export class SandboxModule { }
+export class ProjectsModule { }

@@ -10,22 +10,22 @@ export class SandboxComponent implements AfterViewInit {
 
   public projects: any[] = [
     {
-      "routerLink": "/sandbox/cssgrid",
+      "routerLink": "./cssgrid",
       "pathImg": "../assets/images/angular.png",
       "description": "CSS Grid"
     },
     {
-      "routerLink": "/sandbox/login",
+      "routerLink": "./login",
       "pathImg": "../assets/images/angular.png",
       "description": "Angular Login"
     },
     {
-      "routerLink": "/sandbox/pokemon",
+      "routerLink": "./pokemon",
       "pathImg": "../assets/images/angular.png",
       "description": "Pokemon"
     },
     {
-      "routerLink": "/sandbox/data-visualizations",
+      "routerLink": "./data-visualizations",
       "pathImg": "../assets/images/javascript.png",
       "description": "Data Visualizations",
       "desktopOnly": true

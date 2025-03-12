@@ -8,8 +8,9 @@ import { HomeComponent } from './home/home.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'projects', component: ProjectsComponent }, 
-  { path: 'sandbox', loadChildren: () => import('./sandbox/sandbox.module').then(m => m.SandboxModule) }
+  { path: 'projects',
+    loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule)
+  }
 ];
 
 @NgModule({

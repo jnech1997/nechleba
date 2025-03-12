@@ -1,4 +1,3 @@
-<app-breadcrumb></app-breadcrumb>
 <div *ngIf="outlet.isActivated == false" class="projects-container">
   <div *ngFor="let project of projects" [ngClass]="project.desktopOnly ? 'desktopOnly square' : 'square'">
     <div class='table'>

@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,7 +10,6 @@ import { MatListModule as MatListModule } from '@angular/material/list';
 import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { ApplicationShellComponent } from './application-shell/application-shell.component';
 import { AboutComponent } from './about/about.component';
-import { ProjectsComponent } from './projects/projects.component';
 import { MatDialogModule as MatDialogModule } from '@angular/material/dialog';
 import { LanguageDialogComponent } from './language-dialog/language-dialog.component';
 import { MatSelectModule as MatSelectModule } from '@angular/material/select';
@@ -21,7 +19,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { TranslateService } from '@ngx-translate/core';
-import { SandboxModule } from './sandbox/sandbox.module';
+import { ProjectsModule } from './projects/projects.module';
 import { AuthService } from './services/auth.service';
 import { ServerService } from './services/server.service';
 
@@ -30,7 +28,6 @@ import { ServerService } from './services/server.service';
         AppComponent,
         ApplicationShellComponent,
         AboutComponent,
-        ProjectsComponent,
         LanguageDialogComponent,
         HomeComponent
     ],
@@ -55,7 +52,7 @@ import { ServerService } from './services/server.service';
                 deps: [HttpClient]
             }
         }),
-        SandboxModule
+        ProjectsModule
     ],
     providers: [
         TranslateService, 
