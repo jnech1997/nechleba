@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./pokemon.component.scss'],
   standalone: false
 })
-export class PokemonComponent implements OnInit {
+export class PokemonComponent implements OnInit, AfterViewInit {
 
   public pokemon = [];
   public loading = true;
@@ -16,7 +16,6 @@ export class PokemonComponent implements OnInit {
 
   ngOnInit(): void {
     this.http.get('/api/pokemon').subscribe((pokemon_list) => {
-      this.loading = false;
       this.pokemon = pokemon_list["list_pokemon"].filter((pokemon) => this.isValidPokemon(pokemon));
     }, (error: any) => {
       console.debug("request to database failed");
@@ -31,6 +30,10 @@ export class PokemonComponent implements OnInit {
            img !== "http://img.pokemondb.net/artwork/nidoran?.jpg"
     let name = pokemon["name"];
     return validImg && name != "Mr. Mime";
+  }
+
+  ngAfterViewInit() : void {
+    this.loading = false;
   }
 
 }
