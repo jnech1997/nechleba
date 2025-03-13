@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 
 @Component({
   selector: 'app-projects',
@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./projects.component.scss'],
   standalone: false
 })
-export class ProjectsComponent {
+export class ProjectsComponent implements AfterViewInit {
 
   public loading = true;
 
@@ -65,7 +65,7 @@ export class ProjectsComponent {
 
   constructor() {}
 
-  onLoad() : void {
+  ngAfterViewInit() : void {
     this.loading = false;
   }
 }
