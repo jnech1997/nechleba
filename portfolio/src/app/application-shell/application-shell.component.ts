@@ -67,7 +67,7 @@ export class ApplicationShellComponent implements OnDestroy {
   }
 
   onProfile() {
-    this.router.navigateByUrl('/sandbox/profile');
+    this.router.navigateByUrl('projects/sandbox/profile');
   }
 
   onLogout() {

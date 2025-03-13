@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./pokemon.component.scss'],
   standalone: false
 })
-export class PokemonComponent implements OnInit, AfterViewInit {
+export class PokemonComponent implements OnInit {
 
   public pokemon = [];
   public loading = true;
@@ -16,6 +16,7 @@ export class PokemonComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.http.get('/api/pokemon').subscribe((pokemon_list) => {
+      this.loading = false;
       this.pokemon = pokemon_list["list_pokemon"].filter((pokemon) => this.isValidPokemon(pokemon));
     }, (error: any) => {
       console.debug("request to database failed");
@@ -31,9 +32,4 @@ export class PokemonComponent implements OnInit, AfterViewInit {
     let name = pokemon["name"];
     return validImg && name != "Mr. Mime";
   }
-
-  ngAfterViewInit() : void {
-    this.loading = false;
-  }
-
 }

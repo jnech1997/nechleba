@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, AfterViewInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./home.component.scss'],
   standalone: false
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
 
   loading = true;
 
@@ -16,8 +16,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  /** On load of the entire page, set loading tracker to false */
-  ngAfterViewInit() : void {
-    this.loading = false;
+  /** On load of the home screen image, set loading tracker to false */
+  onLoad() : void {
+    this.loading = false
   }
 }
