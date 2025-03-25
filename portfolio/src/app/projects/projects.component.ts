@@ -17,14 +17,14 @@ export class ProjectsComponent implements AfterViewInit {
       "description": "Star Canvas Animation"
     },
     {
-      "href": "https://jnech1997.github.io/projects/d3GraphVisualization/index.html",
-      "pathImg": "../assets/images/javascript.png",
-      "description": "BFS vs DFS"
-    },
-    {
       "routerLink": "./sandbox/login",
       "pathImg": "../assets/images/angular.png",
       "description": "Angular Login"
+    },
+    {
+      "href": "https://jnech1997.github.io/projects/d3GraphVisualization/index.html",
+      "pathImg": "../assets/images/javascript.png",
+      "description": "BFS vs DFS"
     },
     {
       "href": "https://github.com/jnech1997/matrix",
