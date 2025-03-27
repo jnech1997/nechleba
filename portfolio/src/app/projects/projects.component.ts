@@ -66,6 +66,8 @@ export class ProjectsComponent implements AfterViewInit {
   constructor() {}
 
   ngAfterViewInit() : void {
-    this.loading = false;
+    setTimeout(() => {
+      this.loading = false;
+    });
   }
 }
