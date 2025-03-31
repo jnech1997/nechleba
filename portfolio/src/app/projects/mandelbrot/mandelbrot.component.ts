@@ -5,7 +5,6 @@ import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-mandelbrot',
-  imports: [],
   templateUrl: './mandelbrot.component.html',
   styleUrl: './mandelbrot.component.scss',
   standalone: false
