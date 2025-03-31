@@ -201,7 +201,10 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
       const pane = new tweakPane.Pane();
       document.getElementById("paneContainer").appendChild(pane.element);
       let folder;
-      folder = pane.addFolder({ title: 'Click to Zoom!'});
+      folder = pane.addFolder({ 
+        title: 'Click to Zoom!',
+        expanded: this.mobileQuery.matches ? false : true
+      });
       folder.addBinding(params, 'max_iterations', { min: 100, max: 5000, step: 1 });
       folder.addBinding(params, 'zoom_factor', { min: .05, max: .15});
       const unzoom = pane.addButton({
@@ -220,7 +223,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
         canvasSketch(sketch, settings);
       });
       const btn = pane.addButton({
-        title: 'Recalculate Mandelbrot'
+        title: 'Recompute'
       });
       btn.on('click', () => {
         canvasSketch(sketch, settings);
