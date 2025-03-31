@@ -47,11 +47,6 @@ export class ProjectsComponent implements AfterViewInit {
       "description": "Jelly Hop Platformer"
     },
     {
-      "href": "https://jnech1997.github.io/projects/nameDraw/index.html",
-      "pathImg": "../assets/images/javascript.png",
-      "description": "SVG Name Draw"
-    },
-    {
       "href": "https://github.com/jnech1997/Othello",
       "pathImg": "../assets/images/ocaml.jpg",
       "description": "Othello in OCaml"
