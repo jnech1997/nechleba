@@ -30,9 +30,12 @@
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^4.0.0",
+    "@tweakpane/core": "^2.0.5",
+    "canvas-sketch": "^0.7.7",
     "d3": "^7.0.1",
     "rxjs": "^6.6.7",
     "tslib": "^2.8.1",
+    "tweakpane": "^4.0.5",
     "typescript": "^5.5.4",
     "zone.js": "^0.15.0"
   },

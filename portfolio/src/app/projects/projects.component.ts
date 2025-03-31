@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-projects',
@@ -12,14 +12,19 @@ export class ProjectsComponent implements AfterViewInit {
 
   public projects: any[] = [
     {
-      "href": "https://jnech1997.github.io/projects/starsCanvas/index.html",
+      "routerLink": "./mandelbrot",
       "pathImg": "../assets/images/javascript.png",
-      "description": "Star Canvas Animation"
+      "description": "Mandelbrot Set"
     },
     {
       "routerLink": "./sandbox/login",
       "pathImg": "../assets/images/angular.png",
       "description": "Angular Login"
+    },
+    {
+      "href": "https://jnech1997.github.io/projects/starsCanvas/index.html",
+      "pathImg": "../assets/images/javascript.png",
+      "description": "Star Canvas Animation"
     },
     {
       "href": "https://jnech1997.github.io/projects/d3GraphVisualization/index.html",
@@ -63,11 +68,12 @@ export class ProjectsComponent implements AfterViewInit {
     }
   ];
 
-  constructor() {}
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit() : void {
     setTimeout(() => {
       this.loading = false;
     });
+    this.cdr.detectChanges();
   }
 }

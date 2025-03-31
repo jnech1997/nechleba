@@ -23,12 +23,6 @@ export class SandboxComponent implements AfterViewInit {
       "routerLink": "./pokemon",
       "pathImg": "../assets/images/angular.png",
       "description": "Pokemon"
-    },
-    {
-      "routerLink": "./data-visualizations",
-      "pathImg": "../assets/images/javascript.png",
-      "description": "Data Visualizations",
-      "desktopOnly": true
     }
   ];
 

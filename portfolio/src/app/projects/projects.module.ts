@@ -19,6 +19,7 @@ import { DataVisualizationsComponent } from './data-visualizations/data-visualiz
 import { DataVisualizationComponent } from './data-visualization/data-visualization.component';
 import { BreadcrumbModule } from '../breadcrumb/breadcrumb.module';
 import { ProjectsComponent } from './projects.component';
+import { MandelbrotComponent } from './mandelbrot/mandelbrot.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ProjectsComponent } from './projects.component';
     ProfileComponent,
     DataVisualizationsComponent,
     DataVisualizationComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    MandelbrotComponent
   ],
   imports: [
     CommonModule,

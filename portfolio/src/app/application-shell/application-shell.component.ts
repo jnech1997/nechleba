@@ -30,7 +30,7 @@ export class ApplicationShellComponent implements OnDestroy {
 
   constructor(
       changeDetectorRef: ChangeDetectorRef,
-      media: MediaMatcher,
+      public media: MediaMatcher,
       public dialog: MatDialog,
       private translate: TranslateService,
       public authService: AuthService,

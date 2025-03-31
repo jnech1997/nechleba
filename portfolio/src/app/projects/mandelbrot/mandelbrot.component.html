@@ -1,0 +1,8 @@
+<div *ngIf="loading" class="spinner-container">
+  <mat-spinner color="accent"></mat-spinner>
+</div>
+<div [hidden]="loading" class="dataVisual">
+    <mat-card id="graphContainer"></mat-card>
+</div>
+<div id="paneContainer">
+</div>

@@ -1,0 +1,27 @@
+:host {
+    display: flex;
+    justify-content: center;
+}
+
+.dataVisual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 90%;
+    padding: 1rem;
+    padding-top: 0;
+}
+
+#graphContainer {
+    margin-top: 0;
+    cursor: zoom-in;
+    border-radius: 10px;
+    padding: .6rem;
+}
+
+#paneContainer {
+    position: fixed !important;
+    bottom: 1rem !important;
+    left: 1rem !important;
+}
