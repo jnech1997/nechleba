@@ -304,4 +304,9 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
     createPane();
     canvasSketch(sketch, settings);
   }
+
+  onCloseSidenav() {
+    this.infoSidenav.toggle(); 
+    document.getElementsByClassName('cdk-drag-handle')[0].getElementsByTagName('svg')[0].setAttribute('color', 'white');
+  }
 }
