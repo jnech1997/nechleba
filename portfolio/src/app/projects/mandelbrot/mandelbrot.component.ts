@@ -1,7 +1,9 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import * as canvasSketch from 'canvas-sketch';
 import * as tweakPane from 'tweakpane';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { MatSidenav } from '@angular/material/sidenav';
+import { DragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-mandelbrot',
@@ -19,8 +21,10 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
   // bounds of complex plane for each "zoom",
   // tracked here in order to undo navigation through mandelbrot
   bounds = [];
+  // sidenav for more information display
+  @ViewChild('infoSidenav') infoSidenav: MatSidenav;
 
-  constructor(public media: MediaMatcher) {}
+  constructor(public media: MediaMatcher, public dragDropService : DragDrop) {}
 
   ngOnInit() {
     // Append canvas to DOM to be used in CanvasSketch
@@ -51,8 +55,8 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
       real_set_end: 1.0,
       img_set_start: -1.0,
       img_set_end: 1.0, 
-      max_iterations: 100,
-      zoom_factor: .1
+      max_iterations: 150,
+      zoom_factor: 10
     };
 
     // Main thread WebWorker message handler to draw
@@ -172,7 +176,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
                   return [count, magnitude <= 2]
                 }
               }.toString(), ')()' ], { type: 'application/javascript' }) );
-          // Initialzie WebWorker
+          // Initialize WebWorker
           let worker = new Worker(blobURL);
           // Listen for messages from the worker
           // to call draw function on canvas
@@ -205,8 +209,8 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
         title: 'Click to Zoom!',
         expanded: this.mobileQuery.matches ? false : true
       });
-      folder.addBinding(params, 'max_iterations', { min: 100, max: 5000, step: 1 });
-      folder.addBinding(params, 'zoom_factor', { min: .05, max: .15});
+      folder.addBinding(params, 'max_iterations', { min: 100, max: 500, step: 1 });
+      folder.addBinding(params, 'zoom_factor', { min: 5, max: 20});
       const unzoom = pane.addButton({
         title: 'Undo Zoom'
       });
@@ -218,15 +222,43 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
           params.real_set_start = last_coords.real_set_start;
           params.real_set_end = last_coords.real_set_end;
           params.img_set_start = last_coords.img_set_start;
-          params.img_set_end = last_coords.img_set_end
+          params.img_set_end = last_coords.img_set_end;
+          canvasSketch(sketch, settings);
         }
-        canvasSketch(sketch, settings);
       });
-      const btn = pane.addButton({
+      const recompute = pane.addButton({
         title: 'Recompute'
       });
-      btn.on('click', () => {
+      recompute.on('click', () => {
         canvasSketch(sketch, settings);
+      });
+      const reset = pane.addButton({
+        title: 'Reset'
+      });
+      reset.on('click', () => {
+        if (this.bounds.length > 0) {
+          let last_coords = !!this.bounds && this.bounds[0];
+          if (last_coords) {
+            params.real_set_start = last_coords.real_set_start;
+            params.real_set_end = last_coords.real_set_end;
+            params.img_set_start = last_coords.img_set_start;
+            params.img_set_end = last_coords.img_set_end
+            this.bounds = [];
+            canvasSketch(sketch, settings);
+          }
+        }
+      });
+      const info = pane.addButton({
+        title: 'More Info'
+      });
+      info.on('click', () => {
+        this.infoSidenav.toggle();
+        if (this.infoSidenav.opened) {
+          document.getElementsByClassName('cdk-drag-handle')[0].getElementsByTagName('svg')[0].setAttribute('color', 'black');
+        }
+        else {
+          document.getElementsByClassName('cdk-drag-handle')[0].getElementsByTagName('svg')[0].setAttribute('color', 'white');
+        }
       });
     };
 
@@ -249,8 +281,8 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
       const canvasRelativeX = elementRelativeX * this.canvas.width / rect.width;
       const canvasRelativeY = elementRelativeY * this.canvas.height / rect.height;
       // zoom amount in complex magnitude, standard real as x and img as y
-      let zoom_factor_real = ((params.real_set_end - params.real_set_start) * params.zoom_factor);
-      let zoom_factor_img = ((params.img_set_end - params.img_set_start) * params.zoom_factor);
+      let zoom_factor_real = ((params.real_set_end - params.real_set_start) / params.zoom_factor);
+      let zoom_factor_img = ((params.img_set_end - params.img_set_start) / params.zoom_factor);
       let isMobile = this.mobileQuery.matches;
       // coount for flip of axes if on mobile
       zoom_factor_real = isMobile ? zoom_factor_img : zoom_factor_real; 
@@ -268,7 +300,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
       canvasSketch(sketch, settings);
     });
 
-    // E.G. MAIN: Create the Tweakpane, Draw the Canvas
+    // MAIN: Create the Tweakpane, Draw the Canvas
     createPane();
     canvasSketch(sketch, settings);
   }

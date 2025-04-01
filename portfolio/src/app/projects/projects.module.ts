@@ -20,6 +20,11 @@ import { DataVisualizationComponent } from './data-visualization/data-visualizat
 import { BreadcrumbModule } from '../breadcrumb/breadcrumb.module';
 import { ProjectsComponent } from './projects.component';
 import { MandelbrotComponent } from './mandelbrot/mandelbrot.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDividerModule } from '@angular/material/divider';
+
+
 
 @NgModule({
   declarations: [
@@ -45,7 +50,10 @@ import { MandelbrotComponent } from './mandelbrot/mandelbrot.component';
     MatListModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    MatSidenavModule,
+    DragDropModule,
+    MatDividerModule
   ],
   exports: [
     ProjectsComponent
