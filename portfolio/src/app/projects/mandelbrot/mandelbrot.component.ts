@@ -209,6 +209,18 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
         title: 'Click to Zoom!',
         expanded: this.mobileQuery.matches ? false : true
       });
+      const info = pane.addButton({
+        title: 'About'
+      });
+      info.on('click', () => {
+        this.infoSidenav.toggle();
+        if (this.infoSidenav.opened) {
+          document.getElementsByClassName('cdk-drag-handle')[0].getElementsByTagName('svg')[0].setAttribute('color', 'black');
+        }
+        else {
+          document.getElementsByClassName('cdk-drag-handle')[0].getElementsByTagName('svg')[0].setAttribute('color', 'white');
+        }
+      });
       folder.addBinding(params, 'max_iterations', { min: 100, max: 500, step: 1 });
       folder.addBinding(params, 'zoom_factor', { min: 5, max: 20});
       const unzoom = pane.addButton({
@@ -246,18 +258,6 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
             this.bounds = [];
             canvasSketch(sketch, settings);
           }
-        }
-      });
-      const info = pane.addButton({
-        title: 'About'
-      });
-      info.on('click', () => {
-        this.infoSidenav.toggle();
-        if (this.infoSidenav.opened) {
-          document.getElementsByClassName('cdk-drag-handle')[0].getElementsByTagName('svg')[0].setAttribute('color', 'black');
-        }
-        else {
-          document.getElementsByClassName('cdk-drag-handle')[0].getElementsByTagName('svg')[0].setAttribute('color', 'white');
         }
       });
     };
