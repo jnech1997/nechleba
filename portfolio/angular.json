@@ -130,7 +130,7 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "portfolio:build:production"
+              "buildTarget": "portfolio:build"
             },
             "es": {
               "buildTarget": "i18nDemo:build:es"
