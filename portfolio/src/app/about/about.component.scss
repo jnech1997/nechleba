@@ -1,16 +1,9 @@
 .fakeScreen {
   background-color: #151515;
   margin: 0;
-  flex: 1;
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   background-image: linear-gradient(to bottom right, #151515, #22313f)
-}
-
-.overallDiv {
-  flex: 1;
-  width: 100%;
-  display: flex;
-  justify-content: center;
 }
 
 .separator {
@@ -27,22 +20,18 @@
 }
 
 .terminal-container {
-  height: calc(100vh - 64px);
+  height: 100%;
   width: 100%;
-  position: absolute;
-  position: -webkit-sticky;
-  top: 0px;
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
 }
 
-
 .bottomImage {
+  height: 100%;
   width: 100%;
   background-image: linear-gradient(140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
   background-repeat: round;
 }
-
 
 .cursor {
   -webkit-animation: blink 1s infinite;
@@ -120,23 +109,5 @@
   }
   100% {
     opacity: 0;
-  }
-}
-
-// mobile
-@media only screen and (max-width: 600px) {
-  .bottomImage {
-    width: 100%;
-    background-image: linear-gradient(140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
-    background-repeat: round;
-  }
-}
-
-// tablet
-@media (orientation: portrait) and (min-width: 601px) and (max-width: 1024px) {
-  .bottomImage {
-    width: 100%;
-    background-image: linear-gradient(140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
-    background-repeat: round;
   }
 }

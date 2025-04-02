@@ -1,6 +1,3 @@
-<div *ngIf="loading" class="spinner-container">
-  <mat-spinner color="accent"></mat-spinner>
-</div>
 <mat-sidenav-container class="sidenav-container" hasBackdrop="false">
   <mat-sidenav
     class="sidenav"
@@ -77,16 +74,18 @@
           for the parameters UI, and calculated the Mandelbrot using a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers">WebWorker</a>
           defined to compute one column of the Mandelbrot set at a time. This is
           why the visual generates from left to right.</p>
+          
+          <img class="mandelbrot-image" src="assets/images/MandelbrotSet1.png" alt="Mandelbrot Set" tabindex="0">
       </mat-card-content>
     </mat-card>
   </mat-sidenav>
-  <mat-sidenav-content [hidden]="loading" class="sidenav-content">
+  <mat-sidenav-content class="sidenav-content">
     <div  class="dataVisual">
       <mat-card id="graphContainer"></mat-card>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-<div [hidden]="loading" id="paneContainer" cdkDrag>
+<div id="paneContainer" cdkDrag>
     <div class="example-handle" cdkDragHandle>
       <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
         <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>

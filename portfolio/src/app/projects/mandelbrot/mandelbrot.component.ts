@@ -12,8 +12,6 @@ import { DragDrop } from '@angular/cdk/drag-drop';
   standalone: false
 })
 export class MandelbrotComponent implements OnInit, AfterViewInit {
-  // loading spinner flag
-  loading = true;
   // canvas to draw Mandelbrot set
   canvas: HTMLCanvasElement;
   // isMobile tracker
@@ -23,6 +21,8 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
   bounds = [];
   // sidenav for more information display
   @ViewChild('infoSidenav') infoSidenav: MatSidenav;
+  // worker for mandelbrot calculations
+  worker: Worker;
 
   constructor(public media: MediaMatcher, public dragDropService : DragDrop) {}
 
@@ -31,15 +31,10 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
     this.canvas = document.createElement("canvas");
     this.canvas.id = "canvas";
     document.getElementById("graphContainer").appendChild(this.canvas);
-    this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
+    this.mobileQuery = this.media.matchMedia('(max-width: 821px)');
   }
 
   ngAfterViewInit(): void {
-    // Unload spinner
-    setTimeout(() => {
-      this.loading = false;
-    });
-
     // Get context of canvas
     let context = this.canvas.getContext("2d");  
 
@@ -53,19 +48,21 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
     let params = {
       real_set_start: -2.0,
       real_set_end: 1.0,
-      img_set_start: -1.0,
-      img_set_end: 1.0, 
+      img_set_start: 1.0,
+      img_set_end: -1.0, 
       max_iterations: 150,
-      zoom_factor: 10
+      zoom_factor: 10,
+      show_coordinates: true
     };
 
     // Main thread WebWorker message handler to draw
     // one column of the canvas at a time
     function draw (event) {
-      const data = event.data;
-      const col = data[0];
-      const column = data[1];
-      const max_iterations = data[2];
+      const column = event.data[0];
+      const data = event.data[1];
+      const col = data.col;
+      const max_iterations = data.max_iterations;
+      const isMobile = data.isMobile;
       // iterate through all rows in this column
       for (let row = 0; row < column.length; row++) {
         const isMandelbrotSet = column[row].isMandelbrotSet;
@@ -81,6 +78,19 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
           context.fillStyle = interpolateColor(column[row].iterations, max_iterations);
           context.fillRect(col, row, 1, 1);
         }
+      }
+      if (col == data.width - 1 && params.show_coordinates) {
+        // draw coordinates after finishing mandelbrot drawing
+        const center_real = (params.real_set_start + params.real_set_end) / 2;
+        const center_img = (params.img_set_start + params.img_set_end) / 2;
+        context.font = '16px Arial';
+        context.fillStyle = 'white';
+        context.fillText(`center point c = (a + bi)`, isMobile ? 20 : 10, isMobile ? 80 : 20);
+        context.fillText(`a: ${center_real.toFixed(2)}`, isMobile ? 20 : 10, isMobile ? 100 : 40);
+        context.fillText(`b: ${center_img.toFixed(2)}`, isMobile ? 20 : 10, isMobile ? 120 : 60);
+      }
+      if (col == data.width - 1 && !!this.worker) {
+        this.worker.terminate();
       }
     };
 
@@ -125,6 +135,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
                   const col = data.col;
                   const isMobile = data.isMobile;
                   const max_iterations = data.max_iterations;
+                  const width = data.width;
                   // complex plane coordinate is calculated by computing the fraction of the pixel coord
                   // on width/height of canvas, then getting the proportional position on the real/complex range
                   let columnArray = [];
@@ -149,7 +160,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
                     }
                     columnArray.push(column_entry); 
                   }
-                  postMessage([col, columnArray, max_iterations]);
+                  postMessage([columnArray, data]);
                 }
                 // compute whether a given complex number c iterates to infinity given a max_iterations limit
                 // mandelbrot --> f_c(n+1) = f_c(n)^2 + c, f_c(0) = 0
@@ -177,15 +188,15 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
                 }
               }.toString(), ')()' ], { type: 'application/javascript' }) );
           // Initialize WebWorker
-          let worker = new Worker(blobURL);
+          this.worker = new Worker(blobURL);
           // Listen for messages from the worker
           // to call draw function on canvas
-          worker.onmessage = draw;
+          this.worker.onmessage = draw;
           // Begin the drawing by iterating through 
           // columns of canvas and calculating Mandelbrot in WebWorker one
           // column at a time
           for (let col = 0; col < width; col++) {
-            worker.postMessage({
+            this.worker.postMessage({
               isMobile: isMobile,
               max_iterations: max_iterations,
               col: col, 
@@ -221,7 +232,8 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
           document.getElementsByClassName('cdk-drag-handle')[0].getElementsByTagName('svg')[0].setAttribute('color', 'white');
         }
       });
-      folder.addBinding(params, 'max_iterations', { min: 100, max: 500, step: 1 });
+      folder.addBinding(params, 'max_iterations', { min: 100, max: 5000, step: 1 });
+      folder.addBinding(params, 'show_coordinates');
       folder.addBinding(params, 'zoom_factor', { min: 5, max: 20});
       const unzoom = pane.addButton({
         title: 'Undo Zoom'
@@ -229,6 +241,9 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
       // unzoom by reinitializing complex plane real and img
       // bounds to previous values
       unzoom.on('click', () => {
+        if (!!this.worker) {
+          this.worker.terminate();
+        }
         let last_coords = this.bounds.pop();
         if (last_coords) {
           params.real_set_start = last_coords.real_set_start;
@@ -242,12 +257,18 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
         title: 'Recompute'
       });
       recompute.on('click', () => {
+        if (!!this.worker) {
+          this.worker.terminate();
+        }
         canvasSketch(sketch, settings);
       });
       const reset = pane.addButton({
         title: 'Reset'
       });
       reset.on('click', () => {
+        if (!!this.worker) {
+          this.worker.terminate();
+        }
         if (this.bounds.length > 0) {
           let last_coords = !!this.bounds && this.bounds[0];
           if (last_coords) {
@@ -260,11 +281,26 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
           }
         }
       });
+      const screenshot = pane.addButton({
+        title: 'Screenshot'
+      });
+      screenshot.on('click', () => {
+        let downloadLink = document.createElement('a');
+        downloadLink.setAttribute('download', 'MandelbrotSet.png');
+        this.canvas.toBlob(blob => {
+          let url = URL.createObjectURL(blob);
+          downloadLink.setAttribute('href', url);
+          downloadLink.click();
+        });
+      });
     };
 
     // Set Zoom on click function to define "zoomed in"
     // bounds of complex plane based on zoom factor
     this.canvas.addEventListener('click', e => {
+      if (!!this.worker) {
+        this.worker.terminate();
+      }
       // Track the bounds of the current canvas so they can be reinitialized 
       // for unzoom
       this.bounds.push({

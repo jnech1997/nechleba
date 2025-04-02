@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CssGridComponent } from './css-grid/css-grid.component';
-import { DataVisualizationComponent } from './data-visualization/data-visualization.component';
-import { DataVisualizationsComponent } from './data-visualizations/data-visualizations.component';
 import { LoginComponent } from './login/login.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { ProfileComponent } from './profile/profile.component';

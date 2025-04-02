@@ -68,7 +68,7 @@ export class ProjectsComponent implements AfterViewInit {
   ngAfterViewInit() : void {
     setTimeout(() => {
       this.loading = false;
+      this.cdr.detectChanges();
     });
-    this.cdr.detectChanges();
   }
 }

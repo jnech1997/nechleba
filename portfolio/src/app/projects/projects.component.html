@@ -1,21 +1,26 @@
+<!-- bradcrumbs -->
+<app-breadcrumb></app-breadcrumb>
+<!-- spinner if loading view -->
 <div *ngIf="loading" class="spinner-container">
   <mat-spinner color="accent"></mat-spinner>
 </div>
-<app-breadcrumb></app-breadcrumb> 
-<div [hidden]="loading" *ngIf="outlet.isActivated == false" class="projects-container">
-  <div *ngFor="let project of projects" class='square'>
-    <div class='table'>
-      <div class='table-cell'>
-        <a *ngIf="!!project.href" class="links" href="{{project.href}}">
-          <img src="{{project.pathImg}}">
-          <em><h3 class='description'>{{project.description}}</h3></em>
-        </a>
-        <a *ngIf="!!project.routerLink" class="links" routerLink="{{project.routerLink}}">
-          <img src='{{project.pathImg}}'>
-          <em><h3 class='description'>{{project.description}}</h3></em>
+<div class="loaded-container" *ngIf="!loading">
+  <!-- view loaded, show projects if not child component, else just child component -->
+  <div *ngIf="outlet.isActivated == false" class="projects-container">
+    <div *ngFor="let project of projects" class='square'>
+      <div class='table'>
+        <div class='table-cell'>
+          <a *ngIf="!!project.href" class="links" href="{{project.href}}">
+            <img src="{{project.pathImg}}">
+            <em><h3 class='description'>{{project.description}}</h3></em>
           </a>
+          <a *ngIf="!!project.routerLink" class="links" routerLink="{{project.routerLink}}">
+            <img src='{{project.pathImg}}'>
+            <em><h3 class='description'>{{project.description}}</h3></em>
+            </a>
+        </div>
       </div>
     </div>
   </div>
+  <router-outlet #outlet="outlet"></router-outlet>
 </div>
-<router-outlet #outlet="outlet"></router-outlet>

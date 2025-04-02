@@ -20,7 +20,10 @@ export class AboutComponent implements OnInit {
   updateClock() {
     let now = new Date().toLocaleString(); // current date
     // set the content of the element with the ID time to the formatted string
-    document.getElementById('currentTime').innerHTML = now;
+    let timeNode = document.getElementById('currentTime')
+    if (!!timeNode) {
+      timeNode.innerHTML = now;
+    }
     // call this function again in 1000ms
     setInterval(this.updateClock, 1000);
   }
