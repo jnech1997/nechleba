@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, Component, ChangeDetectorRef, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-projects',
@@ -6,9 +6,9 @@ import { AfterViewInit, Component, ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./projects.component.scss'],
   standalone: false
 })
-export class ProjectsComponent implements AfterViewInit {
+export class ProjectsComponent implements AfterViewInit, OnInit {
 
-  public loading = true;
+  public loading = false;
 
   public projects: any[] = [
     {
@@ -64,6 +64,10 @@ export class ProjectsComponent implements AfterViewInit {
   ];
 
   constructor(private cdr: ChangeDetectorRef) {}
+
+  ngOnInit() {
+    this.loading = true;
+  }
 
   ngAfterViewInit() : void {
     setTimeout(() => {
