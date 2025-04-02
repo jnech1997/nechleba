@@ -11,18 +11,10 @@
     max-width: 90%;
 }
 
-@media screen and (max-width: 768px) {
-    .dataVisual {
-        padding-bottom: 1rem;
-    }
-    
-}
-
 #graphContainer {
     margin-top: 0;
     cursor: zoom-in;
     border-radius: 10px;
-    padding: .6rem;
 }
 
 #paneContainer {
@@ -37,12 +29,14 @@
     align-items: center;
     justify-content: center;
     border-radius: 10px !important;
+    max-height: calc(100vh - 140px);
 }
 
 .sidenav-content {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-x: hidden;
 }
 
 .sidenav {
@@ -50,6 +44,7 @@
     align-items: start;
     justify-content: start;
     width: 100%;
+    height: 100%;
     border: 2px solid black;
     border-radius: 10px;
 }

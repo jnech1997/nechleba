@@ -249,7 +249,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
         }
       });
       const info = pane.addButton({
-        title: 'More Info'
+        title: 'About'
       });
       info.on('click', () => {
         this.infoSidenav.toggle();
