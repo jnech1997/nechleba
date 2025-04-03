@@ -1,4 +1,4 @@
-import { Component, LOCALE_ID, Inject, OnInit } from '@angular/core';
+import { Component, LOCALE_ID, Inject, OnInit, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss'],
   standalone: false
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   languageList = [
     { code: 'en', label: 'English' },
     { code: 'es', label: 'Espanol' },
@@ -26,6 +26,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    document.getElementById("spinner").style.display = "flex";
+  }
+
+  ngAfterViewInit(): void {
     document.getElementById("spinner").style.display = "none";
     document.getElementById("angularRoot").style.display = "block";
   }
