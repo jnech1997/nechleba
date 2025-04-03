@@ -269,17 +269,16 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
         if (!!this.worker) {
           this.worker.terminate();
         }
-        if (this.bounds.length > 0) {
-          let last_coords = !!this.bounds && this.bounds[0];
-          if (last_coords) {
-            params.real_set_start = last_coords.real_set_start;
-            params.real_set_end = last_coords.real_set_end;
-            params.img_set_start = last_coords.img_set_start;
-            params.img_set_end = last_coords.img_set_end
-            this.bounds = [];
-            canvasSketch(sketch, settings);
-          }
-        }
+        this.bounds = [];
+        params.real_set_start = -2.0;
+        params.real_set_end = 1.0;
+        params.img_set_start = 1.0;
+        params.img_set_end = -1.0;
+        params.max_iterations = 150;
+        params.zoom_factor = 10;
+        params.show_coordinates = true;
+        pane.refresh();
+        canvasSketch(sketch, settings);
       });
       const screenshot = pane.addButton({
         title: 'Screenshot'
