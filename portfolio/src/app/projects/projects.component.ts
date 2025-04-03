@@ -52,11 +52,6 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
       "description": "Othello in OCaml"
     },
     {
-      "href": "https://github.com/jnech1997/SortingMethodsLinkedList",
-      "pathImg": "../assets/images/java.png",
-      "description": "Sorting Methods"
-    },
-    {
       "routerLink": "./sandbox",
       "pathImg": "../assets/images/angular.png",
       "description": "Sandbox"
