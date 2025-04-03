@@ -10,14 +10,12 @@
     align-items: center;
     justify-content: center;
     max-width: 90%;
-    height: 100%;
 }
 
 #graphContainer {
     margin-top: 0;
     cursor: zoom-in;
     border-radius: 10px;
-    height: 100%;
 }
 
 #paneContainer {
@@ -34,9 +32,9 @@
     border-radius: 10px !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 821px) {
     .sidenav-container {
-        height: 90%;
+        height: 95%;
     }
 }
 
@@ -44,8 +42,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-x: hidden;
     height: 100%;
+    overflow: hidden;
 }
 
 .sidenav {
