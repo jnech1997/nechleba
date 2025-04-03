@@ -1,4 +1,4 @@
-import { Component, LOCALE_ID, Inject, OnInit, AfterViewInit } from '@angular/core';
+import { Component, LOCALE_ID, Inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss'],
   standalone: false
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent {
   languageList = [
     { code: 'en', label: 'English' },
     { code: 'es', label: 'Espanol' },
@@ -23,14 +23,5 @@ export class AppComponent implements OnInit, AfterViewInit {
     const sessionLang = window.sessionStorage.getItem('language');
     const lang = !!sessionLang ? sessionLang : browserLang.match(/en|fr|es|zh|ja|ar/) ? browserLang : 'en';
     translate.use(lang);
-  }
-
-  ngOnInit(): void {
-    document.getElementById("spinner").style.display = "flex";
-  }
-
-  ngAfterViewInit(): void {
-    document.getElementById("spinner").style.display = "none";
-    document.getElementById("angularRoot").style.display = "block";
   }
 }
