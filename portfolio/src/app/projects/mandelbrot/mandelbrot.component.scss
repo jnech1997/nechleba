@@ -29,7 +29,9 @@
     align-items: center;
     justify-content: center;
     border-radius: 10px !important;
-    max-height: calc(100vh - 150px);
+    position: absolute;
+    top: 52px;
+    max-height: 90%;
 }
 
 .sidenav-content {
