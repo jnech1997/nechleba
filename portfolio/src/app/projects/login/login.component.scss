@@ -15,8 +15,13 @@
     padding: 1rem;
 }
 
+.title {
+    text-decoration: underline;
+    margin-bottom: 0;
+}
+
 .firstName, .lastName, .password, .email {
-    margin: 1rem;
+    margin-top: 1rem;
 }
 
 .submit-button {

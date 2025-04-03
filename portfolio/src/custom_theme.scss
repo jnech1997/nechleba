@@ -33,4 +33,8 @@ $light-theme: mat.m2-define-light-theme((
   ));
 
   @include mat.all-component-colors($dark-theme);
+
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label {
+    color: white !important;
+  }
 }
