@@ -232,7 +232,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
           document.getElementsByClassName('cdk-drag-handle')[0].getElementsByTagName('svg')[0].setAttribute('color', 'white');
         }
       });
-      folder.addBinding(params, 'max_iterations', { min: 100, max: 5000, step: 1 });
+      folder.addBinding(params, 'max_iterations', { min: 100, max: 2000, step: 1 });
       folder.addBinding(params, 'show_coordinates');
       folder.addBinding(params, 'zoom_factor', { min: 5, max: 20});
       const unzoom = pane.addButton({
