@@ -35,11 +35,10 @@
       #snav
       [mode]="mobileQuery.matches ? 'over' : 'side'"
       [fixedInViewport]="mobileQuery.matches"
-      fixedTopGap="56"
       (click)="snav.toggle()"
     >
       <div
-        class="header"
+        class="sidenav-header"
         [ngClass]="!darkMode ? 'light-mode-header' : 'dark-mode-header'"
       >
         <a class="linked-in-link" href="https://www.linkedin.com/in/joseph-nechleba-594ba9103/">
@@ -107,7 +106,7 @@
     </mat-sidenav>
 
     <!-- CONTENT OUTLET -->
-    <mat-sidenav-content class="content">
+    <mat-sidenav-content class="sidenav-content">
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

@@ -8,29 +8,8 @@
   right: 0;
 }
 
-.content {
-  display: flex;
-  height: 100%;
-  width: 100%;
-  text-align: center;
-}
-
-.footer {
-  padding: 5px;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.footer-lightmode {
-  background-color: #abb7b7;
-}
-
-.footer-darkmode {
-  background-color: #455a64;
-}
-
-.footer-text {
-  font-size: 13px;
+.toolbar {
+  z-index: 1;
 }
 
 .hamburger-menu {
@@ -40,51 +19,50 @@
   width: fit-content !important;
 }
 
-h1.app-name {
-  margin-left: 8px;
+.sidenav-container {
+  flex: 1;
 }
 
-.header {
+.sidenav-content {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.sidenav {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.sidenav-header {
   position: relative;
   justify-content: center;
   display: flex;
   padding: 10px;
 }
 
-.icon {
-  padding: 0 0 0 2%;
-  cursor: pointer
-}
-
-.icon-link {
-  text-decoration: none;
-  color: inherit;
-}
-
-.is-mobile .toolbar {
-  position: fixed;
-  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
-  z-index: 2;
-}
-
-.is-mobile .sidenav-container {
-  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
-     `<body>` to be our scrolling element for mobile layouts. */
-  flex: 1 0 auto;
-}
-
 .light-mode-header {
   background-image: linear-gradient(to top right, #f3f1ef, #67809f);
+}
+
+.dark-mode-header {
+  background-image: linear-gradient(to top right, #455a64, #67809f);
+}
+
+.sidenav-links {
+  margin: 10px;
+}
+
+h1.app-name {
+  margin-left: 8px;
 }
 
 .linked-in-link {
   text-decoration: none;
   color: #f3f1ef;
   display: flex;
-}
-
-.dark-mode-header {
-  background-image: linear-gradient(to top right, #455a64, #67809f);
 }
 
 .links-logos-container {
@@ -113,18 +91,14 @@ h1.app-name {
   font-size: 2rem;
 }
 
-.sidenav-container {
-  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
-     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
-  flex: 1;
+.icon {
+  padding: 0 0 0 2%;
+  cursor: pointer
 }
 
-.sidenav-container-mobile {
-  margin-top: 56px;
-}
-
-.sidenav-links {
-  margin: 10px;
+.icon-link {
+  text-decoration: none;
+  color: inherit;
 }
 
 .sidenav-left {
@@ -177,5 +151,23 @@ h1.app-name {
 .spacer-sidenav {
   padding: 20px;
   margin: 20px;
+}
+
+.footer {
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.footer-lightmode {
+  background-color: #abb7b7;
+}
+
+.footer-darkmode {
+  background-color: #455a64;
+}
+
+.footer-text {
+  font-size: 13px;
 }
 

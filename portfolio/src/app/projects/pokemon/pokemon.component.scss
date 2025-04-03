@@ -28,9 +28,7 @@ span {
   justify-content: space-between;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 1rem;
   height: 100%;
-  flex-grow: 1;
 }
 
 .square {
@@ -40,24 +38,10 @@ span {
   border-radius: 25px;
 }
 
-.table-cell > a > img {
-  border-radius: 25px;
-}
-
-.table-cell > a > img:hover {
-  transform: scale(1.1);
-}
-
 .pokemon-image {
     border-radius: 50%;
     height: 200px;
     width: 200px;
-}
-
-@media (max-width: 1200px) {
-  .desktopOnly {
-    display: none;
-  }
 }
 
 @media (max-width: 600px) {
@@ -65,14 +49,12 @@ span {
     display: block;
   }
 
-  .desktopOnly {
-    display: none;
-  }
-
   .square {
     width: 100%;
     flex: 1;
     margin: 1.66%;
+    margin-left: 0;
+    margin-right: 0;
     border-radius: 25px;
   }
 }
