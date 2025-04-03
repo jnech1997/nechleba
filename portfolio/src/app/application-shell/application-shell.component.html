@@ -33,7 +33,7 @@
     <mat-sidenav
       class="sidenav"
       #snav
-      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [mode]="over"
       [fixedInViewport]="mobileQuery.matches"
       (click)="snav.toggle()"
     >
