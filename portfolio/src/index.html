@@ -6,6 +6,35 @@
   <title>Website of Joseph Nechleba</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .pre-angular-spinner-container {
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      height: 100%;
+      width: 100%;
+    }
+    .loader {
+      border: 8px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 8px solid black;
+      border-left: 8px solid black;
+      width: 100px;
+      height: 100px;
+      -webkit-animation: spin 1s linear infinite; /* Safari */
+      animation: spin 1s linear infinite;
+    }
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
   <!-- Google tag (gtag.js) -->
@@ -17,6 +46,11 @@
     gtag('config', 'G-XCDDBJ7FSV');
   </script>
   <!-- Angular Application Entry Point -->
-  <app-root></app-root>
+  <app-root>
+    <div class="pre-angular-spinner-container">
+      <!-- pre-angular loading spinner -->
+      <div class="loader"></div>
+    </div>
+  </app-root>
 </body>
 </html>
