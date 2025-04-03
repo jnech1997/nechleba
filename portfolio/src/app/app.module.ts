@@ -22,6 +22,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ProjectsModule } from './projects/projects.module';
 import { AuthService } from './services/auth.service';
 import { ServerService } from './services/server.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { ServerService } from './services/server.service';
         AppRoutingModule,
         BrowserAnimationsModule,
         MatToolbarModule,
+        FontAwesomeModule,
         MatSidenavModule,
         MatIconModule,
         MatListModule,

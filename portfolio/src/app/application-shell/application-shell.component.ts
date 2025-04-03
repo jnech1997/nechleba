@@ -13,6 +13,10 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { ServerService } from '../services/server.service';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faGithubAlt } from '@fortawesome/free-brands-svg-icons';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'application-shell',
@@ -21,6 +25,11 @@ import { ServerService } from '../services/server.service';
   standalone: false
 })
 export class ApplicationShellComponent implements OnDestroy {
+  // sidenav font awesome icons
+  faGlobe = faGlobe;
+  faGithubAlt = faGithubAlt;
+  faYoutube = faYoutube;
+  faLinkedinIn = faLinkedinIn;
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
   @ViewChild('snav', {static: false}) snav: ElementRef;
