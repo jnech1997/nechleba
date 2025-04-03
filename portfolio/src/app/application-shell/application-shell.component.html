@@ -27,8 +27,8 @@
 
   <!-- SIDENAV -->
   <mat-sidenav-container
-    class="sidenav-container"
-    [ngClass]="mobileQuery.matches ? 'sidenav-container-mobile' : ''"
+    [ngStyle]= "{'scrollbar-color': darkMode ? 'white rgb(70, 70, 70)' : 'white cornflowerblue'}"
+    [ngClass]="mobileQuery.matches ? 'sidenav-container-mobile' : 'sidenav-container'"
   >
     <mat-sidenav
       class="sidenav"
