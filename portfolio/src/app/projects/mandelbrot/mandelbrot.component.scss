@@ -1,6 +1,7 @@
 :host {
     display: flex;
     justify-content: center;
+    height: 100%;
 }
 
 .dataVisual {
@@ -9,12 +10,14 @@
     align-items: center;
     justify-content: center;
     max-width: 90%;
+    height: 100%;
 }
 
 #graphContainer {
     margin-top: 0;
     cursor: zoom-in;
     border-radius: 10px;
+    height: 100%;
 }
 
 #paneContainer {
@@ -29,9 +32,12 @@
     align-items: center;
     justify-content: center;
     border-radius: 10px !important;
-    position: absolute;
-    top: 52px;
-    max-height: 90%;
+}
+
+@media screen and (max-width: 768px) {
+    .sidenav-container {
+        height: 90%;
+    }
 }
 
 .sidenav-content {
@@ -39,6 +45,7 @@
     align-items: center;
     justify-content: center;
     overflow-x: hidden;
+    height: 100%;
 }
 
 .sidenav {
@@ -49,12 +56,6 @@
     height: 100%;
     border: 2px solid black;
     border-radius: 10px;
-}
-
-@media screen and (max-width: 768px) {
-    .sidenav {
-        margin-bottom: 1rem;
-    }
 }
 
 .close-container {

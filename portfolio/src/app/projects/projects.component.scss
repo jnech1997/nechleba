@@ -27,7 +27,7 @@ span {
 }
 
 .loaded-container {
-  height: 100%;
+  height: calc(100% - 52px);
   width: 100%;
 }
 
