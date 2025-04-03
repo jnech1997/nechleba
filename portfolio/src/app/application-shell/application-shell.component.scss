@@ -41,6 +41,7 @@
   justify-content: center;
   display: flex;
   padding: 10px;
+  min-width: 225px;
 }
 
 .light-mode-header {
@@ -82,7 +83,6 @@ h1.app-name {
 
 .profile-picture {
   height: 100px;
-  margin-right: 10px;
   width: 100px;
   border-radius: 50%;
 }
