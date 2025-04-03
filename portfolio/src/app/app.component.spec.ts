@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { MatDialogModule as MatDialogModule } from '@angular/material/dialog';
@@ -7,7 +7,6 @@ import { MatListModule as MatListModule } from '@angular/material/list';
 import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from './app.module';
 import { ApplicationShellComponent } from './application-shell/application-shell.component';
@@ -26,15 +25,13 @@ describe('AppComponent', () => {
         MatButtonModule,
         MatDialogModule,
         MatSelectModule,
-        RouterTestingModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useFactory: HttpLoaderFactory,
             deps: [HttpClient]
           }
-        }),
-        HttpClientModule
+        })
       ],
       declarations: [
         AppComponent,

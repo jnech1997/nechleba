@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, provideHttpClient} from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { MatDialogModule as MatDialogModule } from '@angular/material/dialog';
@@ -32,10 +32,12 @@ describe('AboutComponent', () => {
             useFactory: HttpLoaderFactory,
             deps: [HttpClient]
           }
-        }),
-        HttpClientModule
+        })
       ],
-      declarations: [ AboutComponent ]
+      declarations: [ AboutComponent ],
+      providers: [
+        provideHttpClient()
+      ],
     })
     .compileComponents();
   }));

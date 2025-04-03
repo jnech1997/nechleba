@@ -16,7 +16,7 @@ import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ProjectsModule } from './projects/projects.module';
@@ -45,8 +45,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         MatDialogModule,
         MatSelectModule,
         MatProgressSpinnerModule,
-        // ngx-translate and the loader module
-        HttpClientModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -59,7 +57,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     providers: [
         TranslateService, 
         AuthService, 
-        ServerService
+        ServerService,
+        provideHttpClient()
     ],
     bootstrap: [AppComponent]
 })

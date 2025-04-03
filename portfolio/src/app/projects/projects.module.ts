@@ -13,7 +13,6 @@ import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
 import { PokemonComponent } from './pokemon/pokemon.component';
-import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
 import { DataVisualizationsComponent } from './data-visualizations/data-visualizations.component';
 import { DataVisualizationComponent } from './data-visualization/data-visualization.component';
@@ -48,7 +47,6 @@ import { MatDividerModule } from '@angular/material/divider';
     MatIconModule,
     MatButtonModule,
     MatListModule,
-    HttpClientModule,
     MatProgressSpinnerModule,
     BreadcrumbModule,
     MatSidenavModule,

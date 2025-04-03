@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { MatDialogModule as MatDialogModule, MatDialogRef as MatDialogRef, MAT_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -33,11 +33,14 @@ describe('LanguageDialogComponent', () => {
             useFactory: HttpLoaderFactory,
             deps: [HttpClient]
           }
-        }),
-        HttpClientModule
+        })
       ],
       declarations: [ LanguageDialogComponent ],
-      providers: [{ provide: MatDialogRef, useValue: {} }, { provide: MAT_DIALOG_DATA, useValue: {} }]
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+          provideHttpClient()
+      ]
     })
     .compileComponents();
   }));
