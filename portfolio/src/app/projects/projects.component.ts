@@ -18,8 +18,8 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
     },
     {
       "routerLink": "./sandbox/login",
-      "pathImg": "../assets/images/angular.png",
-      "description": "Angular Login"
+      "pathImg": "../assets/images/nodeJS.png",
+      "description": "Node Login"
     },
     {
       "href": "https://jnech1997.github.io/projects/starsCanvas/index.html",

@@ -16,8 +16,8 @@ export class SandboxComponent implements AfterViewInit {
     },
     {
       "routerLink": "./login",
-      "pathImg": "../assets/images/angular.png",
-      "description": "Angular Login"
+      "pathImg": "../assets/images/nodeJS.png",
+      "description": "Node Login"
     },
     {
       "routerLink": "./pokemon",
