@@ -11,38 +11,31 @@
       display: flex; 
       justify-content: center; 
       align-items: center; 
+      visibility: visible;
       height: calc(100vh);
       width: calc(100vw);
     }
     .loader {
       border-radius: 50%;
-      border-right: 8px solid gold;
-      border-bottom: 8px solid blue;
-      border-top: 8px solid red;
-      border-left: 8px solid green;
+      border-right: 8px solid rgb(18, 205, 161);
+      border-bottom: 8px solid red;
+      border-top: 8px solid rgb(255, 181, 77);
+      border-left: 8px solid blue;
+      visibility: visible;
       width: 100px;
       height: 100px;
-      -webkit-animation: spin 1000ms ease 0s infinite normal;
-      -moz-animation: spin 1000ms ease 0s infinite normal;
-      -ms-animation: spin 1000ms ease 0s infinite normal;
-      -o-animation: spin 1000ms ease 0s infinite normal;
-      animation: spin 1000ms ease 0s infinite normal;
+      -webkit-animation: spin 1s linear infinite; /* Safari */
+      animation: spin 1s linear infinite;
     }
-    @-ms-keyframes spin { 
-        from { -webkit-transform: rotate(0deg); }
-        to { -webkit-transform: rotate(360deg); }
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
     }
-    @-moz-keyframes spin { 
-        from { -webkit-transform: rotate(0deg); }
-        to { -webkit-transform: rotate(360deg); }
-    }
-    @-webkit-keyframes spin { 
-        from { -webkit-transform: rotate(0deg); }
-        to { -webkit-transform: rotate(360deg); }
-    }
-    @keyframes spin { 
-        from { -webkit-transform: rotate(0deg); }
-        to { -webkit-transform: rotate(360deg); }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -56,11 +49,10 @@
     gtag('config', 'G-XCDDBJ7FSV');
   </script>
   <!-- Angular Application Entry Point -->
-  <app-root>
-    <div class="pre-angular-spinner-container">
-      <!-- pre-angular loading spinner -->
-      <div class="loader"></div>
-    </div>
-  </app-root>
+  <div class="pre-angular-spinner-container" id="spinner">
+    <!-- pre-angular loading spinner -->
+    <div class="loader"></div>
+  </div>
+  <app-root style="display: none" id="angularRoot"></app-root>
 </body>
 </html>
