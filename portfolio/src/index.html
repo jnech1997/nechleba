@@ -8,7 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     .pre-angular-spinner-container {
-      display: flex; 
+      display: flex;
+      display: -webkit-inline-flex; 
+      visibility: visible;
       justify-content: center; 
       align-items: center; 
       visibility: visible;
@@ -48,11 +50,11 @@
     gtag('js', new Date());
     gtag('config', 'G-XCDDBJ7FSV');
   </script>
-  <!-- Angular Application Entry Point -->
+  <!-- Pre-angular loading spinner, set to invisible on init of app root component -->
   <div class="pre-angular-spinner-container" id="spinner">
-    <!-- pre-angular loading spinner -->
     <div class="loader"></div>
   </div>
+  <!-- Angular Application Entry Point -->
   <app-root style="display: none" id="angularRoot"></app-root>
 </body>
 </html>
