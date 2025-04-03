@@ -12,3 +12,7 @@ body { padding: 0; margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
   align-items: center;
   height: 100%;
 }
+
+.mat-drawer-inner-container {
+  overflow-x: hidden !important;
+}
