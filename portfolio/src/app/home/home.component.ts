@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -7,14 +7,12 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./home.component.scss'],
   standalone: false
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
+  /* Set spinner */
   loading = true;
 
   constructor(private translate: TranslateService) { }
-
-  ngOnInit() {
-  }
 
   /** On load of the home screen image, set loading tracker to false */
   onLoad() : void {

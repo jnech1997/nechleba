@@ -17,6 +17,7 @@ body { padding: 0; margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
   height: 100%;
 }
 
+/** No horizontal overflow on main sidenav */
 .mat-drawer-inner-container {
   overflow-x: hidden !important;
 }

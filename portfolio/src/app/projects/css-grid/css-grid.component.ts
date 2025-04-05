@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'app-css-grid',
@@ -6,11 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./css-grid.component.scss'],
   standalone: false
 })
-export class CssGridComponent implements OnInit {
+export class CssGridComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

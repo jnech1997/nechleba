@@ -12,7 +12,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { ServerService } from '../services/server.service';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { faGithubAlt } from '@fortawesome/free-brands-svg-icons';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
@@ -24,31 +23,26 @@ import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
   styleUrls: ['./application-shell.component.scss'],
   standalone: false
 })
-export class ApplicationShellComponent implements OnDestroy {
+export class ApplicationShellComponent {
   // sidenav font awesome icons
   faGlobe = faGlobe;
   faGithubAlt = faGithubAlt;
   faYoutube = faYoutube;
   faLinkedinIn = faLinkedinIn;
   mobileQuery: MediaQueryList;
-  private _mobileQueryListener: () => void;
   @ViewChild('snav', {static: false}) snav: ElementRef;
   darkMode : boolean = !!(sessionStorage.getItem('darkMode')) ? coerceBooleanProperty(sessionStorage.getItem('darkMode')) : true;
   language : string;
   user : any;
 
   constructor(
-      changeDetectorRef: ChangeDetectorRef,
       public media: MediaMatcher,
       public dialog: MatDialog,
       private translate: TranslateService,
       public authService: AuthService,
-      private server: ServerService,
       private router: Router
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 900px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
   openDialog(): void {
@@ -69,10 +63,6 @@ export class ApplicationShellComponent implements OnDestroy {
   onModeChange() {
     this.darkMode = !this.darkMode;
     window.sessionStorage.setItem('darkMode', String(this.darkMode));
-  }
-
-  ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
   onProfile() {
