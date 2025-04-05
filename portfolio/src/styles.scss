@@ -5,7 +5,7 @@
 html, body, app-root, application-shell { 
   height: 100%;
   width: 100%; 
-  display: flex; 
+  background-color: #212121; // make fix angular white flash before styles are applied
 }
 body { padding: 0; margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 16px;}
 
