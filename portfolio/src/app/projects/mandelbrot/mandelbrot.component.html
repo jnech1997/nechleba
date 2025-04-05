@@ -7,6 +7,8 @@
     position="end"
     hasBackdrop="false"
   >
+    <!-- The sidenav is used to display information about the Mandelbrot set. -->
+    <!-- It contains a close button, a title, and a card with information about the set. -->
     <div class="close-container">
       <h1 class="mandelbrot-title">{{mobileQuery.matches ? 'About' : 'What is the Mandelbrot Set?'}}</h1>
       <button class="close-button" mat-fab aria-label="close dialog" (click)="onCloseSidenav()">
@@ -16,18 +18,25 @@
     <mat-card class="information-card">
       <mat-card-content class="latex-container">
         <em><h2 tabindex="0" style="margin-top: 1rem;" id="conclusion">TL;DR</h2></em>
-          <p tabindex="0" class="text-align-left">The Mandelbrot set is one of the most famous examples of a fractal,
-          revealing infinite complexity within a simple mathematical definition.
+          <p tabindex="0" class="text-align-left">The Mandelbrot set is one of the most famous 
+            examples of a fractal, revealing infinite complexity within a simple mathematical definition.
           Its boundary is infinitely detailed and remains a topic of mathematical
           exploration and artistic representation.</p>
-          <p tabindex="0" style="margin-top: 0" class="text-align-left">I encourage you to click around. Note that as you zoom deeper, you should increase
-          the max_iterations value in the UI pane and click "Recompute" in order to see
-          the fractals in greater detail. This is necessary because as the
-          bounds of the Real and Imaginary planes become closer together (more zoomed in), a greater number of iterations is needed to
-          determine whether the Mandelbrot function is bounded at
-          any complex coordinate <span class="math inline"><em>c</em></span>. If you want to zoom in more at each step, increase the zoom factor. You
-          can always return to your previous position by clicking "Undo Zoom", or return to the original bounds of the Mandelbrot Set by
-          clicking "Reset".</p>
+          <p tabindex="0" style="margin-top: 0" class="text-align-left">I encourage you to click around. 
+            Besides clicking manually, you can select a center point in the complex plane defined by its 
+            real component a and imaginary component b, then clicking "Zoom at (a + bi)" 
+            to zoom in more and more at a specific point. I recommend doing this multiple times 
+            at a = -1.1088165247018740, b = -0.23718282208588953, with max_iterations set to 2000. 
+            Note that as you zoom deeper, you must increase the max_iterations value in the UI pane 
+            and click "Recompute" in order to see the fractals in greater detail. 
+            This is necessary because as the bounds of the Real and Imaginary planes become 
+            closer together (more zoomed in), a greater number of iterations is needed to determine whether 
+            the Mandelbrot function is bounded at any complex coordinate <span class="math inline"><em>c</em></span>. 
+            If you want to zoom in more at each step, increase the zoom factor. You can always return 
+            to your previous position by clicking "Undo Zoom", or return to the original bounds of the 
+            Mandelbrot Set by clicking "Reset". If you like the Mandelbrot at a specific frame, 
+            you can download a screenshot by clicking "Screenshot". If you want to record the coordinates 
+            and settings for easy input into the UI later, you can click "Save Coordinates".</p>
 
         <em><h2  tabindex="0" id="mathematical-definition">Definition</h2></em>
         <p tabindex="0" class="text-align-left">The Mandelbrot set is a well-known fractal that is defined in the
@@ -43,12 +52,12 @@
           class="math display"><em>M</em> = <em>c</em> ∈ ℂ : limsup<sub><em>n</em> → ∞</sub>|<em>z</em><sub><em>n</em></sub>| &lt; ∞.</span></p>
           <p tabindex="0">If this sequence does not tend to infinity, then <span
           class="math inline"><em>c</em></span> is part of the Mandelbrot set.
-          Otherwise, it is not. We examine here the complex numbers bound in the Real plane by [-2, 1] and in 
-          the Imaginary plane by [-1, 1].</p>
+          Otherwise, it is not. We examine here the complex numbers bound in the Real plane by [-2, 1] and 
+          in the Imaginary plane by [-1, 1].</p>
         
           <em><h2  tabindex="0" id="visualization">Visualization</h2></em>
-          <p tabindex="0" class="text-align-left">A complex number is the combination of its real and imaginary parts:
-          a + b<span class="math inline"><em>i</em></span>. Therefore, we can plot
+          <p tabindex="0" class="text-align-left">A complex number is the combination of its real and 
+            imaginary parts: a + b<span class="math inline"><em>i</em></span>. Therefore, we can plot
           a given <span class="math inline"><em>c</em></span> such that the long
           axis measures <span class="math inline"><em>c</em></span>’s real
           component value <span class="math inline"><em>a</em></span>, and the
@@ -58,27 +67,32 @@
           <span class="math inline"><em>a</em></span> and <span
           class="math inline"><em>b</em></span> within the bounds of the canvas,
           using a pixel as the unit step of each axis.</p>
-          <p tabindex="0"  class="text-align-left">To visualize how the behavior of the Mandelbrot set changes 
-            at the edges, we color each point in the complex plane based on how quickly the sequence <span
+          <p tabindex="0"  class="text-align-left">To visualize how the behavior of the Mandelbrot 
+            set changes at the edges, we color each point in the complex plane based on how quickly 
+            the sequence <span
           class="math inline"><em>z</em><sub><em>n</em></sub></span> escapes to
           infinity. Of course, we can’t represent true infinity on a computer, so
           a "max_iterations" value is chosen for how many iterations of
           the Mandelbrot function will be run for a given complex number before
-          determining that the function does not tend to infinity. Points that
-          remain bounded are in the set and colored black, while those that are not in the set are assigned
-          colors based on the number of iterations of the Mandelbrot function it took for them to unbound, 
-          from black for a low number of iterations (it became unbounded quickly, which you can see occurs further away
-          at the ends of the planes), to red (it took about half max_iterations to unbound),
+          determining that the function does or does not tend to infinity. Points that
+          remain bounded are in the set and immediately colored black, while those that are not in 
+          the set are assigned colors based on the number of iterations of the Mandelbrot function 
+          it took for them to unbound, from black for a low number of iterations 
+          (it became unbounded quickly, which you can see occurs further away
+          at the corners of the plane), to red (it took about half max_iterations to unbound),
           and white (become unbounded slowly, nearly reaching max_iterations).</p>
-          <p tabindex="0"  class="text-align-left">I used <a href="https://github.com/mattdesl/canvas-sketch">CanvasSketch</a> to interface with the canvas context, <a href="https://tweakpane.github.io/docs/quick-tour/">Tweakpane</a>
-          for the parameters UI, and calculated the Mandelbrot using a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers">WebWorker</a>
+          <p tabindex="0"  class="text-align-left">I used 
+            <a href="https://github.com/mattdesl/canvas-sketch">CanvasSketch</a> to interface with 
+            the canvas context, <a href="https://tweakpane.github.io/docs/quick-tour/">Tweakpane</a>
+          for the parameters UI, and calculated the Mandelbrot 
+          using a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers">WebWorker</a>
           defined to compute one column of the Mandelbrot set at a time. This is
           why the visual generates from left to right.</p>
-          
-          <img class="mandelbrot-image" src="assets/images/MandelbrotSet1.png" alt="Mandelbrot Set" tabindex="0">
+          <img class="mandelbrot-image" src="assets/images/MandelbrotSet.png" alt="Mandelbrot Set" tabindex="0">
       </mat-card-content>
     </mat-card>
   </mat-sidenav>
+  <!-- The main content of the app, which contains the canvas for the Mandelbrot set and the UI controls. -->
   <mat-sidenav-content class="sidenav-content">
     <div  class="dataVisual">
       <mat-card id="graphContainer"></mat-card>
