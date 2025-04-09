@@ -4,6 +4,7 @@ import * as tweakPane from 'tweakpane';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { DragDrop } from '@angular/cdk/drag-drop';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-mandelbrot',
@@ -26,7 +27,10 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
   // pane for UI controls
   pane: tweakPane.Pane;
 
-  constructor(public media: MediaMatcher, public dragDropService : DragDrop) {}
+  constructor(
+    public media: MediaMatcher, 
+    public dragDropService : DragDrop,
+    private translate: TranslateService) {}
 
   ngOnInit() {
     // Append canvas to DOM to be used in CanvasSketch

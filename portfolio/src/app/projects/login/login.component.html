@@ -1,21 +1,21 @@
 <div class="form-container">
     <mat-card>
-        <h2 class="title">Welcome</h2>
+        <h2 class="title">{{'ABOUT.WELCOME' | translate}}</h2>
         <form class="login-form" [formGroup]="loginFormControl" (ngSubmit)="onSubmit()">
             <mat-form-field class="email" appearance="outline">
-                <mat-label>Enter your email</mat-label>
+                <mat-label>{{'LOGIN.ENTER_EMAIL' | translate}}</mat-label>
                 <input matInput type="text" autocomplete="email" formControlName="email">
             </mat-form-field>
             <mat-form-field *ngIf="register" class="firstName" appearance="outline">
-                <mat-label>{{register ? 'Enter your first name' : 'First Name'}}</mat-label>
+                <mat-label>{{register ? ('LOGIN.ENTER_FIRST_NAME' | translate) : ('PROFILE.FIRST_NAME' | translate)}}</mat-label>
                 <input matInput type="text" autocomplete="name" formControlName="firstName">
             </mat-form-field>
             <mat-form-field *ngIf="register" class="lastName" appearance="outline">
-                <mat-label>{{register ? 'Enter your last name' : 'Last Name'}}</mat-label>
+                <mat-label>{{register ? ('LOGIN.ENTER_LAST_NAME' | translate) : ('PROFILE.LAST_NAME' | translate)}}</mat-label>
                 <input matInput type="text" autocomplete="family-name" formControlName="lastName">
             </mat-form-field>
             <mat-form-field class="password" appearance="outline">
-                <mat-label>{{register ? 'Enter a password' : 'Password'}}</mat-label>
+                <mat-label>{{register ? ('LOGIN.ENTER_PASSWORD' | translate) : ('LOGIN.PASSWORD' | translate)}}</mat-label>
                 <input matInput [type]="hide ? 'password' : 'text'" autocomplete="current-password" formControlName="password">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -23,14 +23,14 @@
             </mat-form-field>
             <div class="alert alert-danger">
                 <div *ngIf="!!requestError">
-                    {{requestError}}
+                    {{requestError | translate}}
                 </div>
             </div>
             <button mat-raised-button class="submit-button" type="submit" [disabled]="loginFormControl.invalid">
-                {{register ? 'Sign Up' : 'Login'}}
+                {{register ? ('LOGIN.SIGN_UP' | translate) : ('LOGIN.LOGIN' | translate)}}
             </button>
             <button mat-raised-button class="submit-button" (click)="toggleRegister()">
-                {{register ? 'Already an existing user? Please Login.' : 'Not an existing user? Please Register.'}} 
+                {{register ? ('LOGIN.ALREADY_EXIST' | translate) : ('LOGIN.NOT_EXIST' | translate)}} 
             </button>
         </form>
     </mat-card>

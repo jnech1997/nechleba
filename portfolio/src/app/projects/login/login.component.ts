@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ServerService } from 'src/app/services/server.service';
 
@@ -22,13 +23,14 @@ export class LoginComponent {
   hide = true;
   register = true;
   requestError: string;
-  invalidCredentials = "Invalid Credentials";
+  invalidCredentials = "LOGIN.INVALID_CREDENTIALS";
 
   constructor(
     private route: ActivatedRoute, 
     private router: Router,
     private authService: AuthService,
-    private server: ServerService
+    private server: ServerService,
+    private translate: TranslateService
     ) {}
 
   ngOnInit() {

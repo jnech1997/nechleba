@@ -22,6 +22,7 @@ import { MandelbrotComponent } from './mandelbrot/mandelbrot.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDividerModule } from '@angular/material/divider';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MatDividerModule } from '@angular/material/divider';
     BreadcrumbModule,
     MatSidenavModule,
     DragDropModule,
-    MatDividerModule
+    MatDividerModule,
+    TranslateModule
   ],
   exports: [
     ProjectsComponent

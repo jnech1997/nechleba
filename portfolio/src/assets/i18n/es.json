@@ -22,5 +22,29 @@
     "CANCEL": "Cancelar",
     "UPDATE": "Actualizar",
     "LANGUAGE": "Español"
+  },
+  "LOGIN": {
+    "LOGIN": "Acceso",
+    "LOGOUT": "Logout",
+    "ENTER_EMAIL": "Introduce tu correo electrónico",
+    "PASSWORD": "Contraseña",
+    "ENTER_PASSWORD": "Introduzca una contraseña",
+    "ENTER_FIRST_NAME": "Ingrese su nombre",
+    "ENTER_LAST_NAME": "Introduce tu apellido",
+    "SIGN_UP": "Inscribirse",
+    "NOT_EXIST": "¿Aún no eres usuario? Regístrate.",
+    "ALREADY_EXIST": "¿Ya eres usuario? Inicia sesión.",
+    "INVALID_CREDENTIALS": "Credenciales inválidas"
+  },
+  "PROFILE": {
+    "PROFILE": "Perfil de usuario",
+    "FIRST_NAME": "Nombre de pila",
+    "LAST_NAME": "Apellido",
+    "EMAIL": "Correo electrónico",
+    "HEADER_PROFILE": "Perfil"
+  },
+  "MANDELBROT": {
+    "WHATIS": "¿Qué es el conjunto de Mandelbrot?",
+    "TLDR": "El conjunto de Mandelbrot es uno de los ejemplos más famosos de fractal, que revela una complejidad infinita dentro de una definición matemática simple. Su límite es infinitamente detallado y sigue siendo tema de exploración matemática y representación artística. Les recomiendo explorarlo. Además de hacerlo manualmente, pueden seleccionar un punto central en el plano complejo definido por su componente real a y su componente imaginario b, y luego hacer clic en \"Zoom en (a + bi)\" para ampliar un punto específico. Recomiendo repetir este proceso varias veces con a = -1,1088165247018740, b = -0,23718282208588953, con el valor max_iterations establecido en 2000. Tengan en cuenta que, a medida que amplían el zoom, deben aumentar el valor de max_iterations en el panel de la interfaz de usuario y hacer clic en \"Recalcular\" para ver los fractales con mayor detalle. Esto es necesario porque, a medida que los límites de los planos real e imaginario se acercan (se amplían), se requiere un mayor número de iteraciones para determinar si la función de Mandelbrot está acotada en alguna coordenada compleja c. Si desea ampliar más en cada paso, aumente el factor de zoom. Siempre puede volver a su posición anterior haciendo clic en \"Deshacer zoom\" o volver a los límites originales del conjunto de Mandelbrot haciendo clic en \"Restablecer\". Si le gusta el Mandelbrot en un fotograma específico, puede descargar una captura de pantalla haciendo clic en \"Captura de pantalla\". Si desea guardar las coordenadas y la configuración para facilitar su introducción en la interfaz de usuario más adelante, puede hacer clic en \"Guardar coordenadas\"."  
   }
 }

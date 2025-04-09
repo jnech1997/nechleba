@@ -22,5 +22,29 @@
     "CANCEL": "Annuler",
     "UPDATE": "Mettre à jour",
     "LANGUAGE": "Français"
+  },
+  "LOGIN": {
+    "LOGIN": "Se connecter",
+    "LOGOUT": "Déconnexion",
+    "ENTER_EMAIL": "Entrez votre email",
+    "PASSWORD": "Mot de passe",
+    "ENTER_PASSWORD": "Entrez un mot de passe",
+    "ENTER_FIRST_NAME": "Entrez votre prénom",
+    "ENTER_LAST_NAME": "Entrez votre nom de famille",
+    "SIGN_UP": "S'inscrire",
+    "NOT_EXIST": "Vous n'êtes pas encore utilisateur ? Inscrivez-vous.",
+    "ALREADY_EXIST": "Déjà utilisateur? Veuillez vous connecter.",
+    "INVALID_CREDENTIALS": "Informations d'identification non valides"
+  },
+  "PROFILE": {
+    "PROFILE": "Profil utilisateur",
+    "FIRST_NAME": "Prénom",
+    "LAST_NAME": "Nom de famille",
+    "EMAIL": "Email",
+    "HEADER_PROFILE": "Profil"
+  },
+  "MANDELBROT": {
+    "WHATIS": "Qu'est-ce que l'ensemble de Mandelbrot ?",
+    "TLDR": "L'ensemble de Mandelbrot est l'un des exemples les plus célèbres de fractale, révélant une complexité infinie au sein d'une définition mathématique simple. Sa frontière, extrêmement détaillée, demeure un sujet d'exploration mathématique et de représentation artistique. Je vous encourage à explorer les fractales. Outre un clic manuel, vous pouvez sélectionner un point central dans le plan complexe défini par sa composante réelle a et sa composante imaginaire b, puis cliquer sur « Zoom sur (a + bi) » pour zoomer de plus en plus en un point précis. Je recommande de répéter cette opération plusieurs fois : a = -1,1088165247018740, b = -0,23718282208588953, avec max_iterations défini sur 2000. Notez qu'à mesure que vous zoomez, vous devez augmenter la valeur max_iterations dans le panneau de l'interface utilisateur et cliquer sur « Recalculer » pour visualiser les fractales plus en détail. Ceci est nécessaire car, à mesure que les limites des plans réel et imaginaire se rapprochent (zoom plus important), un nombre d'itérations plus important est nécessaire pour déterminer si la fonction de Mandelbrot est bornée à une coordonnée complexe c. Pour zoomer davantage à chaque étape, augmentez le facteur de zoom. Vous pouvez toujours revenir à votre position précédente en cliquant sur « Annuler le zoom » ou revenir aux limites initiales de l'ensemble de Mandelbrot en cliquant sur « Réinitialiser ». Si vous appréciez le Mandelbrot à une image spécifique, vous pouvez télécharger une capture d'écran en cliquant sur « Capture d'écran ». Pour enregistrer les coordonnées et les paramètres afin de les saisir facilement dans l'interface utilisateur ultérieurement, cliquez sur « Enregistrer les coordonnées »."  
   }
 }

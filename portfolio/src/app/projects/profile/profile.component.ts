@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ServerService } from 'src/app/services/server.service';
 
 @Component({
@@ -13,7 +14,10 @@ export class ProfileComponent implements OnInit {
   lastName: string;
   email: string;
 
-  constructor(private server: ServerService) {}
+  constructor(
+    private server: ServerService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit() {
     this.server.request('GET', '/profile').subscribe((user: any) => {

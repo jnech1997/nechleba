@@ -1,20 +1,20 @@
 <mat-card class="profile-container">
     <mat-card-header>
         <mat-card-title-group>
-            <mat-card-title><h2>User Profile</h2></mat-card-title>
+            <mat-card-title><h2>{{'PROFILE.PROFILE' | translate}}</h2></mat-card-title>
             <img mat-card-md-image class="user-picture" src="../../../assets/images//userDefault.jpeg">
         </mat-card-title-group>
     </mat-card-header>
     <mat-card-content>
         <mat-list class="profile" role="list">
             <mat-list-item role="listitem">
-                <span class="profile-list-item">First Name: </span><span>{{firstName}}</span>
+                <span class="profile-list-item">{{'PROFILE.FIRST_NAME' | translate}}: </span><span>{{firstName}}</span>
             </mat-list-item>
             <mat-list-item role="listitem">
-                <span class="profile-list-item">Last Name: </span><span>{{lastName}}</span>
+                <span class="profile-list-item">{{'PROFILE.LAST_NAME' | translate}}:  </span><span>{{lastName}}</span>
             </mat-list-item>
             <mat-list-item role="listitem">
-                <span class="profile-list-item">Email: </span><span>{{email}}</span>
+                <span class="profile-list-item">{{'PROFILE.EMAIL' | translate}}: : </span><span>{{email}}</span>
             </mat-list-item>
         </mat-list>
     </mat-card-content>
