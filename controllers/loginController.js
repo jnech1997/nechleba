@@ -11,10 +11,6 @@ exports.signup = async function (req, res) {
         const { firstName, lastName, username, password } = req.body;
 
         // Validate user input
-        // console.log(firstName);
-        // console.log(lastName);
-        // console.log(username);
-        // console.log(password);
         if (!(username && password && firstName && lastName)) {
             res.status(400).send('All input is required');
         }
@@ -60,10 +56,12 @@ exports.signup = async function (req, res) {
             password: encryptedUserPassword
         });
         // sanitize user object returned to frontend
-        delete user.password;
-        delete user.__v;
-        delete user._id;
-        return res.status(201).json(user);
+        const userInformation = { 
+            "firstName": user.first_name,
+            "lastName": user.last_name,
+            "username": user.username
+        }
+        return res.status(201).json(userInformation);
     } catch (err) {
         console.log(err);
     }
@@ -89,14 +87,14 @@ exports.login = async function (req, res) {
                 process.env.TOKEN_KEY,
                 { expiresIn: "30m" }
             );
-            // save user token
-            user.token = token;
-            // sanitize user object returned to frontend
-            delete user.password;
-            delete user.__v;
-            delete user._id;
+            const userInformation = { 
+                "token": token,
+                "firstName": user.first_name,
+                "lastName": user.last_name,
+                "username": user.username
+            }
             // Send back user and token
-            return res.status(200).json(user);
+            return res.status(200).json(userInformation);
         }
         return res.status(400).send("Invalid Credentials");
     } catch (err) {
