@@ -59,8 +59,10 @@ exports.signup = async function (req, res) {
             username: username, // sanitize
             password: encryptedUserPassword
         });
-        // remove password from user object
+        // sanitize user object returned to frontend
         user.password = undefined;
+        user.__v = undefined;
+        user._id = undefined;
         return res.status(201).json(user);
     } catch (err) {
         console.log(err);
@@ -89,8 +91,10 @@ exports.login = async function (req, res) {
             );
             // save user token
             user.token = token;
-            // remove password from user object
+            // sanitize user object returned to frontend
             user.password = undefined; 
+            user.__v = undefined;
+            user._id = undefined;
             // Send back user and token
             return res.status(200).json(user);
         }
