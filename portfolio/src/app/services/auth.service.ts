@@ -28,12 +28,12 @@ export class AuthService {
 
   /** Login the @user */
   login(user) {
-    if (user.email !== '' && user.password !== '') {
+    if (user.username !== '' && user.password !== '') {
       // make the login request wrapped in an observable so outside
       // components that call the service can know whether the login was successfull
       return new Observable(subscriber => {
         this.server.request('POST', '/login', {
-          email: user.email,
+          username: user.username,
           password: user.password
         }).subscribe((response: any) => {
           if (response.token !== undefined) {

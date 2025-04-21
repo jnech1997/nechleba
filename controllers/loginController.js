@@ -19,7 +19,7 @@ exports.signup = async function (req, res) {
             res.status(400).send('All input is required');
         }
         if (!(/^[a-zA-Z0-9]+$/.test(username))) {
-            return res.status(400).send('Username can only contain letters and numbers. No special characters allowed.');
+            return res.status(400).send('Username can only contain letters and numbers.');
         }
         if (username.length < 3 || username.length > 20) {
             return res.status(400).send('Username must be between 3 and 20 characters long.');  
@@ -27,9 +27,10 @@ exports.signup = async function (req, res) {
         if (password.length < 8 || password.length > 20) {
             return res.status(400).send('Password must be between 8 and 20 characters long.');  
         }
-        if (password.search(/[a-z]/) < 0 || password.search(/[A-Z]/) < 0 || password.search(/[0-9]/) < 0) {
-            return res.status(400).send('Password must contain at least one uppercase letter, one lowercase letter, and one number.'); 
-        }
+        // Can validate password further here
+        // if (password.search(/[a-z]/) < 0 || password.search(/[A-Z]/) < 0 || password.search(/[0-9]/) < 0) {
+        //     return res.status(400).send('Password must contain at least one uppercase letter and number.'); 
+        // }
 
         // Validate if user exists in our database
         const oldUser = await User.findOne({ username });
