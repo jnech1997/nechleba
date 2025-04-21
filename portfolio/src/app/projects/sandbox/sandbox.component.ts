@@ -15,7 +15,7 @@ export class SandboxComponent implements AfterViewInit {
       "description": "CSS Grid"
     },
     {
-      "routerLink": "./login",
+      "routerLink": "./signup",
       "pathImg": "../assets/images/nodeJS.png",
       "description": "Node Login"
     },

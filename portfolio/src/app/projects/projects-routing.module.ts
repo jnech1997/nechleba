@@ -14,8 +14,8 @@ const routes: Routes = [
     {path: 'sandbox', component: SandboxComponent, data: {breadcrumb: 'Sandbox'}, children: [
       { path: 'cssgrid', component: CssGridComponent, data: {breadcrumb: 'CSS Grid'}},
       { path: 'pokemon', component: PokemonComponent, data: {breadcrumb: 'Pokemon'}},
-      { path: 'register', component: LoginComponent, data: {register: true, breadcrumb: 'Register'}},
-      { path: 'login', component: LoginComponent, data: {register: false, breadcrumb: 'Login'}},
+      { path: 'signup', component: LoginComponent, data: {signup: true, breadcrumb: 'Sign Up'}},
+      { path: 'login', component: LoginComponent, data: {signup: false, breadcrumb: 'Login'}},
       { path: 'profile', component: ProfileComponent, data: {breadcrumb: 'Profile'}}
     ]}
   ]}

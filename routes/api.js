@@ -5,7 +5,7 @@ var pokemon_controller = require('../controllers/pokemonController');
 var login_controller = require('../controllers/loginController');
 
 // POST request to register a new user
-router.post('/register', login_controller.register);
+router.post('/signup', login_controller.signup);
 // POST request to login a user
 router.post('/login', login_controller.login);
 // GET request to return profile information for user

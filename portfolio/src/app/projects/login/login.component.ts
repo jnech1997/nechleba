@@ -14,14 +14,14 @@ import { ServerService } from 'src/app/services/server.service';
 export class LoginComponent {
 
   loginFormControl = new UntypedFormGroup({
-    email: new UntypedFormControl(''),
+    username: new UntypedFormControl(''),
     firstName: new UntypedFormControl(''),
     lastName: new UntypedFormControl(''),
     password: new UntypedFormControl('')
   });
 
   hide = true;
-  register = true;
+  signup = true;
   requestError: string;
   invalidCredentials = "LOGIN.INVALID_CREDENTIALS";
 
@@ -40,24 +40,24 @@ export class LoginComponent {
       }
     })
     this.route.data.subscribe((response) => {
-      this.register = response.register;
-      if (this.register) {
-        this.loginFormControl.controls['email'].addValidators([Validators.required]);
+      this.signup = response.signup
+      if (this.signup) {
+        this.loginFormControl.controls['username'].addValidators([Validators.required]);
         this.loginFormControl.controls['password'].addValidators([Validators.required]);
         this.loginFormControl.controls['firstName'].addValidators([Validators.required]);
         this.loginFormControl.controls['lastName'].addValidators([Validators.required]);
       }
       else {
-        this.loginFormControl.controls['email'].addValidators([Validators.required]);
+        this.loginFormControl.controls['username'].addValidators([Validators.required]);
         this.loginFormControl.controls['password'].addValidators([Validators.required]);
       }
     });
   }
 
   async onSubmit() {
-    if (this.register) {
-      const request = this.server.request('POST', '/register', {
-        email: this.loginFormControl.value?.email,
+    if (this.signup) {
+      const request = this.server.request('POST', '/signup', {
+        username: this.loginFormControl.value?.username,
         firstName: this.loginFormControl.value?.firstName,
         lastName: this.loginFormControl.value?.lastName,
         password: this.loginFormControl.value?.password
@@ -79,11 +79,11 @@ export class LoginComponent {
   }
 
   toggleRegister() {
-    if (this.register) {
+    if (this.signup) {
       this.router.navigateByUrl('/sandbox/login');
     }
     else {
-      this.router.navigateByUrl('/sandbox/register');
+      this.router.navigateByUrl('/sandbox/signup');
     }
   }
 }

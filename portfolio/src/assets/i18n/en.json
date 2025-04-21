@@ -26,13 +26,15 @@
   "LOGIN": {
     "LOGIN": "Login",
     "LOGOUT": "Logout",
+    "ENTER_USERNAME": "Enter a username",
+    "USERNAME": "Username",
     "ENTER_EMAIL": "Enter your email",
     "PASSWORD": "Password",
     "ENTER_PASSWORD": "Enter a password",
     "ENTER_FIRST_NAME": "Enter your first name",
     "ENTER_LAST_NAME": "Enter your last name",
     "SIGN_UP": "Sign Up",
-    "NOT_EXIST": "Not an existing user? Please Register.",
+    "NOT_EXIST": "Not an existing user? Please Sign Up.",
     "ALREADY_EXIST": "Already an existing user? Please Login.",
     "INVALID_CREDENTIALS": "Invalid Credentials"
   },

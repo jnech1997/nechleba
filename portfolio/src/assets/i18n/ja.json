@@ -26,6 +26,8 @@
   "LOGIN": {
     "LOGIN": "ログイン",
     "LOGOUT": "ログアウト",
+    "ENTER_USERNAME": "ユーザー名を入力してください",
+    "USERNAME": "ユーザー名",
     "ENTER_EMAIL": "メールアドレスを入力してください",
     "PASSWORD": "パスワード",
     "ENTER_PASSWORD": "パスワードを入力してください",

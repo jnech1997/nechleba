@@ -26,6 +26,8 @@
   "LOGIN": {
     "LOGIN": "Acceso",
     "LOGOUT": "Logout",
+    "ENTER_USERNAME": "Introduzca un nombre de usuario",
+    "USERNAME": "Nombre de usuario",
     "ENTER_EMAIL": "Introduce tu correo electrónico",
     "PASSWORD": "Contraseña",
     "ENTER_PASSWORD": "Introduzca una contraseña",

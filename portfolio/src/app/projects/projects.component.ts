@@ -17,7 +17,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
       "description": "Mandelbrot Set"
     },
     {
-      "routerLink": "./sandbox/login",
+      "routerLink": "./sandbox/signup",
       "pathImg": "../assets/images/nodeJS.png",
       "description": "Node Login"
     },

@@ -26,6 +26,8 @@
   "LOGIN": {
     "LOGIN": "تسجيل الدخول",
     "LOGOUT": "تسجيل الخروج",
+    "ENTER_USERNAME": "أدخل اسم المستخدم",
+    "USERNAME": "اسم المستخدم",
     "ENTER_EMAIL": "أدخل بريدك الإلكتروني",
     "PASSWORD": "كلمة المرور",
     "ENTER_PASSWORD": "أدخل كلمة المرور",

@@ -26,6 +26,8 @@
   "LOGIN": {
     "LOGIN": "登录",
     "LOGOUT": "登出",
+    "ENTER_USERNAME": "输入用户名",
+    "USERNAME": "用户名",
     "ENTER_EMAIL": "输入您的电子邮件",
     "PASSWORD": "密码",
     "ENTER_PASSWORD": "输入密码",

@@ -12,7 +12,7 @@ export class ProfileComponent implements OnInit {
 
   firstName: string;
   lastName: string;
-  email: string;
+  username: string;
 
   constructor(
     private server: ServerService,
@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
       if (user) {
         this.firstName = user.firstName;
         this.lastName = user.lastName;
-        this.email = user.email;
+        this.username = user.username;
       }
     });
   }
