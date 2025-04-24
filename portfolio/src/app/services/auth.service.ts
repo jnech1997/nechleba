@@ -45,7 +45,7 @@ export class AuthService {
             };
             localStorage.setItem('user', JSON.stringify(userData));
             subscriber.next(true);
-            this.router.navigateByUrl('/sandbox/profile');
+            this.router.navigateByUrl('/projects/sandbox/profile');
           }
         }, (error: any) => {
             subscriber.next(false);
@@ -61,6 +61,6 @@ export class AuthService {
     delete this.token;
     this.loggedIn.next(false);
     localStorage.clear();
-    this.router.navigate(['/sandbox/login']);
+    this.router.navigateByUrl('/projects/sandbox/login');
   }
 }
