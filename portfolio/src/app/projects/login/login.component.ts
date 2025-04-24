@@ -36,7 +36,7 @@ export class LoginComponent {
   ngOnInit() {
     this.authService.isLoggedIn.subscribe((loggedIn) => {
       if (loggedIn) {
-        this.router.navigateByUrl('/sandbox/profile');
+        this.router.navigateByUrl('/projects/sandbox/profile');
       }
     })
     this.route.data.subscribe((response) => {
@@ -63,7 +63,7 @@ export class LoginComponent {
         password: this.loginFormControl.value?.password
       });
       request.subscribe(() => {
-        this.router.navigateByUrl('/sandbox/login');
+        this.router.navigateByUrl('/projects/sandbox/login');
       }, (error: any) => {
         this.requestError = error.error;
       });
@@ -80,10 +80,10 @@ export class LoginComponent {
 
   toggleRegister() {
     if (this.signup) {
-      this.router.navigateByUrl('./sandbox/login');
+      this.router.navigateByUrl('/projects/sandbox/login');
     }
     else {
-      this.router.navigateByUrl('./sandbox/signup');
+      this.router.navigateByUrl('/projects/sandbox/signup');
     }
   }
 }
