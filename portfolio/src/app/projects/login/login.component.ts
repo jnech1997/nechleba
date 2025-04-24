@@ -80,10 +80,10 @@ export class LoginComponent {
 
   toggleRegister() {
     if (this.signup) {
-      this.router.navigateByUrl('/sandbox/login');
+      this.router.navigateByUrl('./sandbox/login');
     }
     else {
-      this.router.navigateByUrl('/sandbox/signup');
+      this.router.navigateByUrl('./sandbox/signup');
     }
   }
 }
