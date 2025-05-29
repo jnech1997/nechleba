@@ -3,12 +3,15 @@
     "MISSION": "Imagina. Diseño. Desarrollar."
   },
   "ABOUT": {
-    "INTRO": "Hola mundo, mi nombre es",
+    "INTRO": "./AcercaDe.exe",
     "SCHOOL": "Ciencias de la Computación",
     "WORK": "Desarrolladoro de software en",
     "EMAIL": "Por favor envíe todas sus consultas a",
     "RESUME": "Currículum",
-    "WELCOME": "Bienvenidas"
+    "WELCOME": "Bienvenidas",
+    "FREELANCE": "Desarrollador de software independiente",
+    "SABBATICAL": "Sabático",
+    "SABBATICAL_DESCRIPTION": "Dejé mi trabajo para viajar de mochilero por 19 países alrededor del mundo y cumplir el sueño de viajar de toda mi vida."
   },
   "MENU": {
     "HOME": "Casa",

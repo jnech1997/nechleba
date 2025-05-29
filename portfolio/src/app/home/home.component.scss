@@ -1,11 +1,12 @@
 :host {
-  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .home-background {
   max-height: calc(100vh - 56px);
   overflow-y: hidden;
   overflow-x: hidden;
+  position: relative;
 }
 
 .home-image {
@@ -29,4 +30,133 @@
   top: 15px;
   color: #e4f1fe;
   font-family: 'Sacramento';
+  animation: fadeIn 1.5s ease-in-out;
+  cursor: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fakeScreen {
+  background-color: #151515;
+  margin: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-image: linear-gradient(to bottom right, #151515, #22313f);
+  min-height: 100%;
+}
+
+.separator {
+  height: 1%;
+  background-color: silver;
+}
+
+.shell-script {
+  margin-top: 3vh;
+  text-align: left;
+  font-size: 1.25rem;
+  font-family: monospace;
+  white-space: normal;
+}
+
+.terminal-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.bottomImage {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(140deg, rgb(209, 161, 73) 10%, rgb(164, 46, 46) 90%);
+  background-repeat: round;
+}
+
+.cursor {
+  -webkit-animation: blink 1s infinite;
+  -moz-animation: blink 1s infinite;
+  -o-animation: blink 1s infinite;
+  animation: blink 1s infinite;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

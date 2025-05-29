@@ -3,12 +3,15 @@
     "MISSION": "想像。設計。發展。"
   },
   "ABOUT": {
-    "INTRO": "世界您好，我叫",
+    "INTRO": "./关于.exe",
     "SCHOOL": "計算機科學",
     "WORK": "的軟件開發人員",
     "EMAIL": "請發送所有查詢到",
     "RESUME": "恢复",
-    "WELCOME": "歡迎"
+    "WELCOME": "歡迎",
+    "FREELANCE": "自由软件开发人员",
+    "SABBATICAL": "休假的",
+    "SABBATICAL_DESCRIPTION": "我辞去工作，背包旅行环游世界 19 个国家，实现了毕生的旅行梦想"
   },
   "MENU": {
     "HOME": "家",

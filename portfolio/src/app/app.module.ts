@@ -9,7 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule as MatListModule } from '@angular/material/list';
 import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { ApplicationShellComponent } from './application-shell/application-shell.component';
-import { AboutComponent } from './about/about.component';
 import { MatDialogModule as MatDialogModule } from '@angular/material/dialog';
 import { LanguageDialogComponent } from './language-dialog/language-dialog.component';
 import { MatSelectModule as MatSelectModule } from '@angular/material/select';
@@ -28,7 +27,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     declarations: [
         AppComponent,
         ApplicationShellComponent,
-        AboutComponent,
         LanguageDialogComponent,
         HomeComponent
     ],

@@ -3,12 +3,15 @@
     "MISSION": "Imagine. Design. Develop."
   },
   "ABOUT": {
-    "INTRO": "Hello World, my name's",
+    "INTRO": "./About.exe",
     "SCHOOL": "Computer Science",
     "WORK": "Senior Software Developer at",
     "EMAIL": "Please send all inquiries to",
     "RESUME": "Resume",
-    "WELCOME": "Welcome"
+    "WELCOME": "Welcome",
+    "FREELANCE": "Freelance Software Developer",
+    "SABBATICAL": "Sabbatical",
+    "SABBATICAL_DESCRIPTION": "I left my job to backpack around the world through 19 countries and fulfill a lifelong travelling dream."
   },
   "MENU": {
     "HOME": "Home",

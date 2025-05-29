@@ -3,12 +3,15 @@
     "MISSION": "発展させる。"
   },
   "ABOUT": {
-    "INTRO": "こんにちは世界、私の名前は",
+    "INTRO": "./について.exe",
     "SCHOOL": "コンピュータサイエンス",
     "WORK": "ソフトウェア開発者",
     "EMAIL": "お問い合わせはこちらまで",
     "RESUME": "履歴書",
-    "WELCOME": "ようこそ"
+    "WELCOME": "ようこそ",
+    "FREELANCE": "フリーランスのソフトウェア開発者",
+    "SABBATICAL": "サバティカル",
+    "SABBATICAL_DESCRIPTION": "私は仕事を辞めてバックパックで世界19カ国を旅し、生涯の旅行の夢を実現しました"
   },
   "MENU": {
     "HOME": "ホーム",
