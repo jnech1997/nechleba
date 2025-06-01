@@ -27,6 +27,11 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
       "description": "Star Canvas Animation"
     },
     {
+      "href": "https://trattoriapelliccia.it",
+      "pathImg": "../assets/images/angular.png",
+      "description": "Trattoria Pelliccia"
+    },
+    {
       "href": "https://jnech1997.github.io/projects/d3GraphVisualization/index.html",
       "pathImg": "../assets/images/javascript.png",
       "description": "BFS vs DFS"
@@ -35,11 +40,6 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
       "href": "https://github.com/jnech1997/matrix",
       "pathImg": "../assets/images/java.png",
       "description": "Matrix Calculator"
-    },
-    {
-      "href": "https://www.youtube.com/watch?v=Lyq2RXXD3mE",
-      "pathImg": "../assets/images/python.png",
-      "description": "Duckie Detector"
     },
     {
       "href": "https://jnech1997.github.io/projects/jellyHopWeb/index.html",
