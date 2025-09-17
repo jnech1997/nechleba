@@ -13,7 +13,7 @@
         <!-- Sprite Column -->
         <ng-container matColumnDef="sprite">
             <th mat-header-cell *matHeaderCellDef> Sprite </th>
-            <td mat-cell *matCellDef="let element"><img src="{{element.sprite}}"></td>
+            <td class="sprite" mat-cell *matCellDef="let element" (click)="onNoClick(); data.openDialog(element.pokemon);"><img src="{{element.sprite}}"></td>
         </ng-container>
 
         <!-- Name Column -->

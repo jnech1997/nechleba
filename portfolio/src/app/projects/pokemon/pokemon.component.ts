@@ -208,7 +208,8 @@ export class TeamDialog implements OnInit, AfterViewInit {
         spattack: p.base.Sp[" Attack"],
         spdefense: p.base.Sp[" Defense"],
         height: p.profile.height,
-        weight: p.profile.weight
+        weight: p.profile.weight,
+        pokemon: p
       }
     });
     this.pokemon = new MatTableDataSource(this.pokemon);
@@ -567,6 +568,7 @@ export class PokemonComponent implements OnInit {
       data: {
         team: this.team,
         pokemon: this.pokemon,
+        openDialog: this.openDialog.bind(this),
         removeFromTeam: this.removeFromTeam.bind(this)
       },
     });
