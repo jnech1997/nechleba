@@ -147,8 +147,52 @@ export class TeamDialog implements OnInit, AfterViewInit {
   removeFromTeam;
   @ViewChild(MatSort) sort: MatSort;
   displayedColumns: string[] = ['id', 'sprite', "name", 'type', 'total', 'hp', 'attack', 'defense', 'speed', 'spattack', 'spdefense', 'actions'];
+  type_advantages = {
+    'Bug': ['Grass', 'Dark', 'Psychic'],
+    'Dark': ['Ghost', 'Psychic'],
+    'Dragon': ['Dragon'],
+    'Electric': ['Flying', 'Water'],
+    'Fairy': ['Fighting', 'Dark', 'Dragon'],
+    'Fighting': ['Dark', 'Ice', 'Normal', 'Rock', 'Steel'],
+    'Fire': ['Bug', 'Grass', 'Ice', 'Steel'],
+    'Flying': ['Bug', 'Fighting', 'Grass'],
+    'Ghost': ['Ghost', 'Psychic'],
+    'Grass': ['Ground', 'Rock', 'Water'],
+    'Ground': ['Electric', 'Fire', 'Poison', 'Rock', 'Steel'],
+    'Ice': ['Dragon', 'Flying', 'Grass', 'Ground'],
+    'Normal': [],
+    'Poison': ['Fairy', 'Grass'],
+    'Psychic': ['Fighting', 'Poison'],
+    'Rock': ['Bug', 'Fire', 'Flying', 'Ice'],
+    'Steel': ['Fairy', 'Ice', 'Rock'],
+    'Water': ['Fire', 'Ground', 'Rock']
+  };
+  type_disadvantages = {
+    'Bug': ['Fire', 'Flying', 'Rock'],
+    'Dark': ['Bug', 'Fairy', 'Fighting'],
+    'Dragon': ['Dragon', 'Fairy', 'Ice'],
+    'Electric': ['Ground'],
+    'Fairy': ['Poison', 'Steel'],
+    'Fighting': ['Fairy', 'Fighting', 'Psychic'],
+    'Fire': ['Ground', 'Rock', 'Water'],
+    'Flying': ['Electric', 'Ice', 'Rock'],
+    'Ghost': ['Dark', 'Ghost'],
+    'Grass': ['Bug', 'Fire', 'Flying', 'Ice', 'Poison'],
+    'Ground': ['Grass', 'Ice', 'Water'],
+    'Ice': ['Fighting', 'Fire', 'Rock', 'Steel'],
+    'Normal': ['Fighting'],
+    'Poison': ['Ground', 'Psychic'],
+    'Psychic': ['Bug', 'Dark', 'Ghost'],
+    'Rock': ['Fighting', 'Grass', 'Ground', 'Steel', 'Water'],
+    'Steel': ['Fighting', 'Fire', 'Ground'],
+    'Water': ['Electric', 'Grass']
+  };
+  types = ["Normal","Grass","Fire","Water","Fighting","Flying","Poison","Ground","Rock","Bug","Ghost","Electric","Psychic","Ice","Dragon","Dark","Steel","Fairy"]
+  type_non_ads = []
+  team_weaknesses = []
 
   ngOnInit() {
+    this.type_non_ads = [];
     this.pokemon =  this.data.pokemon.filter(p => this.data.team.includes(p.id));
     this.pokemon = this.pokemon.map(p => {
       return {
@@ -168,12 +212,46 @@ export class TeamDialog implements OnInit, AfterViewInit {
       }
     });
     this.pokemon = new MatTableDataSource(this.pokemon);
+    this.processTeamAdvantages();
+  }
+
+  processTeamAdvantages() {
+    let type_ads = [];
+    let type_disads = [];
+    for (let p of this.pokemon.filteredData) {
+      for (let type of p.type) {
+        type_ads = type_ads.concat(this.type_advantages[type]);
+        type_disads = type_disads.concat(this.type_disadvantages[type])
+      }
+    }
+    for (let type of this.types) {
+      if (!type_ads.includes(type) && !this.type_non_ads.includes(type)) {
+        this.type_non_ads.push(type);
+      }
+    }
+    // compute top five type disadvantages
+    let type_disad_counter = {};
+    for (let type of type_disads) {
+      if (type_disad_counter[type]) {
+        type_disad_counter[type] = type_disad_counter[type] + 1;
+      }
+      else {
+        type_disad_counter[type] = 1;
+      }
+    }
+    const arr = Object.entries(type_disad_counter).map(([type, freq]) => [
+      freq,
+      type,
+    ]);
+    arr.sort((a:any[], b: any[]) => b[0] - a[0]);
+    this.team_weaknesses = arr.slice(0, arr.length >= 5 ? 5 : arr.length).map((pair) => pair[1]);
   }
 
   deleteRow(row: any): void {
     this.data.removeFromTeam(row.id);
     this.pokemon = new MatTableDataSource(this.pokemon.filteredData.filter(item => item !== row));
     this.pokemon.sort = this.sort;
+    this.processTeamAdvantages();
     if (this.pokemon.filteredData.length == 0) {
       this.onNoClick();
     }
