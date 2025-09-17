@@ -17,19 +17,24 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
       "description": "Mandelbrot Set"
     },
     {
+      "routerLink": "./sandbox/pokemon",
+      "pathImg": "../assets/images/angular.png",
+      "description": "Pokedex"
+    },
+    {
       "routerLink": "./sandbox/signup",
       "pathImg": "../assets/images/nodeJS.png",
       "description": "Node Login"
     },
     {
-      "href": "https://jnech1997.github.io/projects/starsCanvas/index.html",
-      "pathImg": "../assets/images/javascript.png",
-      "description": "Star Canvas Animation"
-    },
-    {
       "href": "https://trattoriapelliccia.it",
       "pathImg": "../assets/images/angular.png",
       "description": "Trattoria Pelliccia"
+    },
+    {
+      "href": "https://jnech1997.github.io/projects/starsCanvas/index.html",
+      "pathImg": "../assets/images/javascript.png",
+      "description": "Star Canvas Animation"
     },
     {
       "href": "https://jnech1997.github.io/projects/d3GraphVisualization/index.html",
@@ -40,11 +45,6 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
       "href": "https://github.com/jnech1997/matrix",
       "pathImg": "../assets/images/java.png",
       "description": "Matrix Calculator"
-    },
-    {
-      "href": "https://jnech1997.github.io/projects/jellyHopWeb/index.html",
-      "pathImg": "../assets/images/jelly.png",
-      "description": "Jelly Hop Platformer"
     },
     {
       "href": "https://github.com/jnech1997/Othello",
