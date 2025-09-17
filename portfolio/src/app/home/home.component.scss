@@ -29,9 +29,8 @@
   width: 100%;
   top: 15px;
   color: #e4f1fe;
-  font-family: 'Sacramento';
+  font-family: "Sacramento";
   animation: fadeIn 1.5s ease-in-out;
-  cursor: none;
 }
 
 /* Animations */
@@ -78,7 +77,11 @@
 .bottomImage {
   height: 100%;
   width: 100%;
-  background-image: linear-gradient(140deg, rgb(209, 161, 73) 10%, rgb(164, 46, 46) 90%);
+  background-image: linear-gradient(
+    140deg,
+    rgb(209, 161, 73) 10%,
+    rgb(164, 46, 46) 90%
+  );
   background-repeat: round;
 }
 

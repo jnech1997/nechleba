@@ -23,6 +23,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSidenavModule,
     DragDropModule,
     MatDividerModule,
-    TranslateModule
+    TranslateModule,
+    MatChipsModule,
+    MatDialogModule,
+    MatTableModule
   ],
   exports: [
     ProjectsComponent

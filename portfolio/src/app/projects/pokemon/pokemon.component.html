@@ -1,11 +1,55 @@
 <div *ngIf="loading" class="spinner-container">
   <mat-spinner color="accent"></mat-spinner>
 </div>
-<div *ngIf="!loading" class="pokemon-container">
-    <div *ngFor="let p of pokemon" class='square'>
-        <div class='table-cell'>
-            <img class="pokemon-image" src="{{p.img.replace('http://','https://')}}">
-            <em><h3 class='description'>{{p.name}}</h3></em>
+<div *ngIf="!loading" style="height: fit-content; width: 100%;">
+    <div style="position: sticky; top: 0; z-index: 100; padding-top: 2%; display: flex; background-color: #303030; flex-direction: column; flex-basis: 100%;">
+        <!-- Search Inputs -->
+        <div style="display: flex; justify-content: flex-start; flex-wrap: wrap">
+            <mat-form-field style="margin-left: 3%;">
+                <mat-label>Search by name...</mat-label>
+                <input matInput type="text" placeholder="e.g. Rayquaza" #searchTerm (keydown.enter)="filterPokemon(searchTerm.value)">
+            </mat-form-field>
+            <button (click)="filterPokemon(searchTerm.value)" mat-raised-button style="height: 56px; margin-left: 10px; margin-right: 3%">Search</button>
+            <audio *ngIf="!mobileQuery.matches" controls loop>
+                <source src="assets/pokemon.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="team-advanced">
+                <div style="position: relative;">
+                    <div style="background-color: red; color: white; border-radius: 50%; position: absolute; left: -10px; bottom: -10px; display: flex; flex-direction: column; width: 30px; height: 30px; z-index: 1; justify-content: center;">{{team.length}}</div>
+                    <button (click)="openTeamDialog()" mat-raised-button style="height: 56px; margin-right: 20px;">Team</button>
+                </div>
+                <button (click)="openSortDialog()" mat-raised-button style="height: 56px;">Advanced</button>
+            </div>
+        </div>
+        <hr style="width: 100%; margin-bottom: 0">
+    </div>
+    <div *ngIf="!loading" class="pokemon-container">
+        <div *ngFor="let p of filteredPokemon" class='square'>
+            <mat-card class="pokemon-card" (click)="openDialog(p)" appearance="outlined">
+                <mat-card-header>
+                    <div mat-card-avatar 
+                        [ngStyle]="{'background-image': 'url('+ p.image['thumbnail'] + ')', 'background-size':'cover'}"></div>
+                    <mat-card-title style="text-align: left">#{{computeTripleDigitNumber(p.id)}}: {{p.name["english"]}}</mat-card-title>
+                    <mat-card-subtitle style="text-align: left">{{p.species}}</mat-card-subtitle>
+                    <button (click)="addToTeam($event, p.id)" style="margin-left: auto; height: 43.5px;" mat-raised-button>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#c7aa46"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+                    </button>
+                </mat-card-header>
+                <hr style="width:99%; margin-bottom: 0">
+                <img class="pokemon-image" [ngStyle]="{'background': linearGradient(p.type)}" mat-card-image src="{{p.image['hires']}}" alt="Photo of a {{p.name['english']}}">
+                <hr style="width:99%; margin-top: 0">
+                <mat-card-content style="display: flex; padding-left: 8px;">
+                    <span *ngFor="let type of p.type" 
+                        [ngStyle]="{'background-color': typeToColor(type),'float':'left','padding':
+                        '10px', 'color': 'white','border': '2px solid white','border-radius': '5px','margin-right': '5px'}">
+                        {{type}}
+                    </span>
+                    <button style="margin-left: auto; height: 43.5px;" (click)="openDialog(p)" mat-raised-button>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ac1006"><path d="M240-80q-50 0-85-35t-35-85v-560q0-50 35-85t85-35h440v640H240q-17 0-28.5 11.5T200-200q0 17 11.5 28.5T240-160h520v-640h80v720H240Zm120-240h240v-480H360v480Zm-80 0v-480h-40q-17 0-28.5 11.5T200-760v447q10-3 19.5-5t20.5-2h40Zm-80-480v487-487Z"/></svg>
+                    </button>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
 </div>

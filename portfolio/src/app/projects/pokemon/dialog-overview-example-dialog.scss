@@ -1,0 +1,187 @@
+.sprite:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.pokedex-container {
+  background-color: #e01c36; 
+  max-width: 800px; 
+  height: fit-content; 
+  padding: 0
+}
+
+.pokedex-header {
+  flex-basis: 100%; 
+  background-color: #424242; 
+  color: white; 
+  border: white solid 1px;
+  padding-bottom: 10px;
+}
+
+.pokedex-image {
+  flex-basis: calc(50% - 42px); 
+  display: flex; 
+  padding: 20px; 
+  align-items: center; 
+  justify-content: center; 
+  background-color: #ce1030; 
+  border-top-left-radius: 10px; 
+  border: 1px solid black; 
+  border-right: 1px solid black; 
+}
+
+.pokedex-stats {
+  flex-basis: calc(50% - 41px);  
+  padding: 20px; 
+  display: flex; 
+  background-color: #ce1030; 
+  border-top-right-radius: 10px; 
+  border: 1px solid black; 
+  border-left: 0;
+}
+
+.total-profile-evolution {
+  display: flex; 
+  flex-direction: row; 
+  justify-content: space-around; 
+  flex-wrap: wrap; 
+  padding: 20px; 
+  padding-top: 0; 
+  border-radius: 5px; 
+  background-color: #161616;
+}
+
+.pokedex-mat-card-content {
+  display: flex; 
+  flex-direction: row; 
+  flex-basis: 100%; 
+  flex-wrap: wrap; 
+  margin: 10px; 
+  border-radius: 10px;
+}
+
+.biology {
+  background-color: antiquewhite; 
+  width: 100%; 
+  height: 80px; 
+  padding: 10px; 
+  border: 1px solid black; 
+  border-top: 0;
+}
+
+.base-stats {
+  flex-basis: calc(50% - 20px); 
+  padding: 10px; 
+  color: #00FF41; 
+  justify-content: center; 
+  font-size: small;
+}
+
+.profile {
+  flex-basis: calc(50% - 20px); 
+  padding: 10px; 
+  color: #00FF41; 
+  justify-content: center; 
+  font-size: small; 
+  background-color: #161616;
+}
+
+.evo-chain {
+  width: 100%; 
+  display: flex; 
+  flex-direction: row; 
+  align-items: center; 
+  justify-content: center;
+  overflow-x: auto; 
+  overflow-y: auto
+}
+
+.pokedex-team-close {
+  margin-left: auto;
+}
+
+.pokedex-team {
+  margin-right: 20px
+}
+
+.pokedex-mat-dialog-actions {
+  background-color: #424242; 
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+
+  :host {
+    width: 100%;
+  }
+
+  .pokedex-team {
+    margin-right: 0;
+  }
+
+  .pokedex-team-close {
+    margin-left: auto;
+  }
+
+  .evo-chain {
+    margin: 5px;
+  }
+
+  .biology {
+    height: 100px;
+    overflow-y: auto;
+  }
+
+  .pokedex-mat-card-content {
+    flex-basis: 50%;
+  }
+
+  .pokedex-container {
+    flex-basis: 100%;
+  }
+
+  .pokedex-image {
+    flex-basis: 100%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border: 1px solid black;
+    border-bottom: 0;
+  }
+
+  .pokedex-stats {
+    flex-direction: column; 
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-top: 1px solid black;
+    border-radius: 0;
+    width: 100%;
+    flex-basis: 100%;
+  }
+
+  .total-profile-evolution {
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .base-stats {
+    flex-basis: 100%;
+  }
+
+  .profile {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .pokedex-team-close {
+    margin-left: 3px;
+    padding-top: 5px;
+  }
+
+  .pokedex-mat-dialog-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

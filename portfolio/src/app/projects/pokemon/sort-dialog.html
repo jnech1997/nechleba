@@ -1,0 +1,44 @@
+<mat-dialog-content style="background-color: white;">
+    <div>
+        <h4 style="color: #424242">Input Name:</h4>
+        <mat-form-field style="margin-left: 3%;">
+            <input matInput type="text" placeholder="e.g. Rayquaza" [(ngModel)]="searchTerm">
+        </mat-form-field>
+        <h4 style="color: #424242">Select Region:</h4>
+        <mat-form-field>
+        <mat-label>Region</mat-label>
+        <mat-select [(value)]="selectedRegion">
+            @for (region of regions; track region) {
+            <mat-option [value]="region.value">{{region.viewValue}}</mat-option>
+            }
+        </mat-select>
+        </mat-form-field>
+        <section class="example-section" [formGroup]="types">
+            <h4 style="color: #424242">Select Types:</h4>
+            <p><mat-checkbox formControlName="Normal">Normal</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Water">Water</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Fire">Fire</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Grass">Grass</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Flying">Flying</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Ground">Ground</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Electric">Electric</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Psychic">Psychic</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Dark">Dark</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Dragon">Dragon</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Ice">Ice</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Ghost">Ghost</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Bug">Bug</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Rock">Rock</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Steel">Steel</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Poison">Poison</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Fighting">Fighting</mat-checkbox></p>
+            <p><mat-checkbox formControlName="Fairy">Fairy</mat-checkbox></p>
+        </section>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions style='background-color: #424242;'>
+    <div style="margin-left: auto;">
+        <button mat-raised-button style="margin-right: 20px" [mat-dialog-close]="" (click)="onApply()">Apply</button>
+        <button mat-raised-button [mat-dialog-close]="" cdkFocusInitial>Close</button>
+    </div>
+</mat-dialog-actions>
