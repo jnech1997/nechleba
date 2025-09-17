@@ -268,7 +268,7 @@ export class DialogOverviewExampleDialog {
     }
   }
 
-  cancelSound(data) {
+  cancelSound() {
     let synth = window.speechSynthesis;
     synth.cancel();
   }
