@@ -491,6 +491,9 @@ export class PokemonComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (window.sessionStorage.getItem('pokemon-team')) {
+      this.team = JSON.parse(window.sessionStorage.getItem('pokemon-team'));
+    }
     this.http.get("/api/pokemon").subscribe(
       (pokemon_list) => {
         this.loading = false;
@@ -511,6 +514,7 @@ export class PokemonComponent implements OnInit {
     }
     if (this.team.length < 6 && !this.team.includes(pokemon_id)) {
       this.team.push(pokemon_id);
+      window.sessionStorage.setItem('pokemon-team', JSON.stringify(this.team));
     }
   }
 
@@ -518,6 +522,7 @@ export class PokemonComponent implements OnInit {
     this.team = this.team.filter(p => {
       return p != pokemon_id
     });
+    window.sessionStorage.setItem('pokemon-team', JSON.stringify(this.team));
   }
 
   filterPokemon(searchTerm?: string, region?: string, types?: any) {
