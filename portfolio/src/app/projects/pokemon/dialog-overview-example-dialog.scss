@@ -88,10 +88,11 @@
 
 .evo-chain {
   width: 100%; 
+  max-width: 270px;
   display: flex; 
   flex-direction: row; 
   align-items: center; 
-  justify-content: center;
+  justify-content: flex-start;
   overflow-x: auto; 
   overflow-y: auto
 }
@@ -125,6 +126,8 @@
 
   .evo-chain {
     margin: 5px;
+    max-width: 100%;
+    justify-content: flex-start;
   }
 
   .biology {

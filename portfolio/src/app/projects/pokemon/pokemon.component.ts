@@ -109,9 +109,6 @@ export class SortDialog {
   ];
 
   onApply() {
-    console.log('search term is: ', this.searchTerm);
-    console.log('selectedRegion is: ', this.selectedRegion);
-    console.log('selected types are: ', this.types.value)
     this.data.filterPokemon(this.searchTerm, this.selectedRegion, this.types.value);
   }
   
@@ -149,8 +146,8 @@ export class TeamDialog implements OnInit, AfterViewInit {
   pokemon;
   removeFromTeam;
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns: string[] = ['id', 'sprite', "name", 'total', 'hp', 'attack', 'defense', 'speed', 'spattack', 'spdefense', 'actions'];
-  
+  displayedColumns: string[] = ['id', 'sprite', "name", 'type', 'total', 'hp', 'attack', 'defense', 'speed', 'spattack', 'spdefense', 'actions'];
+
   ngOnInit() {
     this.pokemon =  this.data.pokemon.filter(p => this.data.team.includes(p.id));
     this.pokemon = this.pokemon.map(p => {
@@ -158,6 +155,7 @@ export class TeamDialog implements OnInit, AfterViewInit {
         id: p.id,
         name: p.name['english'],
         sprite: p.image['sprite'],
+        type: p.type,
         total: p.total,
         hp: p.base.HP,
         attack: p.base.Attack,
@@ -178,6 +176,49 @@ export class TeamDialog implements OnInit, AfterViewInit {
     this.pokemon.sort = this.sort;
     if (this.pokemon.filteredData.length == 0) {
       this.onNoClick();
+    }
+  }
+
+  typeToColor(type: string): string {
+    switch (type) {
+      case "Normal":
+        return "#bbb9ac";
+      case "Grass":
+        return "#91c854";
+      case "Fire":
+        return "#f05848";
+      case "Water":
+        return "#6aa7db";
+      case "Fighting":
+        return "#a95848";
+      case "Flying":
+        return "#849dd2";
+      case "Poison":
+        return "#a95ca1";
+      case "Ground":
+        return "#e8c656";
+      case "Rock":
+        return "#cebb71";
+      case "Bug":
+        return "#c2d230";
+      case "Ghost":
+        return "#7673b6";
+      case "Electric":
+        return "#fde03a";
+      case "Psychic":
+        return "#ea64a5";
+      case "Ice":
+        return "#a5ddee";
+      case "Dragon":
+        return "#7772b6";
+      case "Dark":
+        return "#8d6957";
+      case "Steel":
+        return "#c3c2d9";
+      case "Fairy":
+        return "#deb1d2";
+      default:
+        return "" 
     }
   }
 
