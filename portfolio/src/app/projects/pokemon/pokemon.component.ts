@@ -500,7 +500,11 @@ export class PokemonComponent implements OnInit {
         this.pokemon = pokemon_list["list_pokemon"].filter((pokemon) =>
           this.isValidPokemon(pokemon)
         );
-        this.filteredPokemon = this.pokemon;
+        if (window.sessionStorage.getItem('filteredPokemon')) {
+          this.filteredPokemon = JSON.parse(window.sessionStorage.getItem('filteredPokemon'));
+        } else {
+          this.filteredPokemon = this.pokemon;
+        }
       },
       (error: any) => {
         console.debug("request to database failed");
@@ -547,6 +551,7 @@ export class PokemonComponent implements OnInit {
         return true;
       })
     }
+    window.sessionStorage.setItem('filteredPokemon', JSON.stringify(this.filteredPokemon));
   }
 
   openSortDialog() {
