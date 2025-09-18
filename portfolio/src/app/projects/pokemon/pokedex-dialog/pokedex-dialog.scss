@@ -26,7 +26,7 @@
 
 .pokedex-header {
   flex-basis: 100%;
-  align-items: center;
+  align-items: flex-start;
   background-color: #424242; 
   color: white; 
   border: white solid 1px;
@@ -172,6 +172,7 @@
   }
 
   .pokedex-header {
+    align-items: center;
     padding-bottom: 20px;
     flex-basis: 90px;
   }

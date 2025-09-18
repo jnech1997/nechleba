@@ -35,7 +35,7 @@
                         <p style="margin: 0; text-decoration: underline">REGION:</p>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{data.region}}</span>
                         <p style="margin: 0; text-decoration: underline">HABITAT:&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{data.habitat}}</span>
                     </div>
-                    <div class="evo-chain">
+                    <div *ngIf="data.evolution_chain.length > 0" class="evo-chain">
                         <div style="display: flex;" *ngFor="let p_info of data.evolution_chain">
                             <p *ngIf="!!p_info[2]" style="font-size: 8px; width: 50px; padding: 0; line-height: 1em; color: white;">->&nbsp;{{p_info[2]}}</p>
                             <div style="width: 50px;">
