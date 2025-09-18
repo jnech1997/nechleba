@@ -5,6 +5,7 @@
   justify-content: center;
   flex-wrap: wrap;
   overflow-x: hidden;
+  touch-action: manipulation;
 }
 
 .pokemon-top-bar {
