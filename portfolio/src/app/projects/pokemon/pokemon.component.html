@@ -38,7 +38,7 @@
                     </button>
                 </mat-card-header>
                 <hr style="width:99%; margin-bottom: 0">
-                <img class="pokemon-image" [ngStyle]="{'background': linearGradient(p.type)}" mat-card-image src="{{p.image['hires']}}" alt="Photo of a {{p.name['english']}}">
+                <img [ngStyle]="{'background': linearGradient(p.type)}" mat-card-image src="{{p.image['hires']}}" alt="Photo of a {{p.name['english']}}">
                 <hr style="width:99%; margin-top: 0">
                 <mat-card-content style="display: flex; padding-left: 8px;">
                     <span *ngFor="let type of p.type" 
