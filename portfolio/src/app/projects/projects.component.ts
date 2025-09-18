@@ -19,7 +19,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
     {
       "routerLink": "./sandbox/pokemon",
       "pathImg": "../assets/images/angular.png",
-      "description": "Pokedex"
+      "description": "Pokemon"
     },
     {
       "routerLink": "./sandbox/signup",
