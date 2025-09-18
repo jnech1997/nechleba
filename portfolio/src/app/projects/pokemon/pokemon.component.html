@@ -5,21 +5,21 @@
     <div class="pokemon-top-bar">
         <!-- Search Inputs -->
         <div class="search-container">
-            <mat-form-field style="margin-left: 3%;">
+            <mat-form-field class="search-by-name">
                 <mat-label>Search by name...</mat-label>
                 <input matInput type="text" placeholder="e.g. Rayquaza" #searchTerm (keydown.enter)="filterPokemon(searchTerm.value)">
             </mat-form-field>
-            <button (click)="filterPokemon(searchTerm.value)" mat-raised-button style="height: 56px; margin-left: 10px; margin-right: 3%">Search</button>
+            <button *ngIf="!mobileQuery.matches" (click)="filterPokemon(searchTerm.value)" mat-raised-button style="height: 56px; margin-left: 10px; margin-right: 3%">Search</button>
             <audio *ngIf="!mobileQuery.matches" controls loop>
                 <source src="assets/pokemon.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
             <div class="team-advanced">
-                <div style="position: relative;">
+                <div class="team">
                     <div class="team-length-indicator">{{team.length}}</div>
                     <button (click)="openTeamDialog()" mat-raised-button style="height: 56px; margin-right: 20px;">Team</button>
                 </div>
-                <button (click)="openSortDialog()" mat-raised-button style="height: 56px;">Advanced</button>
+                <button (click)="openSortDialog()" mat-raised-button style="height: 56px; width: 100%;">Advanced</button>
             </div>
         </div>
         <hr style="width: 100%; margin-bottom: 0">

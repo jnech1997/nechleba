@@ -24,6 +24,14 @@
   flex-wrap: wrap;
 }
 
+.search-by-name {
+  margin-left: 3%;
+}
+
+.team {
+    position: relative;
+  }
+
 .team-length-indicator {
   background-color: red; 
   color: white; 
@@ -117,6 +125,21 @@ span {
     border-radius: 25px;
   }
 
+  .search-container {
+    flex-wrap: nowrap;
+  }
+
+  .search-by-name {
+    margin-left: 1%;
+    width: 50%;
+  }
+
+  .team {
+    position: relative;
+    width: 100%;
+    margin-left: 10px;
+  }
+
   .pokemon-card:hover {
     transform: scale(1);
     cursor: pointer;
@@ -129,6 +152,7 @@ span {
     margin-bottom: 3%;
     margin-right: 3%; 
     height: 56px;
+    width: 50%;
   }
 }
 
