@@ -37,9 +37,9 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
       "description": "Star Canvas Animation"
     },
     {
-      "href": "https://jnech1997.github.io/projects/d3GraphVisualization/index.html",
-      "pathImg": "../assets/images/javascript.png",
-      "description": "BFS vs DFS"
+      "href": "https://jnech1997.github.io/projects/jellyHopWeb/index.html",
+      "pathImg": "../assets/images/jelly.png",
+      "description": "Jelly Hop Platformer"
     },
     {
       "href": "https://github.com/jnech1997/matrix",
