@@ -1,5 +1,5 @@
-<mat-dialog-content class="pokedex-container">
-    <mat-card style="display: flex; flex-direction: column" class="pokemon-card" appearance="outlined">
+<mat-dialog-content class="dialog-container">
+    <mat-card style="display: flex; flex-direction: column" appearance="outlined">
         <mat-card-header class="pokedex-header">
             <div mat-card-avatar 
                 [ngStyle]="{'background-image': 'url('+ data.image['thumbnail'] + ')', 'background-size':'cover'}"></div>
@@ -9,10 +9,10 @@
                  <svg style="padding-top: 5px;" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="M640-440v-80h160v80H640Zm48 280-128-96 48-64 128 96-48 64Zm-80-480-48-64 128-96 48 64-128 96ZM120-360v-240h160l200-200v640L280-360H120Zm280-246-86 86H200v80h114l86 86v-252ZM300-480Z"/></svg>
             </button>
         </mat-card-header>
-        <mat-card-content class="pokedex-mat-card-content">
+        <mat-card-content class="pokedex-container">
             <div class="pokedex-image">
-                <div class="pokedex-image-wrapper">
-                    <img class="pokemon-image" style="height: 100%; width: 100%; background-color: white; border: 1px solid black; border-radius: 5px;" src="{{data.image['hires']}}" alt="Photo of a {{data.name['english']}}">
+                <div class="pokemon-image-wrapper">
+                    <img class="pokemon-image" src="{{data.image['hires']}}" alt="Photo of a {{data.name['english']}}">
                 </div>
             </div>
             <div class="pokedex-stats">
@@ -39,21 +39,20 @@
                         <div style="display: flex;" *ngFor="let p_info of data.evolution_chain">
                             <p *ngIf="!!p_info[2]" style="font-size: 8px; width: 50px; padding: 0; line-height: 1em; color: white;">->&nbsp;{{p_info[2]}}</p>
                             <div style="width: 50px;">
-                                <img (click)="switchPokemonModal(p_info[0])" class="pokemon-image" class="sprite" style="height: 40px; width: 40px; margin: 5px; background-color: white; border: 1px solid black; border-radius: 5px;" src="{{p_info[1]}}">
+                                <img (click)="switchPokemonModal(p_info[0])" class="sprite" src="{{p_info[1]}}">
                             </div>
                         </div>
                     </div>
                     <div style="padding: 5px;">
-                        <span *ngFor="let type of data.type" 
-                            [ngStyle]="{'background-color': typeToColor(type),'float':'left','padding':
-                            '10px', 'color': 'white','border': '2px solid white','border-radius': '5px','margin-right': '5px'}">
+                        <span class="pokemon-type" *ngFor="let type of data.type" 
+                            [ngStyle]="{'background-color': typeToColor(type)}">
                             {{type}}
                         </span>
                     </div>
                 </div>
             </div>
             <div class="biology">
-                <p style="width: 100%; margin-bottom: 0; margin-top: 0; overflow-y: auto"><strong>{{data.description}}</strong></p>
+                <p style="width: 100%; margin-bottom: 0; margin-top: 0;"><strong>{{data.description}}</strong></p>
             </div>
         </mat-card-content>
     </mat-card>

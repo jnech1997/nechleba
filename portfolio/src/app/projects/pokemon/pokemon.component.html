@@ -2,9 +2,9 @@
   <mat-spinner color="accent"></mat-spinner>
 </div>
 <div *ngIf="!loading" style="height: fit-content; width: 100%;">
-    <div style="position: sticky; top: 0; z-index: 100; padding-top: 2%; display: flex; background-color: #303030; flex-direction: column; flex-basis: 100%;">
+    <div class="pokemon-top-bar">
         <!-- Search Inputs -->
-        <div style="display: flex; justify-content: flex-start; flex-wrap: wrap">
+        <div class="search-container">
             <mat-form-field style="margin-left: 3%;">
                 <mat-label>Search by name...</mat-label>
                 <input matInput type="text" placeholder="e.g. Rayquaza" #searchTerm (keydown.enter)="filterPokemon(searchTerm.value)">
@@ -16,7 +16,7 @@
             </audio>
             <div class="team-advanced">
                 <div style="position: relative;">
-                    <div style="background-color: red; color: white; border-radius: 50%; position: absolute; left: -10px; bottom: -10px; display: flex; flex-direction: column; width: 30px; height: 30px; z-index: 1; justify-content: center;">{{team.length}}</div>
+                    <div class="team-length-indicator">{{team.length}}</div>
                     <button (click)="openTeamDialog()" mat-raised-button style="height: 56px; margin-right: 20px;">Team</button>
                 </div>
                 <button (click)="openSortDialog()" mat-raised-button style="height: 56px;">Advanced</button>
@@ -24,9 +24,10 @@
         </div>
         <hr style="width: 100%; margin-bottom: 0">
     </div>
+    <!-- Pokemon Cards -->
     <div *ngIf="!loading" class="pokemon-container">
         <div *ngFor="let p of filteredPokemon" class='square'>
-            <mat-card class="pokemon-card" (click)="openDialog(p)" appearance="outlined">
+            <mat-card class="pokemon-card" (click)="openPokedexDialog(p)" appearance="outlined">
                 <mat-card-header>
                     <div mat-card-avatar 
                         [ngStyle]="{'background-image': 'url('+ p.image['thumbnail'] + ')', 'background-size':'cover'}"></div>
@@ -45,7 +46,7 @@
                         '10px', 'color': 'white','border': '2px solid white','border-radius': '5px','margin-right': '5px'}">
                         {{type}}
                     </span>
-                    <button style="margin-left: auto; height: 43.5px;" (click)="openDialog(p)" mat-raised-button>
+                    <button style="margin-left: auto; height: 43.5px;" (click)="openPokedexDialog(p)" mat-raised-button>
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ac1006"><path d="M240-80q-50 0-85-35t-35-85v-560q0-50 35-85t85-35h440v640H240q-17 0-28.5 11.5T200-200q0 17 11.5 28.5T240-160h520v-640h80v720H240Zm120-240h240v-480H360v480Zm-80 0v-480h-40q-17 0-28.5 11.5T200-760v447q10-3 19.5-5t20.5-2h40Zm-80-480v487-487Z"/></svg>
                     </button>
                 </mat-card-content>

@@ -1,9 +1,18 @@
+.sprite {
+  height: 40px; 
+  width: 40px; 
+  margin: 5px; 
+  background-color: white; 
+  border: 1px solid black; 
+  border-radius: 5px;
+}
+
 .sprite:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
 
-.pokedex-container {
+.dialog-container {
   background-color: #e01c36; 
   max-width: 800px; 
   height: fit-content; 
@@ -11,11 +20,21 @@
 }
 
 .pokedex-header {
-  flex-basis: 100%; 
+  flex-basis: 100%;
+  align-items: center;
   background-color: #424242; 
   color: white; 
   border: white solid 1px;
-  padding-bottom: 10px;
+}
+
+
+.pokedex-container {
+  display: flex; 
+  flex-direction: row; 
+  flex-basis: 100%; 
+  flex-wrap: wrap; 
+  margin: 10px; 
+  border-radius: 10px;
 }
 
 .pokedex-image {
@@ -30,7 +49,17 @@
   border-right: 1px solid black; 
 }
 
-.pokedex-image-wrapper {
+.pokemon-image {
+  padding: 5px;
+  height: 100%;
+  width: 100%;
+  background-color: white; 
+  border: 1px solid black;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.pokemon-image-wrapper {
   padding: 20px; 
   box-sizing: border-box;
   aspect-ratio: 1/1;
@@ -64,26 +93,22 @@
   background-color: #161616;
 }
 
-.pokedex-mat-card-content {
-  display: flex; 
-  flex-direction: row; 
-  flex-basis: 100%; 
-  flex-wrap: wrap; 
-  margin: 10px; 
-  border-radius: 10px;
-}
-
-.biology {
-  background-color: antiquewhite; 
-  width: 100%; 
-  height: 80px; 
+.pokemon-type {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  width: 50px;
+  float: left;
   padding: 10px; 
-  border: 1px solid black; 
-  border-top: 0;
+  color: white;
+  border: 2px solid white;
+  border-radius: 5px;
+  margin-right: 5px;
 }
 
 .base-stats {
-  flex-basis: calc(50% - 20px); 
+  flex-basis: calc(52% - 20px); 
   padding: 10px; 
   color: #00FF41; 
   justify-content: center; 
@@ -91,7 +116,7 @@
 }
 
 .profile {
-  flex-basis: calc(50% - 20px); 
+  flex-basis: calc(48% - 20px); 
   padding: 10px; 
   color: #00FF41; 
   justify-content: center; 
@@ -111,6 +136,15 @@
   overflow-y: auto
 }
 
+.biology {
+  background-color: antiquewhite; 
+  width: 100%; 
+  height: 80px; 
+  padding: 10px; 
+  border: 1px solid black; 
+  border-top: 0;
+}
+
 .pokedex-team-close {
   margin-left: auto;
 }
@@ -128,6 +162,11 @@
 
   :host {
     width: 100%;
+  }
+
+  .pokedex-header {
+    padding-bottom: 20px;
+    flex-basis: 90px;
   }
 
   .pokedex-team {

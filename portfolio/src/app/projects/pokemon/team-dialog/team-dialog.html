@@ -1,9 +1,6 @@
-<mat-dialog-content style="background-color: #424242; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-start; height: fit-content; width: fit-content; max-width: 100%; overflow-x: auto; ">
-    <p *ngIf="data.team.length == 0" style="display: flex; flex-direction: column; justify-content: center; padding: 3%; align-items: center; border: 1px solid white; border-radius: 5px; color: white; width: 100%; height: 20%;">Add Pokemon to your team!</p>
+<mat-dialog-content class="team-dialog-container">
+    <p *ngIf="data.team.length == 0" class="add-pokemon-message">Add Pokemon to your team!</p>
     <table *ngIf="data.team.length > 0" mat-table [dataSource]="pokemon" matSort class="mat-elevation-z8">
-        <!--- Note that these columns can be defined in any order.
-                The actual rendered columns are set as a property on the row definition" -->
-
         <!-- ID Column -->
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
@@ -13,7 +10,7 @@
         <!-- Sprite Column -->
         <ng-container matColumnDef="sprite">
             <th mat-header-cell *matHeaderCellDef> Sprite </th>
-            <td class="sprite" mat-cell *matCellDef="let element" (click)="onNoClick(); data.openDialog(element.pokemon);"><img src="{{element.sprite}}"></td>
+            <td class="sprite" mat-cell *matCellDef="let element" (click)="onNoClick(); data.openPokedexDialog(element.pokemon);"><img src="{{element.sprite}}"></td>
         </ng-container>
 
         <!-- Name Column -->
@@ -26,9 +23,8 @@
         <ng-container matColumnDef="type">
             <th mat-header-cell *matHeaderCellDef> Type </th>
             <td mat-cell *matCellDef="let element"> 
-                <span *ngFor="let type of element.type" 
-                    [ngStyle]="{'background-color': typeToColor(type),'float':'left','padding':
-                    '10px', 'color': 'white','border': '2px solid white','border-radius': '5px','margin-right': '5px'}">
+                <span class="pokemon-type" *ngFor="let type of element.type" 
+                    [ngStyle]="{'background-color': typeToColor(type)}">
                     {{type}}
                 </span>
             </td>
@@ -100,22 +96,20 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <div style="margin-left: 0; width: 100%;" *ngIf="type_non_ads.length > 0">
+    <div style="margin-left: 0; width: 100%;" *ngIf="team_non_advantages.length > 0">
         <p style="color: white">Your team does not have a type advantage over the following types:</p>
-        <span style="margin: 5px" *ngFor="let type of type_non_ads" 
-            [ngStyle]="{'background-color': typeToColor(type),'float':'left','padding':
-            '10px', 'color': 'white','border': '2px solid white','border-radius': '5px','margin-right': '5px'}">
+        <span class="pokemon-type" *ngFor="let type of team_non_advantages" 
+            [ngStyle]="{'background-color': typeToColor(type)}">
             {{type}}
         </span>
     </div>
-    <div style="width: 100%;" *ngIf="type_non_ads.length == 0">
+    <div style="width: 100%;" *ngIf="team_non_advantages.length == 0">
         <p style="color: white;">Congratulations! At least one pokemon on your team has an advantage over each type of pokemon!</p>
     </div>
     <div style="margin-left: 0; width: 100%;" *ngIf="team_weaknesses.length > 0">
         <p style="color: white">Beware! Your team is especially weak to the following types:</p>
-        <span style="margin: 5px" *ngFor="let type of team_weaknesses" 
-            [ngStyle]="{'background-color': typeToColor(type),'float':'left','padding':
-            '10px', 'color': 'white','border': '2px solid white','border-radius': '5px','margin-right': '5px'}">
+        <span class="pokemon-type" *ngFor="let type of team_weaknesses" 
+            [ngStyle]="{'background-color': typeToColor(type)}">
             {{type}}
         </span>
     </div>
