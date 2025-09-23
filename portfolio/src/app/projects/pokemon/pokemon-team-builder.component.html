@@ -43,7 +43,7 @@
                         [ngStyle]="{'background-image': 'url('+ p.image['thumbnail'] + ')', 'background-size':'cover'}"></div>
                     <mat-card-title style="text-align: left">#{{computeTripleDigitNumber(p.id)}}: {{p.name["english"]}}</mat-card-title>
                     <mat-card-subtitle style="text-align: left">{{p.species}}</mat-card-subtitle>
-                    <button (click)="addToTeam($event, p.id)" style="margin-left: auto; height: 43.5px;" mat-raised-button>
+                    <button *ngIf="!mobileQuery.matches" (click)="addToTeam($event, p.id)" style="margin-left: auto; height: 43.5px;" mat-raised-button>
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#c7aa46"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
                     </button>
                 </mat-card-header>
