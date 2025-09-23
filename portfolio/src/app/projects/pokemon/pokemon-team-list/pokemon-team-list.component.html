@@ -1,0 +1,15 @@
+<h2>My Teams</h2>
+<button mat-raised-button (click)="createNewTeam()">Create New Team</button>
+<div class="teams-container">
+  <div class="team" *ngFor="let team of teams" (click)="viewTeam($event, team)">
+    <img width="20px; height: 20px;" src="assets/images/pokeball.svg"/>
+    <p>{{ team.name }}</p>
+    <div style="display: flex; justify-content: center">
+      <button style="margin: 5px" mat-raised-button (click)="deleteTeam($event, team)">
+        <mat-icon style="margin-right: 0; margin-left: 2px;">delete</mat-icon>
+      </button>
+      <button style="margin: 5px" mat-raised-button>View</button>
+      <button style="margin: 5px" mat-raised-button [routerLink]="[team._id, 'edit']">Edit</button>
+    </div>
+  </div>
+</div>

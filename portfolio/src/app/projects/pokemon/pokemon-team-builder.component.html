@@ -1,7 +1,7 @@
 <div *ngIf="loading" class="spinner-container">
   <mat-spinner color="accent"></mat-spinner>
 </div>
-<div *ngIf="!loading" style="height: fit-content; width: 100%;">
+<div *ngIf="!loading && outlet.isActivated == false" style="height: fit-content; width: 100%;">
     <div class="pokemon-top-bar">
         <!-- Search Inputs -->
         <div class="search-container">
@@ -16,9 +16,10 @@
             </audio>
             <div class="team-advanced">
                 <div class="team">
-                    <div class="team-length-indicator">{{team.length}}</div>
+                    <div class="team-length-indicator">{{team.pokemon_ids.length}}</div>
                     <button (click)="openTeamDialog()" mat-raised-button style="height: 56px; margin-right: 20px;">Team</button>
                 </div>
+                <button (click)="accessMyTeams()" mat-raised-button style="height: 56px; width: 100%; margin-right: 10px;">My Teams</button>
                 <button (click)="openSortDialog()" mat-raised-button style="height: 56px; width: 100%;">Advanced</button>
             </div>
         </div>
@@ -54,3 +55,5 @@
         </div>
     </div>
 </div>
+
+<router-outlet #outlet="outlet"></router-outlet>

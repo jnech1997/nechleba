@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { ServerService } from 'src/app/services/server.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private server: ServerService,
+    private auth: AuthService,
     private translate: TranslateService
   ) {}
 
@@ -26,6 +28,12 @@ export class ProfileComponent implements OnInit {
         this.lastName = user.lastName;
         this.username = user.username;
       }
+    });
+  }
+
+  deleteUser() {
+    this.server.request('DELETE', '/profile').subscribe((response: any) => {
+      this.auth.logout();
     });
   }
 }

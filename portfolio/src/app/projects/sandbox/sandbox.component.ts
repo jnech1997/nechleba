@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-sandbox',
   templateUrl: './sandbox.component.html',
@@ -9,20 +10,20 @@ import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/co
 export class SandboxComponent implements AfterViewInit {
 
   public projects: any[] = [
-    {
-      "routerLink": "./cssgrid",
-      "pathImg": "../assets/images/angular.png",
-      "description": "CSS Grid"
-    },
+    // {
+    //   "routerLink": "./cssgrid",
+    //   "pathImg": "../assets/images/angular.png",
+    //   "description": "CSS Grid"
+    // },
     {
       "routerLink": "./signup",
       "pathImg": "../assets/images/nodeJS.png",
       "description": "Node Login"
     },
     {
-      "routerLink": "./pokemon",
+      "routerLink": "./pokemonteam/new",
       "pathImg": "../assets/images/angular.png",
-      "description": "Pokemon"
+      "description": "Pokemon Team Builder"
     }
   ];
 

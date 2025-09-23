@@ -24,6 +24,7 @@ export class LoginComponent {
   signup = true;
   requestError: string;
   invalidCredentials = "LOGIN.INVALID_CREDENTIALS";
+  returnUrl = "";
 
   constructor(
     private route: ActivatedRoute, 
@@ -34,11 +35,10 @@ export class LoginComponent {
     ) {}
 
   ngOnInit() {
-    this.authService.isLoggedIn.subscribe((loggedIn) => {
-      if (loggedIn) {
-        this.router.navigateByUrl('/projects/sandbox/profile');
-      }
-    })
+    if (this.authService.isLoggedIn) {
+      this.router.navigate(['/projects/sandbox/profile']);
+    }
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/projects/sandbox/profile';
     this.route.data.subscribe((response) => {
       this.signup = response.signup
       if (this.signup) {
@@ -63,14 +63,15 @@ export class LoginComponent {
         password: this.loginFormControl.value?.password
       });
       request.subscribe(() => {
-        this.router.navigateByUrl('/projects/sandbox/login');
+        this.router.navigate(['/projects/sandbox/login'], { queryParams: { returnUrl: this.returnUrl } });
       }, (error: any) => {
         this.requestError = error.error;
       });
     }
     else {
       // login 
-      this.authService.login(this.loginFormControl.value).subscribe((isLoggedIn) => {
+      let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/projects/sandbox/profile';
+      this.authService.login(this.loginFormControl.value, returnUrl).subscribe((isLoggedIn) => {
         if (!isLoggedIn) {
           this.requestError = this.invalidCredentials;
         }
@@ -80,10 +81,10 @@ export class LoginComponent {
 
   toggleRegister() {
     if (this.signup) {
-      this.router.navigateByUrl('/projects/sandbox/login');
+      this.router.navigate(['/projects/sandbox/login'], { queryParams: { returnUrl: this.returnUrl } });
     }
     else {
-      this.router.navigateByUrl('/projects/sandbox/signup');
+      this.router.navigate(['/projects/sandbox/signup'], { queryParams: { returnUrl: this.returnUrl } });
     }
   }
 }

@@ -3,31 +3,32 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ServerService } from './server.service';
 
+export interface User {
+  username: string;
+  password: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
-  private token: string;
 
   /** Return the current login state */
-  get isLoggedIn() {
-    return this.loggedIn.asObservable();
+  get isLoggedIn(): boolean {
+    return this.loggedIn.value;
   }
-
+  
   constructor(private router: Router, private server: ServerService) { 
     // on reload of page, if user in memory, log in
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      const user = JSON.parse(userData);
-      this.token = user.token;
-      this.server.setLoggedIn(true, this.token);
+    const token = localStorage.getItem('authToken');
+    if (token) {
       this.loggedIn.next(true);
     }
   }
 
   /** Login the @user */
-  login(user) {
+  login(user: User, returnUrl: string) {
     if (user.username !== '' && user.password !== '') {
       // make the login request wrapped in an observable so outside
       // components that call the service can know whether the login was successfull
@@ -37,15 +38,10 @@ export class AuthService {
           password: user.password
         }).subscribe((response: any) => {
           if (response.token !== undefined) {
-            this.token = response.token;
-            this.server.setLoggedIn(true, this.token);
+            localStorage.setItem('authToken', response.token);
             this.loggedIn.next(true);
-            const userData = {
-              token: this.token
-            };
-            localStorage.setItem('user', JSON.stringify(userData));
             subscriber.next(true);
-            this.router.navigateByUrl('/projects/sandbox/profile');
+            this.router.navigateByUrl(returnUrl ? returnUrl : '/projects/sandbox/profile');
           }
         }, (error: any) => {
             subscriber.next(false);
@@ -57,10 +53,9 @@ export class AuthService {
 
   /** Logout the user */
   logout() {
-    this.server.setLoggedIn(false);
-    delete this.token;
     this.loggedIn.next(false);
     localStorage.clear();
+    sessionStorage.clear();
     this.router.navigateByUrl('/projects/sandbox/login');
   }
 }

@@ -5,7 +5,7 @@ const config = process.env;
 // determine if the token passed in is still valid, and if so decode user info
 const verifyToken = (req, res, next) => {
     const authHeader = req.headers.authorization;
-    if (authHeader.startsWith("Bearer ")) {
+    if (!!authHeader && authHeader.startsWith("Bearer ")) {
         token = authHeader.substring(7, authHeader.length);
         if (!token) {
             return res.status(403).send('A token is required for authentication');

@@ -1,7 +1,15 @@
 <mat-dialog-content class="team-dialog-container">
-    <p *ngIf="data.team.length == 0" class="add-pokemon-message">Add Pokemon to your team!</p>
+    <div class="header-edit-container">
+        <mat-form-field *ngIf="!data.viewMode">
+            <input matInput type="text" placeholder="Team Rocket" [(ngModel)]="headerName">
+        </mat-form-field>
+    </div>
+    <div class="header-view-container">
+        <h2 style="color: white; background-color: black; padding: 20px; border-radius: 5px;" *ngIf="data.viewMode">{{data.team.name}}<img style="width: 20px; height: 20px; margin-left: 10px;" src="assets/images/pokeball.svg"/></h2>
+    </div>
+    <p *ngIf="!data.viewMode && data.team.pokemon_ids.length == 0" class="add-pokemon-message">Add Pokemon to your team!</p>
     <div class="table-container">
-        <table *ngIf="data.team.length > 0" mat-table [dataSource]="pokemon" matSort class="mat-elevation-z8">
+        <table *ngIf="data.team.pokemon_ids.length > 0" mat-table [dataSource]="pokemon" matSort class="mat-elevation-z8">
             <!-- ID Column -->
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
@@ -11,7 +19,7 @@
             <!-- Sprite Column -->
             <ng-container matColumnDef="sprite">
                 <th mat-header-cell *matHeaderCellDef> Sprite </th>
-                <td class="sprite" mat-cell *matCellDef="let element" (click)="onNoClick(); data.openPokedexDialog(element.pokemon);"><img src="{{element.sprite}}"></td>
+                <td [ngClass]="viewMode ? '' : 'sprite'" mat-cell *matCellDef="let element" (click)="spriteClick(element)"><img src="{{element.sprite}}"></td>
             </ng-container>
 
             <!-- Name Column -->
@@ -85,7 +93,7 @@
                 <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="actions">
+            <ng-container *ngIf="!data.viewMode" matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef> Actions </th>
                 <td mat-cell *matCellDef="let row">
                     <button mat-icon-button color="warn" (click)="deleteRow(row)">
@@ -99,7 +107,7 @@
         </table>
     </div>
     <div style="margin-left: 0; width: 100%;" *ngIf="team_non_advantages.length > 0">
-        <p style="color: white">Your team does not have a type advantage over the following types:</p>
+        <p style="color: white">Your team is missing a type advantage over the following types:</p>
         <span class="pokemon-type" *ngFor="let type of team_non_advantages" 
             [ngStyle]="{'background-color': typeToColor(type)}">
             {{type}}
@@ -115,4 +123,20 @@
             {{type}}
         </span>
     </div>
+    <div style="margin-left: 0; width: 100%;" *ngIf="team_strengths.length > 0">
+        <p style="color: white">Great! Your team is especially strong against the following types:</p>
+        <span class="pokemon-type" *ngFor="let type of team_strengths" 
+            [ngStyle]="{'background-color': typeToColor(type)}">
+            {{type}}
+        </span>
+    </div>
 </mat-dialog-content>
+<mat-dialog-actions *ngIf="!data.viewMode" style='background-color: #424242;'>
+    <button mat-raised-button style="display: flex; justify-content: center;" [mat-dialog-close]="" (click)="onDelete()">
+        <mat-icon style="margin-right: 0; margin-left: 2px;">delete</mat-icon>
+    </button>
+    <div style="margin-left: auto;">
+        <button mat-raised-button style="margin-right: 20px" [mat-dialog-close]="" (click)="onSave()">Save Team</button>
+        <button mat-raised-button [mat-dialog-close]="" cdkFocusInitial>Close</button>
+    </div>
+</mat-dialog-actions>

@@ -120,3 +120,13 @@ exports.profile = async function(req, res) {
         console.log(err);
     }
 }
+
+
+// Delete User
+exports.delete_user = async (req, res) => {
+  const deleted = await User.findOneAndDelete({ 
+    _id: req.userId
+  });
+  if (!deleted) return res.status(404).json({ error: 'Not found' });
+  res.json({ success: true });
+}

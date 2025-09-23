@@ -15,13 +15,15 @@ import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ProjectsModule } from './projects/projects.module';
 import { AuthService } from './services/auth.service';
 import { ServerService } from './services/server.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthInterceptor } from './interceptors/http.auth-interceptor';
+import { AuthErrorInterceptor } from './interceptors/http.auth-error-interceptor';
 
 @NgModule({
     declarations: [
@@ -56,7 +58,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         TranslateService, 
         AuthService, 
         ServerService,
-        provideHttpClient()
+        provideHttpClient(withInterceptors([AuthInterceptor, AuthErrorInterceptor]))
     ],
     bootstrap: [AppComponent]
 })

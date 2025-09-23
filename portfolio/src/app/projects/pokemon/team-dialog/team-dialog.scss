@@ -11,8 +11,26 @@
     overflow-x: auto;
 }
 
+.header-view-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    background-color: red;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.header-edit-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 0;
+}
+
 .table-container {
-    border-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     display: flex;
     width: 100%;
     flex-direction: column;

@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
-import { PokemonComponent } from './pokemon/pokemon.component';
+import { PokemonTeamBuilderComponent } from './pokemon/pokemon-team-builder.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DataVisualizationsComponent } from './data-visualizations/data-visualizations.component';
 import { DataVisualizationComponent } from './data-visualization/data-visualization.component';
@@ -26,13 +26,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     SandboxComponent,
     CssGridComponent,
     LoginComponent,
-    PokemonComponent,
+    PokemonTeamBuilderComponent,
     ProfileComponent,
     DataVisualizationsComponent,
     DataVisualizationComponent,
@@ -57,7 +58,8 @@ import { MatTableModule } from '@angular/material/table';
     TranslateModule,
     MatChipsModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    MatSnackBarModule
   ],
   exports: [
     ProjectsComponent

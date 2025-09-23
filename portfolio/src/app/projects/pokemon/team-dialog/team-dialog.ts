@@ -1,4 +1,4 @@
-import { NgFor, NgIf, NgStyle } from "@angular/common";
+import { NgClass, NgFor, NgIf, NgStyle } from "@angular/common";
 import { AfterViewInit, Component, inject, OnInit, ViewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -9,6 +9,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
+import { ServerService } from "src/app/services/server.service";
 
 const TYPE_ADVANTAGES = {
   'Bug': ['Grass', 'Dark', 'Psychic'],
@@ -70,11 +71,12 @@ const TYPES = ["Normal","Grass","Fire","Water","Fighting","Flying","Poison","Gro
     NgStyle,
     NgFor,
     NgIf,
+    NgClass,
     MatCardModule,
     MatTableModule,
     MatSortModule,
     MatSort,
-    MatIconModule
+    MatIconModule,
   ],
 })
 export class TeamDialog implements OnInit, AfterViewInit {
@@ -82,13 +84,25 @@ export class TeamDialog implements OnInit, AfterViewInit {
   public data = inject(MAT_DIALOG_DATA);
   @ViewChild(MatSort) sort: MatSort;
   public pokemon;
-  displayedColumns: string[] = ['id', 'sprite', "name", 'type', 'total', 'hp', 'attack', 'defense', 'speed', 'spattack', 'spdefense', 'actions'];
+  displayedColumns: string[] = ['id', 'sprite', "name", 'type', 'total', 'hp', 'attack', 'defense', 'speed', 'spattack', 'spdefense'];
   team_non_advantages = [];
   team_weaknesses = [];
+  team_strengths = [];
+  headerName = "";
+  viewMode = false;
+
+  constructor(private server: ServerService) {
+
+  }
 
   ngOnInit() {
+    this.headerName = this.data.team.name;
     this.team_non_advantages = [];
-    this.pokemon =  this.data.pokemon.filter(p => this.data.team.includes(p.id));
+    if (!this.data.viewMode) {
+      this.displayedColumns.push('actions');
+    }
+    this.viewMode = this.data.viewMode;
+    this.pokemon =  this.data.pokemon.filter(p => this.data.team.pokemon_ids.includes(p.id));
     this.pokemon = new MatTableDataSource(this.pokemon.map(p => {
       return {
         id: p.id,
@@ -108,6 +122,15 @@ export class TeamDialog implements OnInit, AfterViewInit {
       }
     }));
     this.processTeamAdvantages();
+  }
+
+  onDelete() {
+    this.data.deleteTeam();
+  }
+
+  onSave() {
+    this.data.editTeamName(this.headerName);
+    this.data.saveTeam();
   }
 
   processTeamAdvantages() {
@@ -134,12 +157,28 @@ export class TeamDialog implements OnInit, AfterViewInit {
         type_disad_counter[type] = 1;
       }
     }
-    const arr = Object.entries(type_disad_counter).map(([type, freq]) => [
+    const arr_disad = Object.entries(type_disad_counter).map(([type, freq]) => [
       freq,
       type,
     ]);
-    arr.sort((a:any[], b: any[]) => b[0] - a[0]);
-    this.team_weaknesses = arr.slice(0, arr.length >= 5 ? 5 : arr.length).map((pair) => pair[1]);
+    arr_disad.sort((a:any[], b: any[]) => b[0] - a[0]);
+    this.team_weaknesses = arr_disad.slice(0, arr_disad.length >= 5 ? 5 : arr_disad.length).map((pair) => pair[1]);
+    // compute top five type advantages
+    let type_ad_counter = {};
+    for (let type of type_ads) {
+      if (type_ad_counter[type]) {
+        type_ad_counter[type] = type_ad_counter[type] + 1;
+      }
+      else {
+        type_ad_counter[type] = 1;
+      }
+    }
+    const arr_ad = Object.entries(type_ad_counter).map(([type, freq]) => [
+      freq,
+      type,
+    ]);
+    arr_ad.sort((a:any[], b: any[]) => b[0] - a[0]);
+    this.team_strengths = arr_ad.slice(0, arr_ad.length >= 5 ? 5 : arr_ad.length).map((pair) => pair[1]);
   }
 
   deleteRow(row: any): void {
@@ -149,6 +188,13 @@ export class TeamDialog implements OnInit, AfterViewInit {
     this.processTeamAdvantages();
     if (this.pokemon.filteredData.length == 0) {
       this.onNoClick();
+    }
+  }
+
+  spriteClick(element) {
+    if (!this.viewMode) {
+      this.onNoClick(); 
+      this.data.openPokedexDialog(element.pokemon);
     }
   }
 

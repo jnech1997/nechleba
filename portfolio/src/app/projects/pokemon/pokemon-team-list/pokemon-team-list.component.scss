@@ -1,0 +1,24 @@
+.teams-container {
+    margin: 3%;
+    display: flex; 
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.team {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    width: 300px;
+    height: 200px;
+    padding: 20px;
+    margin: 20px; 
+    border-radius: 5px;
+}
+
+.team:hover {
+    cursor: pointer;
+    transform: scale(1.1)
+}
