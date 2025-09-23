@@ -64,7 +64,6 @@ const TYPES = ["Normal","Grass","Fire","Water","Fighting","Flying","Poison","Gro
     MatInputModule,
     FormsModule,
     MatButtonModule,
-    MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,

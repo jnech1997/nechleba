@@ -33,7 +33,6 @@ export interface PokemonData {
     MatInputModule,
     FormsModule,
     MatButtonModule,
-    MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,

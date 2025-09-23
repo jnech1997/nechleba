@@ -30,13 +30,9 @@ interface Region {
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
-    NgStyle,
-    NgFor,
-    NgIf,
     MatCardModule,
     MatTableModule,
     MatSortModule,
-    MatSort,
     MatIconModule,
     MatSelectModule,
     MatCheckboxModule
