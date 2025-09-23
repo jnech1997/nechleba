@@ -129,9 +129,15 @@ export class PokemonTeamBuilderComponent implements OnInit {
     }
     if (this.team.pokemon_ids.length < 6 && !this.team.pokemon_ids.includes(pokemon_id)) {
       this.team.pokemon_ids.push(pokemon_id);
-      let name = this.pokemon.filter(p => p.id == pokemon_id)[0].name['english'];
-      const message = "Added " + name + " to your team!";
-      this.openSnackBar(message, "Okay")
+      if (this.mobileQuery.matches) {
+        const message = "Added to your team!";
+        this.openSnackBar(message, "Okay")
+      }
+      else {
+        let name = this.pokemon.filter(p => p.id == pokemon_id)[0].name['english'];
+        const message = "Added " + name + " to your team!";
+        this.openSnackBar(message, "Okay");
+      }
       window.sessionStorage.setItem('pokemon-team', JSON.stringify(this.team));
     }
   }
