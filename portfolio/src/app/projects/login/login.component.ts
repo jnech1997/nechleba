@@ -38,20 +38,22 @@ export class LoginComponent {
     if (this.authService.isLoggedIn) {
       this.router.navigate(['/projects/sandbox/profile']);
     }
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/projects/sandbox/profile';
-    this.route.data.subscribe((response) => {
-      this.signup = response.signup
-      if (this.signup) {
-        this.loginFormControl.controls['username'].addValidators([Validators.required]);
-        this.loginFormControl.controls['password'].addValidators([Validators.required]);
-        this.loginFormControl.controls['firstName'].addValidators([Validators.required]);
-        this.loginFormControl.controls['lastName'].addValidators([Validators.required]);
-      }
-      else {
-        this.loginFormControl.controls['username'].addValidators([Validators.required]);
-        this.loginFormControl.controls['password'].addValidators([Validators.required]);
-      }
-    });
+    else {
+      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/projects/sandbox/profile';
+      this.route.data.subscribe((response) => {
+        this.signup = response.signup
+        if (this.signup) {
+          this.loginFormControl.controls['username'].addValidators([Validators.required]);
+          this.loginFormControl.controls['password'].addValidators([Validators.required]);
+          this.loginFormControl.controls['firstName'].addValidators([Validators.required]);
+          this.loginFormControl.controls['lastName'].addValidators([Validators.required]);
+        }
+        else {
+          this.loginFormControl.controls['username'].addValidators([Validators.required]);
+          this.loginFormControl.controls['password'].addValidators([Validators.required]);
+        }
+      }); 
+    }
   }
 
   async onSubmit() {
