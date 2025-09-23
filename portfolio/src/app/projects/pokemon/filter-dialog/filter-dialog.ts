@@ -26,7 +26,6 @@ interface Region {
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
