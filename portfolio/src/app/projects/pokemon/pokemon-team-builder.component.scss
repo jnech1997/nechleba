@@ -127,6 +127,8 @@ span {
 
   .search-container {
     flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-right: 3%;
   }
 
   .search-by-name {

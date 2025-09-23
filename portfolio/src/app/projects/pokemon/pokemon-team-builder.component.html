@@ -17,10 +17,19 @@
             <div class="team-advanced">
                 <div class="team">
                     <div class="team-length-indicator">{{team.pokemon_ids.length}}</div>
-                    <button (click)="openTeamDialog()" mat-raised-button style="height: 56px; margin-right: 20px;">Team</button>
+                    <button (click)="openTeamDialog()" mat-raised-button style="height: 56px; margin-right: 20px;">
+                        <ng-container *ngIf="mobileQuery.matches">
+                            <mat-icon>workspaces_outline</mat-icon>
+                        </ng-container>
+                        <ng-container *ngIf="!mobileQuery.matches">
+                            Team
+                        </ng-container>
+                    </button>
                 </div>
                 <button (click)="accessMyTeams()" mat-raised-button style="height: 56px; width: 100%; margin-right: 10px;">My Teams</button>
-                <button (click)="openSortDialog()" mat-raised-button style="height: 56px; width: 100%;">Advanced</button>
+                <button (click)="openSortDialog()" mat-raised-button style="height: 56px; width: 100%;">
+                    <mat-icon style="margin-right: 0; margin-left: 0;">search</mat-icon>
+                </button>
             </div>
         </div>
         <hr style="width: 100%; margin-bottom: 0">
