@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ServerService } from './server.service';
+import { map, tap } from 'rxjs/operators';
 
 export interface User {
   username: string;
@@ -51,11 +52,23 @@ export class AuthService {
     }
   }
 
+  /** Refresh auth token */
+  refreshAccessToken() {
+    return this.server.request('POST', '/refresh', {})
+      .pipe(
+        tap((response : any) => {
+          localStorage.setItem('authToken', response.accessToken);
+        }),
+        map(response => response.accessToken)
+      );
+  }
+
   /** Logout the user */
   logout() {
     this.loggedIn.next(false);
     localStorage.clear();
     sessionStorage.clear();
+    this.server.request('POST', '/logout').subscribe(response => {})
     this.router.navigateByUrl('/projects/sandbox/login');
   }
 }

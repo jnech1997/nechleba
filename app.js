@@ -1,6 +1,7 @@
 require("dotenv").config();
 require("./config/database").connect();
 const express = require("express");
+const cookieParser = require('cookie-parser');
 var apiRouter = require('./routes/api');
 
 
@@ -23,6 +24,7 @@ if (process.env.NODE_ENV === 'production') {
 // });
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static(__dirname + '/portfolio/dist/portfolio'));
 
 app.use('/api', apiRouter);

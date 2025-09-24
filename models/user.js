@@ -5,7 +5,8 @@ const UserSchema = new mongoose.Schema({
     last_name: { type: String, default: null },
     username: { type: String, unique: true },
     password: { type: String},
-    token: { type: String }
+    token: { type: String },
+    refreshToken: { type: String }
 });
 
 // Export User model

@@ -7,7 +7,6 @@ const User = require('../models/user');
 exports.signup = async function (req, res) {
     try {
         // Get user input
-        console.log(req.body);
         const { firstName, lastName, username, password } = req.body;
 
         // Validate user input
@@ -85,14 +84,26 @@ exports.login = async function (req, res) {
             const token = jwt.sign(
                 { user_id: user._id, username },
                 process.env.TOKEN_KEY,
-                { expiresIn: "30m" }
+                { expiresIn: "15m" }
             );
+            const refreshToken = jwt.sign({ 
+                user_id: user._id, username },
+                process.env.REFRESH_TOKEN_KEY, 
+                { expiresIn: '7d' }
+            );
+
             const userInformation = { 
                 "token": token,
                 "firstName": user.first_name,
                 "lastName": user.last_name,
                 "username": user.username
             }
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'strict'
+            });
+
             // Send back user and token
             return res.status(200).json(userInformation);
         }
@@ -100,6 +111,32 @@ exports.login = async function (req, res) {
     } catch (err) {
         console.log(err);
     }
+}
+
+// refresh auth token
+exports.refresh = async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) return res.status(401).json({ error: 'No refresh token' });
+
+    try {
+        const payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_KEY);
+        const user = await User.findById(payload.user_id);
+        const username = user.username;
+        const newAccessToken = jwt.sign(
+            { user_id: user._id, username },
+            process.env.TOKEN_KEY,
+            { expiresIn: "15m" }
+        );
+        return res.json({ accessToken: newAccessToken });
+    } catch {
+        res.status(403).json({ error: 'Invalid or expired refresh token' });
+    }
+}
+
+// clear cookies
+exports.logout = async (req, res) => {
+  res.clearCookie('refreshToken');
+  res.json({ success: true });
 }
 
 // return the user profile information
@@ -120,7 +157,6 @@ exports.profile = async function(req, res) {
         console.log(err);
     }
 }
-
 
 // Delete User
 exports.delete_user = async (req, res) => {

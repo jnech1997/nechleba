@@ -8,6 +8,10 @@ var login_controller = require('../controllers/loginController');
 router.post('/signup', login_controller.signup);
 // POST request to login a user
 router.post('/login', login_controller.login);
+// POST request to refresh a user
+router.post('/refresh', login_controller.refresh);
+// POST request to logout a user
+router.post('/logout', login_controller.logout);
 // GET request to return profile information for user
 router.get('/profile', auth, login_controller.profile);
 // DELETE request to return profile information for user
