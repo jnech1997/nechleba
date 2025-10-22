@@ -2,41 +2,66 @@
   <mat-spinner color="accent"></mat-spinner>
 </div>
 <div class="home-background">
-  <img (load)="onLoad()" class="home-image" src="../../assets/images/home.jpg"/>
-  <p *ngIf="!loading" class="welcome-message">{{'HOME.MISSION' | translate}}</p>
+  <img
+    (load)="onLoad()"
+    class="home-image"
+    src="../../assets/images/home.jpg"
+  />
+  <p *ngIf="!loading" class="welcome-message">
+    {{ "HOME.MISSION" | translate }}
+  </p>
 </div>
 
 <div class="terminal-container">
-  <div class='fakeScreen'>
-    <p class='shell-script' style='color: #00FF41' tabindex="0">
-      {{'ABOUT.WELCOME' | translate}}&#64;World ~ $&nbsp;<span style='color: white'>{{'ABOUT.INTRO' | translate}}</span>
+  <div class="fakeScreen">
+    <p class="shell-script" style="color: #00ff41" tabindex="0">
+      {{ "ABOUT.WELCOME" | translate }}&#64;World ~ $&nbsp;<span
+        style="color: white"
+        >{{ "ABOUT.INTRO" | translate }}</span
+      >
     </p>
-    <p class='shell-script' style='color:white'>>&nbsp;<span class='shell-script' style='color: #E923F4' tabindex="0">cat
-      <a style='color: #E923F4' href="../../assets/Resume.pdf">
-        "{{'ABOUT.RESUME' | translate}}"
+    <p class="shell-script" style="color: white">
+      >&nbsp;<span class="shell-script" style="color: #e923f4" tabindex="0"
+        >cat
+        <a style="color: #e923f4" href="../../assets/Resume.pdf">
+          "{{ "ABOUT.RESUME" | translate }}"
+        </a>
+      </span>
+    </p>
+    <p class="shell-script" style="color: white">
+      >&nbsp;<span class="shell-script" style="color: #00ffff" tabindex="0"
+        >ls
+        <a style="color: #00ffff" routerLink="projects">
+          "{{ "MENU.PROJECTS" | translate }}"
+        </a>
+      </span>
+    </p>
+    <p class="shell-script" style="color: whitesmoke" tabindex="0">
+      {{ "ABOUT.FREELANCE" | translate }}: 5/01/2025, 12:00:00PM -
+      <span id="currentTime" style="color: #00ff41"></span>
+    </p>
+    <p class="shell-script" style="color: #ff5f1f" tabindex="0">
+      {{ "ABOUT.SABBATICAL" | translate }}: July 2022 - May 2025:
+      <span class="shell-script" tabindex="0">{{
+        "ABOUT.SABBATICAL_DESCRIPTION" | translate
+      }}</span>
+    </p>
+    <p class="shell-script" style="color: #ccff00" tabindex="0">
+      {{ "ABOUT.WORK" | translate }} InterSystems Corporation: July 2019 - July
+      2022
+    </p>
+    <p class="shell-script" style="color: #00ffff" tabindex="0">
+      Cornell {{ "ABOUT.SCHOOL" | translate }} '19.
+    </p>
+    <p class="shell-script" style="color: white">
+      <a style="color: #bf55ec" href="mailto:jnech16@gmail.com">
+        [?]&nbsp;jdn64&#64;cornell.edu
       </a>
-    </span>
     </p>
-    <p class='shell-script' style='color:white'>>&nbsp;<span class='shell-script' style='color: #00ffff' tabindex="0">ls
-      <a style='color: #00ffff' routerLink="projects">
-        "{{'MENU.PROJECTS' | translate}}"
-      </a>
-    </span>
-    </p>
-    <p class='shell-script' style='color: whitesmoke' tabindex="0">{{'ABOUT.FREELANCE' | translate}}: 2/01/2025, 12:00:00PM - <span id="currentTime" style='color: #00FF41'></span></p>
-    <p class='shell-script' style='color: #FF5F1F' tabindex="0">{{'ABOUT.SABBATICAL' | translate}}: July 2022 - January 2025: <span class='shell-script' tabindex="0">{{'ABOUT.SABBATICAL_DESCRIPTION' | translate}}</span>
-    </p>
-    <p class='shell-script' style='color: #CCFF00' tabindex="0">{{'ABOUT.WORK' | translate}} InterSystems Corporation: July 2019 - July 2022</p>
-    <p class='shell-script' style='color: #00ffff' tabindex="0">Cornell {{'ABOUT.SCHOOL' | translate}} '19.</p>
-    <p class='shell-script' style='color: white'>
-      <a style='color: #BF55EC' href='mailto:jnech16@gmail.com'>
-        [?]&nbsp;jnech16&#64;gmail.com
-      </a>
-    </p>
-    <p class='shell-script' style='color: white'>>
-      <span class='cursor' style='color: white'>_</span>
+    <p class="shell-script" style="color: white">
+      >
+      <span class="cursor" style="color: white">_</span>
     </p>
   </div>
   <div class="separator"></div>
 </div>
-
