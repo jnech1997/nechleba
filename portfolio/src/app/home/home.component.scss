@@ -164,6 +164,28 @@
   }
 }
 
+/* Shell-like input that looks like a terminal line */
+.shell-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-family: monospace;
+  font-size: 1.25rem;
+  margin-left: 6px;
+  caret-color: white;
+  flex-grow: 1;
+}
+
+.shell-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* show a blinking caret for the input when focused */
+.shell-input:focus {
+  box-shadow: none;
+}
+
 /* Scroll-to-bottom circular arrow */
 .scroll-to-bottom {
   position: fixed;

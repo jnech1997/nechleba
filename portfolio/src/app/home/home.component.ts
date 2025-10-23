@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
+import { ServerService } from "../services/server.service";
 
 @Component({
   selector: "app-home",
@@ -15,7 +16,10 @@ export class HomeComponent implements OnInit {
     this.checkIfAtBottom();
   }
 
-  constructor(private translate: TranslateService) {}
+  constructor(
+    private translate: TranslateService,
+    private server: ServerService
+  ) {}
 
   /** On load of the home screen image, set loading tracker to false */
   onLoad(): void {
@@ -46,6 +50,9 @@ export class HomeComponent implements OnInit {
     });
     // optimistic UI: hide the button after triggering the scroll
     this.scrolledToBottom = true;
+    setTimeout(() => {
+      document.getElementById("messageInput").focus();
+    }, 1500);
   }
 
   checkIfAtBottom(): void {
@@ -57,5 +64,34 @@ export class HomeComponent implements OnInit {
     );
     // consider near-bottom within 30px as bottom
     this.scrolledToBottom = scrollPosition >= docHeight - 30;
+  }
+
+  handleEnterKey(
+    event: KeyboardEvent,
+    messageInput: HTMLTextAreaElement
+  ): void {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault(); // Prevent newline insertion
+      const message = messageInput.value;
+      this.sendEmail(message);
+      messageInput.value = ""; // Clear the input after sending
+    }
+  }
+
+  /** Send the user's message using the default mail client via mailto: */
+  sendEmail(message: string): void {
+    if (!message || !message.trim()) return;
+    const request = this.server
+      .request("POST", "/contact", {
+        message: message,
+      })
+      .subscribe(
+        (response: any) => {
+          // console.log("Email sent successfully:", response);
+        },
+        (error: any) => {
+          console.error("Error sending email:", error);
+        }
+      );
   }
 }

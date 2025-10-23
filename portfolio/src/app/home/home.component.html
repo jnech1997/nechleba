@@ -58,10 +58,21 @@
         [?]&nbsp;jdn64&#64;cornell.edu
       </a>
     </p>
-    <p class="shell-script" style="color: white">
-      >
-      <span class="cursor" style="color: white">_</span>
-    </p>
+    <div
+      class="shell-script"
+      style="color: white; display: flex; flex-direction: row; width: 100%"
+    >
+      &gt;<!-- single-line shell-style input; press Enter to send as email -->
+      <textarea
+        id="messageInput"
+        #messageInput
+        class="shell-input"
+        cols="40"
+        rows="5"
+        placeholder="{{ 'ABOUT.SEND_EMAIL' | translate }}"
+        (keydown.enter)="handleEnterKey($event, messageInput)"
+      ></textarea>
+    </div>
   </div>
   <div class="separator"></div>
 </div>
