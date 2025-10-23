@@ -50,9 +50,6 @@ export class HomeComponent implements OnInit {
     });
     // optimistic UI: hide the button after triggering the scroll
     this.scrolledToBottom = true;
-    setTimeout(() => {
-      document.getElementById("messageInput").focus();
-    }, 1500);
   }
 
   checkIfAtBottom(): void {
