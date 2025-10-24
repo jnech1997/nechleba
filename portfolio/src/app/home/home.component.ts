@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from "@angular/core";
+import { Component, OnInit, HostListener, OnDestroy } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ServerService } from "../services/server.service";
 
@@ -8,14 +8,11 @@ import { ServerService } from "../services/server.service";
   styleUrls: ["./home.component.scss"],
   standalone: false,
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   /* Set spinner */
   loading = true;
   scrolledToBottom = false;
-  @HostListener("scroll", ["$event"]) public scrolled($event: Event) {
-    this.checkIfAtBottom();
-  }
-
+  timer_id: any;
   constructor(
     private translate: TranslateService,
     private server: ServerService
@@ -38,7 +35,7 @@ export class HomeComponent implements OnInit {
       timeNode.innerHTML = now;
     }
     // call this function again in 1000ms
-    setInterval(() => this.updateClock(), 1000);
+    this.timer_id = setInterval(() => this.updateClock(), 1000);
   }
 
   /** Smooth scroll to element on the page */
@@ -50,17 +47,6 @@ export class HomeComponent implements OnInit {
     });
     // optimistic UI: hide the button after triggering the scroll
     this.scrolledToBottom = true;
-  }
-
-  checkIfAtBottom(): void {
-    if (typeof window === "undefined") return;
-    const scrollPosition = window.scrollY + window.innerHeight;
-    const docHeight = Math.max(
-      document.body.scrollHeight,
-      document.documentElement?.scrollHeight || 0
-    );
-    // consider near-bottom within 30px as bottom
-    this.scrolledToBottom = scrollPosition >= docHeight - 30;
   }
 
   handleEnterKey(
@@ -104,5 +90,9 @@ export class HomeComponent implements OnInit {
           console.error("Error sending email:", error);
         }
       );
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.timer_id);
   }
 }

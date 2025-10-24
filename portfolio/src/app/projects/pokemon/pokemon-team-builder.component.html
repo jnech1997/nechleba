@@ -116,16 +116,14 @@
             </button>
           </mat-card-header>
           <hr style="width: 99%; margin-bottom: 0" />
-          <div [ngStyle]="{ background: linearGradient(p.type) }">
-            <img
-              mat-card-image
-              ngSrc="{{ p.image['hires'] }}"
-              height="310"
-              width="310"
-              priority
-              alt="Photo of a {{ p.name['english'] }}"
-            />
-          </div>
+          <img
+            mat-card-image
+            src="{{ p.image['hires'] }}"
+            height="310"
+            width="310"
+            [ngStyle]="{ background: linearGradient(p.type) }"
+            alt="Photo of a {{ p.name['english'] }}"
+          />
           <hr style="width: 99%; margin-top: 0" />
           <mat-card-content style="display: flex; padding-left: 8px">
             <span
