@@ -11,8 +11,12 @@ import { ServerService } from "../services/server.service";
 export class HomeComponent implements OnInit, OnDestroy {
   /* Set spinner */
   loading = true;
-  scrolledToBottom = false;
+  scrolledDown = false;
   timer_id: any;
+  @HostListener("scroll", ["$event"]) public scrolled($event: Event) {
+    this.scrolledDown = true;
+  }
+
   constructor(
     private translate: TranslateService,
     private server: ServerService
@@ -46,7 +50,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       inline: "nearest",
     });
     // optimistic UI: hide the button after triggering the scroll
-    this.scrolledToBottom = true;
+    this.scrolledDown = true;
   }
 
   handleEnterKey(
