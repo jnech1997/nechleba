@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener, OnDestroy } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ServerService } from "../services/server.service";
+import { MediaMatcher } from "@angular/cdk/layout";
 
 @Component({
   selector: "app-home",
@@ -17,11 +18,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   @HostListener("scroll", ["$event"]) public scrolled($event: Event) {
     this.scrolledDown = true;
   }
+  mobileQuery: MediaQueryList;
 
   constructor(
     private translate: TranslateService,
-    private server: ServerService
-  ) {}
+    private server: ServerService,
+    public media: MediaMatcher
+  ) {
+    this.mobileQuery = media.matchMedia("(max-width: 900px)");
+  }
 
   /** On load of the home screen image, set loading tracker to false */
   onLoad(): void {
@@ -35,12 +40,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   updateClock() {
     let now = new Date().toLocaleString(); // current date
     // set the content of the element with the ID time to the formatted string
+    if (this.mobileQuery.matches) {
+      // stop the timer on mobile devices to save resources
+      now = new Date().toDateString();
+    }
     let timeNode = document.getElementById("currentTime");
     if (!!timeNode) {
       timeNode.innerHTML = now;
     }
-    // call this function again in 1000ms
-    this.timer_id = setInterval(() => this.updateClock(), 1000);
+    if (!this.mobileQuery.matches) {
+      // call this function again in 1000ms
+      this.timer_id = setInterval(() => this.updateClock(), 1000);
+    }
   }
 
   /** Smooth scroll to element on the page */
@@ -84,6 +95,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.timer_id);
+    if (!this.mobileQuery.matches) {
+      clearInterval(this.timer_id);
+    }
   }
 }
