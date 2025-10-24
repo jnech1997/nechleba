@@ -9,14 +9,12 @@ import { AuthService } from "../../services/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ServerService } from "src/app/services/server.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { InfiniteScrollDirective } from "ngx-infinite-scroll";
 
 @Component({
   selector: "pokemon-team-builder",
   templateUrl: "./pokemon-team-builder.component.html",
   styleUrls: ["./pokemon-team-builder.component.scss"],
   standalone: false,
-  imports: [InfiniteScrollDirective],
 })
 export class PokemonTeamBuilderComponent implements OnInit {
   public pokemon = [];
@@ -30,7 +28,7 @@ export class PokemonTeamBuilderComponent implements OnInit {
   mobileQuery: MediaQueryList;
   private _snackBar = inject(MatSnackBar);
   page: number = 1;
-  limit: number = 20;
+  limit: number = 50;
 
   constructor(
     public media: MediaMatcher,
@@ -181,6 +179,7 @@ export class PokemonTeamBuilderComponent implements OnInit {
   filterPokemon(searchTerm?: string, region?: string, types?: any) {
     this.filteredPokemon = this.pokemon;
     this.page = 1;
+    document.getElementById("pokemon-team-builder-container").scrollTo(0, 0);
     if (!!searchTerm) {
       this.filteredPokemon = this.filteredPokemon.filter((item) => {
         return item.name["english"]
