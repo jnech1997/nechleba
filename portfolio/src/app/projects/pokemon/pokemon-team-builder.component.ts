@@ -9,6 +9,7 @@ import { AuthService } from "../../services/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ServerService } from "src/app/services/server.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "pokemon-team-builder",
@@ -29,6 +30,7 @@ export class PokemonTeamBuilderComponent implements OnInit {
   private _snackBar = inject(MatSnackBar);
   page: number = 1;
   limit: number = 50;
+  subscriptions: Subscription[] = [];
 
   constructor(
     public media: MediaMatcher,
@@ -45,14 +47,16 @@ export class PokemonTeamBuilderComponent implements OnInit {
       this.team = JSON.parse(window.sessionStorage.getItem("pokemon-team"));
     }
     if (this.route.snapshot.paramMap.get("id")) {
-      this.server
-        .request(
-          "GET",
-          "/pokemonteam/" + this.route.snapshot.paramMap.get("id")
-        )
-        .subscribe((team: any) => {
-          this.team = team;
-        });
+      this.subscriptions.push(
+        this.server
+          .request(
+            "GET",
+            "/pokemonteam/" + this.route.snapshot.paramMap.get("id")
+          )
+          .subscribe((team: any) => {
+            this.team = team;
+          })
+      );
       // populate pokemon, using session storage caching if possible
     }
     if (window.sessionStorage.getItem("pokemon")) {
@@ -60,21 +64,22 @@ export class PokemonTeamBuilderComponent implements OnInit {
       this.pokemon = JSON.parse(window.sessionStorage.getItem("pokemon"));
       this.filteredPokemon = this.pokemon;
     } else {
-      this.server.request("GET", "/pokemon").subscribe(
-        (pokemon_list) => {
-          this.loading = false;
-          this.pokemon = pokemon_list["list_pokemon"].filter((pokemon) =>
-            this.isValidPokemon(pokemon)
-          );
-          window.sessionStorage.setItem(
-            "pokemon",
-            JSON.stringify(this.pokemon)
-          );
-          this.filteredPokemon = this.pokemon;
-        },
-        (error: any) => {
-          console.debug("request to database failed");
-        }
+      this.subscriptions.push(
+        this.server.request("GET", "/pokemon").subscribe(
+          (pokemon_list) => {
+            this.pokemon = pokemon_list["list_pokemon"].filter((pokemon) =>
+              this.isValidPokemon(pokemon)
+            );
+            window.sessionStorage.setItem(
+              "pokemon",
+              JSON.stringify(this.pokemon)
+            );
+            this.filteredPokemon = this.pokemon;
+          },
+          (error: any) => {
+            console.debug("request to database failed");
+          }
+        )
       );
     }
   }
@@ -90,47 +95,53 @@ export class PokemonTeamBuilderComponent implements OnInit {
 
   deleteTeam() {
     if (this.route.snapshot.paramMap.get("id")) {
-      const request = this.server
-        .request(
-          "DELETE",
-          "/pokemonteam/" + this.route.snapshot.paramMap.get("id")
-        )
-        .subscribe((response: any) => {
-          window.sessionStorage.removeItem("pokemon-team");
-          this.team = {
-            name: "",
-            pokemon_ids: [],
-          };
-          this.router.navigateByUrl("/projects/sandbox/pokemonteam");
-        });
+      this.subscriptions.push(
+        this.server
+          .request(
+            "DELETE",
+            "/pokemonteam/" + this.route.snapshot.paramMap.get("id")
+          )
+          .subscribe((response: any) => {
+            window.sessionStorage.removeItem("pokemon-team");
+            this.team = {
+              name: "",
+              pokemon_ids: [],
+            };
+            this.router.navigateByUrl("/projects/sandbox/pokemonteam");
+          })
+      );
     }
   }
 
   saveTeam() {
     if (this.route.snapshot.paramMap.get("id")) {
-      const request = this.server
-        .request(
-          "PUT",
-          "/pokemonteam/" + this.route.snapshot.paramMap.get("id"),
-          {
+      this.subscriptions.push(
+        this.server
+          .request(
+            "PUT",
+            "/pokemonteam/" + this.route.snapshot.paramMap.get("id"),
+            {
+              name: this.team.name ? this.team.name : "Team Rocket",
+              pokemon_ids: this.team.pokemon_ids,
+            }
+          )
+          .subscribe((response: any) => {
+            this.openSnackBar("Saved Team", "Okay");
+          })
+      );
+    } else {
+      this.subscriptions.push(
+        this.server
+          .request("POST", "/pokemonteam", {
             name: this.team.name ? this.team.name : "Team Rocket",
             pokemon_ids: this.team.pokemon_ids,
-          }
-        )
-        .subscribe((response: any) => {
-          this.openSnackBar("Saved Team", "Okay");
-        });
-    } else {
-      const request = this.server
-        .request("POST", "/pokemonteam", {
-          name: this.team.name ? this.team.name : "Team Rocket",
-          pokemon_ids: this.team.pokemon_ids,
-        })
-        .subscribe((response: any) => {
-          window.sessionStorage.removeItem("pokemon-team");
-          this.team = {};
-          this.router.navigateByUrl("/projects/sandbox/pokemonteam");
-        });
+          })
+          .subscribe((response: any) => {
+            window.sessionStorage.removeItem("pokemon-team");
+            this.team = {};
+            this.router.navigateByUrl("/projects/sandbox/pokemonteam");
+          })
+      );
     }
   }
 
@@ -340,5 +351,9 @@ export class PokemonTeamBuilderComponent implements OnInit {
     let img = pokemon["image"]["hires"];
     let name = pokemon["name"]["english"];
     return !!img && !!name && pokemon.id < 810;
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }
