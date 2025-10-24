@@ -5,7 +5,7 @@
   <img
     (load)="onLoad()"
     class="home-image"
-    src="../../assets/images/home.jpg"
+    [src]="'assets/images/home.jpg?t=' + timestamp"
   />
   <p *ngIf="!loading" class="welcome-message">
     {{ "HOME.MISSION" | translate }}

@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   loading = true;
   scrolledDown = false;
   timer_id: any;
+  timestamp: number = Date.now();
   @HostListener("scroll", ["$event"]) public scrolled($event: Event) {
     this.scrolledDown = true;
   }
