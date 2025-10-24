@@ -67,6 +67,7 @@ export class PokemonTeamBuilderComponent implements OnInit {
       this.subscriptions.push(
         this.server.request("GET", "/pokemon").subscribe(
           (pokemon_list) => {
+            this.loading = false;
             this.pokemon = pokemon_list["list_pokemon"].filter((pokemon) =>
               this.isValidPokemon(pokemon)
             );
