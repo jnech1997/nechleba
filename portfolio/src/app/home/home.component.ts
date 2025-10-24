@@ -65,20 +65,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  getWidth() {
-    return Math.max(
-      document.documentElement.clientWidth || 0,
-      window.innerWidth || 0
-    );
-  }
-
-  getHeight() {
-    return Math.max(
-      document.documentElement.clientHeight || 0,
-      window.innerHeight || 0
-    );
-  }
-
   /** Send the user's message using the default mail client via mailto: */
   sendEmail(message: string): void {
     if (!message || !message.trim()) return;

@@ -117,7 +117,9 @@
           </mat-card-header>
           <hr style="width: 99%; margin-bottom: 0" />
           <img
-            [ngStyle]="{ 'background-image': linearGradient(p.type) }"
+            [ngStyle]="{
+              'background': linear-gradient(p.type)
+            }"
             mat-card-image
             src="{{ p.image['hires'] }}"
             alt="Photo of a {{ p.name['english'] }}"
