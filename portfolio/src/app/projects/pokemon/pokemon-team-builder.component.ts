@@ -1,11 +1,11 @@
 import { Component, inject, model, OnInit, signal } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { MatDialog } from '@angular/material/dialog';
-import { MediaMatcher } from '@angular/cdk/layout';
+import { MatDialog } from "@angular/material/dialog";
+import { MediaMatcher } from "@angular/cdk/layout";
 import { FilterDialog } from "./filter-dialog/filter-dialog";
 import { TeamDialog } from "./team-dialog/team-dialog";
 import { PokedexDialog } from "./pokedex-dialog/pokedex-dialog";
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from "../../services/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ServerService } from "src/app/services/server.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -22,52 +22,63 @@ export class PokemonTeamBuilderComponent implements OnInit {
   public filteredPokemon = [];
   public team: any = {
     name: "",
-    pokemon_ids: []
+    pokemon_ids: [],
   };
   readonly dialog = inject(MatDialog);
   mobileQuery: MediaQueryList;
   private _snackBar = inject(MatSnackBar);
 
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     public media: MediaMatcher,
     public authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private server: ServerService
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 900px)');
+    this.mobileQuery = media.matchMedia("(max-width: 900px)");
   }
 
   ngOnInit(): void {
-    if (window.sessionStorage.getItem('pokemon-team')) {
-      this.team = JSON.parse(window.sessionStorage.getItem('pokemon-team'));
+    if (window.sessionStorage.getItem("pokemon-team")) {
+      this.team = JSON.parse(window.sessionStorage.getItem("pokemon-team"));
     }
-    if (this.route.snapshot.paramMap.get('id')) {
-      this.server.request('GET', '/pokemonteam/' + this.route.snapshot.paramMap.get('id')).subscribe((team: any) => {
-      this.team = team
-    });
-    // populate pokemon, using session storage caching if possible
+    if (this.route.snapshot.paramMap.get("id")) {
+      this.server
+        .request(
+          "GET",
+          "/pokemonteam/" + this.route.snapshot.paramMap.get("id")
+        )
+        .subscribe((team: any) => {
+          this.team = team;
+        });
+      // populate pokemon, using session storage caching if possible
     }
-    if (window.sessionStorage.getItem('pokemon')) {
+    if (window.sessionStorage.getItem("pokemon")) {
       this.loading = false;
-      this.pokemon = JSON.parse(window.sessionStorage.getItem('pokemon'));
-      if (window.sessionStorage.getItem('filteredPokemon')) {
-            this.filteredPokemon = JSON.parse(window.sessionStorage.getItem('filteredPokemon'));
+      this.pokemon = JSON.parse(window.sessionStorage.getItem("pokemon"));
+      if (window.sessionStorage.getItem("filteredPokemon")) {
+        this.filteredPokemon = JSON.parse(
+          window.sessionStorage.getItem("filteredPokemon")
+        );
       } else {
         this.filteredPokemon = this.pokemon;
       }
-    }
-    else {
+    } else {
       this.http.get("/api/pokemon").subscribe(
         (pokemon_list) => {
           this.loading = false;
           this.pokemon = pokemon_list["list_pokemon"].filter((pokemon) =>
             this.isValidPokemon(pokemon)
           );
-          window.sessionStorage.setItem('pokemon', JSON.stringify(this.pokemon));
-          if (window.sessionStorage.getItem('filteredPokemon')) {
-            this.filteredPokemon = JSON.parse(window.sessionStorage.getItem('filteredPokemon'));
+          window.sessionStorage.setItem(
+            "pokemon",
+            JSON.stringify(this.pokemon)
+          );
+          if (window.sessionStorage.getItem("filteredPokemon")) {
+            this.filteredPokemon = JSON.parse(
+              window.sessionStorage.getItem("filteredPokemon")
+            );
           } else {
             this.filteredPokemon = this.pokemon;
           }
@@ -80,46 +91,58 @@ export class PokemonTeamBuilderComponent implements OnInit {
   }
 
   deleteTeam() {
-    if (this.route.snapshot.paramMap.get('id')) {
-      const request = this.server.request('DELETE', '/pokemonteam/' + this.route.snapshot.paramMap.get('id')).subscribe((response: any) => {
-        window.sessionStorage.removeItem('pokemon-team');
-        this.team = {
-          name: "",
-          pokemon_ids: []
-        }
-        this.router.navigateByUrl('/projects/sandbox/pokemonteam');
-      }); 
+    if (this.route.snapshot.paramMap.get("id")) {
+      const request = this.server
+        .request(
+          "DELETE",
+          "/pokemonteam/" + this.route.snapshot.paramMap.get("id")
+        )
+        .subscribe((response: any) => {
+          window.sessionStorage.removeItem("pokemon-team");
+          this.team = {
+            name: "",
+            pokemon_ids: [],
+          };
+          this.router.navigateByUrl("/projects/sandbox/pokemonteam");
+        });
     }
   }
 
   saveTeam() {
-    if (this.route.snapshot.paramMap.get('id')) {
-      const request = this.server.request('PUT', '/pokemonteam/' + this.route.snapshot.paramMap.get('id'), {
-        name: this.team.name ? this.team.name : "Team Rocket",
-        pokemon_ids: this.team.pokemon_ids
-      }).subscribe((response: any) => {
-        this.openSnackBar("Saved Team", "Okay");
-      }); 
-    }
-    else {
-      const request = this.server.request('POST', '/pokemonteam', {
-        name: this.team.name ? this.team.name : "Team Rocket",
-        pokemon_ids: this.team.pokemon_ids
-      }).subscribe((response: any) => {
-        window.sessionStorage.removeItem('pokemon-team');
-        this.team = {};
-        this.router.navigateByUrl('/projects/sandbox/pokemonteam');
-      }); 
+    if (this.route.snapshot.paramMap.get("id")) {
+      const request = this.server
+        .request(
+          "PUT",
+          "/pokemonteam/" + this.route.snapshot.paramMap.get("id"),
+          {
+            name: this.team.name ? this.team.name : "Team Rocket",
+            pokemon_ids: this.team.pokemon_ids,
+          }
+        )
+        .subscribe((response: any) => {
+          this.openSnackBar("Saved Team", "Okay");
+        });
+    } else {
+      const request = this.server
+        .request("POST", "/pokemonteam", {
+          name: this.team.name ? this.team.name : "Team Rocket",
+          pokemon_ids: this.team.pokemon_ids,
+        })
+        .subscribe((response: any) => {
+          window.sessionStorage.removeItem("pokemon-team");
+          this.team = {};
+          this.router.navigateByUrl("/projects/sandbox/pokemonteam");
+        });
     }
   }
 
   accessMyTeams() {
-    this.router.navigateByUrl('/projects/sandbox/pokemonteam');
+    this.router.navigateByUrl("/projects/sandbox/pokemonteam");
   }
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
-      duration: 3000
+      duration: 3000,
     });
   }
 
@@ -127,14 +150,19 @@ export class PokemonTeamBuilderComponent implements OnInit {
     if (event) {
       event.stopPropagation();
     }
-    if (this.team.pokemon_ids.length < 6 && !this.team.pokemon_ids.includes(pokemon_id)) {
+    if (
+      this.team.pokemon_ids.length < 6 &&
+      !this.team.pokemon_ids.includes(pokemon_id)
+    ) {
       this.team.pokemon_ids.push(pokemon_id);
       if (!this.mobileQuery.matches) {
-        let name = this.pokemon.filter(p => p.id == pokemon_id)[0].name['english'];
+        let name = this.pokemon.filter((p) => p.id == pokemon_id)[0].name[
+          "english"
+        ];
         const message = "Added " + name + " to your team!";
         this.openSnackBar(message, "Okay");
       }
-      window.sessionStorage.setItem('pokemon-team', JSON.stringify(this.team));
+      window.sessionStorage.setItem("pokemon-team", JSON.stringify(this.team));
     }
   }
 
@@ -143,41 +171,46 @@ export class PokemonTeamBuilderComponent implements OnInit {
   }
 
   removeFromTeam(pokemon_id) {
-    this.team.pokemon_ids = this.team.pokemon_ids.filter(p => {
-      return p != pokemon_id
+    this.team.pokemon_ids = this.team.pokemon_ids.filter((p) => {
+      return p != pokemon_id;
     });
-    window.sessionStorage.setItem('pokemon-team', JSON.stringify(this.team));
+    window.sessionStorage.setItem("pokemon-team", JSON.stringify(this.team));
   }
 
   filterPokemon(searchTerm?: string, region?: string, types?: any) {
     this.filteredPokemon = this.pokemon;
     if (!!searchTerm) {
-      this.filteredPokemon = this.filteredPokemon.filter(item => {
-        return item.name["english"].toLowerCase().includes(searchTerm.toLowerCase());
+      this.filteredPokemon = this.filteredPokemon.filter((item) => {
+        return item.name["english"]
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
       });
     }
     if (!!region) {
-      this.filteredPokemon = this.filteredPokemon.filter(p => {
+      this.filteredPokemon = this.filteredPokemon.filter((p) => {
         return p.region == region;
       });
     }
     if (!!types) {
-      this.filteredPokemon = this.filteredPokemon.filter(p => {
+      this.filteredPokemon = this.filteredPokemon.filter((p) => {
         for (let type in types) {
           if (types[type] && !p.type.includes(type)) {
             return false;
           }
         }
         return true;
-      })
+      });
     }
-    window.sessionStorage.setItem('filteredPokemon', JSON.stringify(this.filteredPokemon));
+    window.sessionStorage.setItem(
+      "filteredPokemon",
+      JSON.stringify(this.filteredPokemon)
+    );
   }
 
   openSortDialog() {
     const dialogRef = this.dialog.open(FilterDialog, {
       data: {
-        filterPokemon: this.filterPokemon.bind(this)
+        filterPokemon: this.filterPokemon.bind(this),
       },
     });
   }
@@ -191,7 +224,7 @@ export class PokemonTeamBuilderComponent implements OnInit {
         removeFromTeam: this.removeFromTeam.bind(this),
         editTeamName: this.editTeamName.bind(this),
         saveTeam: this.saveTeam.bind(this),
-        deleteTeam: this.deleteTeam.bind(this)
+        deleteTeam: this.deleteTeam.bind(this),
       },
     });
   }
@@ -199,12 +232,12 @@ export class PokemonTeamBuilderComponent implements OnInit {
   openPokedexDialog(pokemon): void {
     const dialogRef = this.dialog.open(PokedexDialog, {
       data: {
-        name: pokemon.name, 
+        name: pokemon.name,
         id: pokemon.id,
         image: pokemon.image,
         description: pokemon.description,
         base: pokemon.base,
-        evolution_chain: this.getEvolutionChain(pokemon.evolution_chain), 
+        evolution_chain: this.getEvolutionChain(pokemon.evolution_chain),
         species: pokemon.species,
         region: pokemon.region,
         habitat: pokemon.habitat,
@@ -212,33 +245,41 @@ export class PokemonTeamBuilderComponent implements OnInit {
         profile: pokemon.profile,
         total: pokemon.total,
         pokemon: this.pokemon,
-        addToTeam: this.addToTeam.bind(this)
+        addToTeam: this.addToTeam.bind(this),
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       window.speechSynthesis.cancel();
     });
   }
 
   getEvolutionChain(evolution_ids) {
     if (!!evolution_ids) {
-      let evo_chain = []
+      let evo_chain = [];
       for (const evolution of evolution_ids) {
-        let p_info = this.pokemon.find(p => !!p && p.id == evolution["id"] && p.id < 810);
+        let p_info = this.pokemon.find(
+          (p) => !!p && p.id == evolution["id"] && p.id < 810
+        );
         if (!!p_info) {
-          evo_chain.push([p_info.id, p_info.image['sprite'], evolution["condition"]]);
+          evo_chain.push([
+            p_info.id,
+            p_info.image["sprite"],
+            evolution["condition"],
+          ]);
         }
       }
-      if (evo_chain.length > 1) {return evo_chain}
-      return []
+      if (evo_chain.length > 1) {
+        return evo_chain;
+      }
+      return [];
     }
   }
 
   linearGradient(types: string[]): string {
     let l = "linear-gradient(";
     for (let type of types) {
-      l += this.typeToColor(type) + ","
+      l += this.typeToColor(type) + ",";
     }
     l = l.slice(0, -1);
     l += ")";
@@ -246,13 +287,11 @@ export class PokemonTeamBuilderComponent implements OnInit {
   }
 
   computeTripleDigitNumber(number: number): string {
-    if ((number / 10) < 1) {
+    if (number / 10 < 1) {
       return "00" + number;
-    }
-    else if ((number / 10) < 10) {
+    } else if (number / 10 < 10) {
       return "0" + number;
-    }
-    else {
+    } else {
       return "" + number;
     }
   }
@@ -296,7 +335,7 @@ export class PokemonTeamBuilderComponent implements OnInit {
       case "Fairy":
         return "#deb1d2";
       default:
-        return "" 
+        return "";
     }
   }
 

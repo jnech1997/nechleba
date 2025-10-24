@@ -247,6 +247,10 @@
     width: 44px;
     height: 44px;
   }
+
+  .fakeScreen {
+    min-height: fit-content;
+  }
 }
 
 /* When scrolled to bottom, fade out and disable pointer events */

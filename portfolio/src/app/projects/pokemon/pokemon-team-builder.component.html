@@ -1,68 +1,157 @@
 <div *ngIf="loading" class="spinner-container">
   <mat-spinner color="accent"></mat-spinner>
 </div>
-<div *ngIf="!loading && outlet.isActivated == false" style="height: fit-content; width: 100%;">
-    <div class="pokemon-top-bar">
-        <!-- Search Inputs -->
-        <div class="search-container">
-            <mat-form-field class="search-by-name">
-                <mat-label>Search by name...</mat-label>
-                <input matInput type="text" placeholder="e.g. Rayquaza" #searchTerm (keydown.enter)="filterPokemon(searchTerm.value)">
-            </mat-form-field>
-            <button *ngIf="!mobileQuery.matches" (click)="filterPokemon(searchTerm.value)" mat-raised-button style="height: 56px; margin-left: 10px; margin-right: 3%">Search</button>
-            <audio *ngIf="!mobileQuery.matches" controls loop>
-                <source src="assets/pokemon.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-            <div class="team-advanced">
-                <div class="team">
-                    <div class="team-length-indicator">{{team.pokemon_ids.length}}</div>
-                    <button (click)="openTeamDialog()" mat-raised-button style="height: 56px; margin-right: 20px;">
-                        <ng-container *ngIf="mobileQuery.matches">
-                            <mat-icon>workspaces_outline</mat-icon>
-                        </ng-container>
-                        <ng-container *ngIf="!mobileQuery.matches">
-                            Team
-                        </ng-container>
-                    </button>
-                </div>
-                <button (click)="accessMyTeams()" mat-raised-button style="height: 56px; width: 100%; margin-right: 10px;">My Teams</button>
-                <button (click)="openSortDialog()" mat-raised-button style="height: 56px; width: 100%;">
-                    <mat-icon style="margin-right: 0; margin-left: 0;">search</mat-icon>
-                </button>
-            </div>
+<div
+  *ngIf="!loading && outlet.isActivated == false"
+  style="height: fit-content; width: 100%"
+>
+  <div class="pokemon-top-bar">
+    <!-- Search Inputs -->
+    <div class="search-container">
+      <mat-form-field class="search-by-name">
+        <mat-label>Search by name...</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="e.g. Rayquaza"
+          #searchTerm
+          (keydown.enter)="filterPokemon(searchTerm.value)"
+        />
+      </mat-form-field>
+      <button
+        *ngIf="!mobileQuery.matches"
+        (click)="filterPokemon(searchTerm.value)"
+        mat-raised-button
+        style="height: 56px; margin-left: 10px; margin-right: 3%"
+      >
+        Search
+      </button>
+      <audio *ngIf="!mobileQuery.matches" controls loop>
+        <source src="assets/pokemon.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      <div class="team-advanced">
+        <div class="team">
+          <div class="team-length-indicator">{{ team.pokemon_ids.length }}</div>
+          <button
+            (click)="openTeamDialog()"
+            mat-raised-button
+            style="height: 56px; margin-right: 20px"
+          >
+            <ng-container *ngIf="mobileQuery.matches">
+              <mat-icon>workspaces_outline</mat-icon>
+            </ng-container>
+            <ng-container *ngIf="!mobileQuery.matches"> Team </ng-container>
+          </button>
         </div>
-        <hr style="width: 100%; margin-bottom: 0">
+        <button
+          (click)="accessMyTeams()"
+          mat-raised-button
+          style="height: 56px; width: 100%; margin-right: 10px"
+        >
+          My Teams
+        </button>
+        <button
+          (click)="openSortDialog()"
+          mat-raised-button
+          style="height: 56px; width: 100%"
+        >
+          <mat-icon style="margin-right: 0; margin-left: 0">search</mat-icon>
+        </button>
+      </div>
     </div>
-    <!-- Pokemon Cards -->
-    <div *ngIf="!loading" class="pokemon-container">
-        <div *ngFor="let p of filteredPokemon" class='square'>
-            <mat-card class="pokemon-card" (click)="openPokedexDialog(p)" appearance="outlined">
-                <mat-card-header>
-                    <div mat-card-avatar 
-                        [ngStyle]="{'background-image': 'url('+ p.image['thumbnail'] + ')', 'background-size':'cover'}"></div>
-                    <mat-card-title style="text-align: left">#{{computeTripleDigitNumber(p.id)}}: {{p.name["english"]}}</mat-card-title>
-                    <mat-card-subtitle style="text-align: left">{{p.species}}</mat-card-subtitle>
-                    <button *ngIf="!mobileQuery.matches" (click)="addToTeam($event, p.id)" style="margin-left: auto; height: 43.5px;" mat-raised-button>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#c7aa46"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
-                    </button>
-                </mat-card-header>
-                <hr style="width:99%; margin-bottom: 0">
-                <img [ngStyle]="{'background': linearGradient(p.type)}" mat-card-image src="{{p.image['hires']}}" alt="Photo of a {{p.name['english']}}">
-                <hr style="width:99%; margin-top: 0">
-                <mat-card-content style="display: flex; padding-left: 8px;">
-                    <span *ngFor="let type of p.type" 
-                        [ngStyle]="{'background-color': typeToColor(type),'float':'left','padding':
-                        '10px', 'color': 'white','border': '2px solid white','border-radius': '5px','margin-right': '5px'}">
-                        {{type}}
-                    </span>
-                    <button style="margin-left: auto; height: 43.5px;" (click)="openPokedexDialog(p)" mat-raised-button>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ac1006"><path d="M240-80q-50 0-85-35t-35-85v-560q0-50 35-85t85-35h440v640H240q-17 0-28.5 11.5T200-200q0 17 11.5 28.5T240-160h520v-640h80v720H240Zm120-240h240v-480H360v480Zm-80 0v-480h-40q-17 0-28.5 11.5T200-760v447q10-3 19.5-5t20.5-2h40Zm-80-480v487-487Z"/></svg>
-                    </button>
-                </mat-card-content>
-            </mat-card>
+    <hr style="width: 100%; margin-bottom: 0" />
+  </div>
+  <!-- Pokemon Cards -->
+  <div *ngIf="!loading" class="pokemon-container">
+    <div *ngFor="let p of filteredPokemon" class="square">
+      <mat-card
+        class="pokemon-card"
+        (click)="openPokedexDialog(p)"
+        appearance="outlined"
+      >
+        <mat-card-header>
+          <div
+            mat-card-avatar
+            [ngStyle]="{
+              'background-image': 'url(' + p.image['thumbnail'] + ')',
+              'background-size': 'cover'
+            }"
+          ></div>
+          <mat-card-title style="text-align: left"
+            >#{{ computeTripleDigitNumber(p.id) }}:
+            {{ p.name["english"] }}</mat-card-title
+          >
+          <mat-card-subtitle style="text-align: left">{{
+            p.species
+          }}</mat-card-subtitle>
+          <button
+            *ngIf="!mobileQuery.matches"
+            (click)="addToTeam($event, p.id)"
+            style="margin-left: auto; height: 43.5px"
+            mat-raised-button
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#c7aa46"
+            >
+              <path
+                d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
+              />
+            </svg>
+          </button>
+        </mat-card-header>
+        <hr style="width: 99%; margin-bottom: 0" />
+        <div [ngStyle]="{ background: linearGradient(p.type) }">
+          <img
+            mat-card-image
+            ngSrc="{{ p.image['hires'] }}"
+            height="310"
+            width="310"
+            priority
+            alt="Photo of a {{ p.name['english'] }}"
+          />
         </div>
+        <hr style="width: 99%; margin-top: 0" />
+        <mat-card-content style="display: flex; padding-left: 8px">
+          <span
+            *ngFor="let type of p.type"
+            [ngStyle]="{
+              'background-color': typeToColor(type),
+              float: 'left',
+              padding: '10px',
+              color: 'white',
+              border: '2px solid white',
+              'border-radius': '5px',
+              'margin-right': '5px'
+            }"
+          >
+            {{ type }}
+          </span>
+          <button
+            style="margin-left: auto; height: 43.5px"
+            (click)="openPokedexDialog(p)"
+            mat-raised-button
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#ac1006"
+            >
+              <path
+                d="M240-80q-50 0-85-35t-35-85v-560q0-50 35-85t85-35h440v640H240q-17 0-28.5 11.5T200-200q0 17 11.5 28.5T240-160h520v-640h80v720H240Zm120-240h240v-480H360v480Zm-80 0v-480h-40q-17 0-28.5 11.5T200-760v447q10-3 19.5-5t20.5-2h40Zm-80-480v487-487Z"
+              />
+            </svg>
+          </button>
+        </mat-card-content>
+      </mat-card>
     </div>
+  </div>
 </div>
 
 <router-outlet #outlet="outlet"></router-outlet>

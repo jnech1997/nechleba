@@ -5,7 +5,10 @@
   <img
     (load)="onLoad()"
     class="home-image"
-    src="../../assets/images/home.jpg"
+    ngSrc="../../assets/images/home.jpg"
+    [width]="getWidth()"
+    [height]="getHeight()"
+    priority
   />
   <p *ngIf="!loading" class="welcome-message">
     {{ "HOME.MISSION" | translate }}
