@@ -118,7 +118,10 @@
           <hr style="width: 99%; margin-bottom: 0" />
           <img
             [ngStyle]="{
-              'background': linear-gradient(p.type)
+              background:
+                p.type.length > 1
+                  ? linearGradient(p.type)
+                  : typeToColor(p.type[0])
             }"
             mat-card-image
             src="{{ p.image['hires'] }}"
