@@ -28,6 +28,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatTableModule } from "@angular/material/table";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { NgOptimizedImage } from "@angular/common";
+import { InfiniteScrollDirective } from "ngx-infinite-scroll";
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { NgOptimizedImage } from "@angular/common";
     MatTableModule,
     MatSnackBarModule,
     NgOptimizedImage,
+    InfiniteScrollDirective,
   ],
   exports: [ProjectsComponent],
 })

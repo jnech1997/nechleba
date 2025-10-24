@@ -36,6 +36,7 @@
     "canvas-sketch": "^0.7.7",
     "d3": "^7.0.1",
     "material-icons": "^1.13.14",
+    "ngx-infinite-scroll": "^19.0.0",
     "rxjs": "^6.6.7",
     "tslib": "^2.8.1",
     "tweakpane": "^4.0.5",

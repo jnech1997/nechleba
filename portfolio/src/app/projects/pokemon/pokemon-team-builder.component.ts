@@ -1,4 +1,4 @@
-import { Component, inject, model, OnInit, signal } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MediaMatcher } from "@angular/cdk/layout";
@@ -9,12 +9,14 @@ import { AuthService } from "../../services/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ServerService } from "src/app/services/server.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { InfiniteScrollDirective } from "ngx-infinite-scroll";
 
 @Component({
   selector: "pokemon-team-builder",
   templateUrl: "./pokemon-team-builder.component.html",
   styleUrls: ["./pokemon-team-builder.component.scss"],
   standalone: false,
+  imports: [InfiniteScrollDirective],
 })
 export class PokemonTeamBuilderComponent implements OnInit {
   public pokemon = [];
@@ -27,9 +29,10 @@ export class PokemonTeamBuilderComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   mobileQuery: MediaQueryList;
   private _snackBar = inject(MatSnackBar);
+  page: number = 1;
+  limit: number = 20;
 
   constructor(
-    private http: HttpClient,
     public media: MediaMatcher,
     public authService: AuthService,
     private router: Router,
@@ -57,15 +60,10 @@ export class PokemonTeamBuilderComponent implements OnInit {
     if (window.sessionStorage.getItem("pokemon")) {
       this.loading = false;
       this.pokemon = JSON.parse(window.sessionStorage.getItem("pokemon"));
-      if (window.sessionStorage.getItem("filteredPokemon")) {
-        this.filteredPokemon = JSON.parse(
-          window.sessionStorage.getItem("filteredPokemon")
-        );
-      } else {
-        this.filteredPokemon = this.pokemon;
-      }
+      this.filteredPokemon = this.pokemon;
     } else {
-      this.http.get("/api/pokemon").subscribe(
+      this.loading = true;
+      this.server.request("GET", "/pokemon").subscribe(
         (pokemon_list) => {
           this.loading = false;
           this.pokemon = pokemon_list["list_pokemon"].filter((pokemon) =>
@@ -75,19 +73,22 @@ export class PokemonTeamBuilderComponent implements OnInit {
             "pokemon",
             JSON.stringify(this.pokemon)
           );
-          if (window.sessionStorage.getItem("filteredPokemon")) {
-            this.filteredPokemon = JSON.parse(
-              window.sessionStorage.getItem("filteredPokemon")
-            );
-          } else {
-            this.filteredPokemon = this.pokemon;
-          }
+          this.filteredPokemon = this.pokemon;
         },
         (error: any) => {
           console.debug("request to database failed");
         }
       );
     }
+  }
+
+  getSectionFilteredPokemon() {
+    return this.filteredPokemon.slice(0, this.page * this.limit);
+  }
+
+  onScrollDown() {
+    this.page++;
+    this.filteredPokemon = this.filteredPokemon;
   }
 
   deleteTeam() {
@@ -179,6 +180,7 @@ export class PokemonTeamBuilderComponent implements OnInit {
 
   filterPokemon(searchTerm?: string, region?: string, types?: any) {
     this.filteredPokemon = this.pokemon;
+    this.page = 1;
     if (!!searchTerm) {
       this.filteredPokemon = this.filteredPokemon.filter((item) => {
         return item.name["english"]
@@ -201,10 +203,6 @@ export class PokemonTeamBuilderComponent implements OnInit {
         return true;
       });
     }
-    window.sessionStorage.setItem(
-      "filteredPokemon",
-      JSON.stringify(this.filteredPokemon)
-    );
   }
 
   openSortDialog() {
