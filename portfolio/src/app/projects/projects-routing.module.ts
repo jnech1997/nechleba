@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { CssGridComponent } from "./css-grid/css-grid.component";
 import { LoginComponent } from "./login/login.component";
 import { PokemonTeamBuilderComponent } from "./pokemon/pokemon-team-builder.component";
 import { ProfileComponent } from "./profile/profile.component";
@@ -26,11 +25,6 @@ const routes: Routes = [
         component: SandboxComponent,
         data: { breadcrumb: "Sandbox" },
         children: [
-          {
-            path: "cssgrid",
-            component: CssGridComponent,
-            data: { breadcrumb: "CSS Grid" },
-          },
           {
             path: "pokemonteam",
             component: PokemonTeamListComponent,
