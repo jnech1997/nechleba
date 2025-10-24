@@ -27,7 +27,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
     },
     {
       routerLink: "./sandbox/pokemonteam/new",
-      pathImg: "../assets/images/angular.png",
+      pathImg: "../assets/images/nodeJS.png",
       description: "Pokemon Team Builder",
     },
     {

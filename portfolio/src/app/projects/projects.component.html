@@ -7,27 +7,39 @@
 <div class="loaded-container" *ngIf="!loading">
   <!-- view loaded, show projects if not child component, else just child component -->
   <div *ngIf="outlet.isActivated == false" class="projects-container">
-    <div *ngFor="let project of projects" class="square">
-      <div class="table">
-        <div class="table-cell">
-          <a *ngIf="!!project.href" class="links" href="{{ project.href }}">
+    <div *ngFor="let project of projects">
+      <a
+        *ngIf="!!project.href"
+        class="links"
+        href="{{ project.href ? project.href : null }}"
+      >
+        <div class="square">
+          <div class="project-image-container">
             <img src="{{ project.pathImg }}" />
+          </div>
+          <div class="project-description-container">
             <em
               ><h3 class="description">{{ project.description }}</h3></em
             >
-          </a>
-          <a
-            *ngIf="!!project.routerLink"
-            class="links"
-            routerLink="{{ project.routerLink }}"
-          >
-            <img src="{{ project.pathImg }}" />
-            <em
-              ><h3 class="description">{{ project.description }}</h3></em
-            >
-          </a>
+          </div>
         </div>
-      </div>
+      </a>
+      <a
+        *ngIf="!!project.routerLink"
+        class="links"
+        routerLink="{{ project.routerLink ? project.routerLink : null }}"
+      >
+        <div class="square">
+          <div class="project-image-container">
+            <img src="{{ project.pathImg }}" />
+          </div>
+          <div class="project-description-container">
+            <em
+              ><h3 class="description">{{ project.description }}</h3></em
+            >
+          </div>
+        </div>
+      </a>
     </div>
   </div>
   <router-outlet #outlet="outlet"></router-outlet>
