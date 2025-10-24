@@ -60,7 +60,6 @@ export class PokemonTeamBuilderComponent implements OnInit {
       this.pokemon = JSON.parse(window.sessionStorage.getItem("pokemon"));
       this.filteredPokemon = this.pokemon;
     } else {
-      this.loading = true;
       this.server.request("GET", "/pokemon").subscribe(
         (pokemon_list) => {
           this.loading = false;
