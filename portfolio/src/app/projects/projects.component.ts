@@ -16,19 +16,24 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
 
   public projects: any[] = [
     {
+      href: "https://moodboard-frontend-ten.vercel.app",
+      pathImg: "../assets/images/favicon.svg",
+      description: "GPT Moodboard Generator",
+    },
+    {
       href: "https://trattoriapelliccia.it",
       pathImg: "../assets/images/angular.png",
       description: "Trattoria Pelliccia",
     },
     {
-      routerLink: "./mandelbrot",
-      pathImg: "../assets/images/javascript.png",
-      description: "Mandelbrot Set",
-    },
-    {
       routerLink: "./sandbox/pokemonteam/new",
       pathImg: "../assets/images/nodeJS.png",
       description: "Pokemon Team Builder",
+    },
+    {
+      routerLink: "./mandelbrot",
+      pathImg: "../assets/images/javascript.png",
+      description: "Mandelbrot Set",
     },
     {
       href: "https://github.com/jnech1997/matrix",
