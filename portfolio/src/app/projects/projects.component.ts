@@ -17,7 +17,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
   public projects: any[] = [
     {
       href: "https://moodboard-frontend-ten.vercel.app",
-      pathImg: "../assets/images/favicon.png",
+      pathImg: "../assets/images/moodboard.png",
       description: "GPT Moodboard Generator",
     },
     {
