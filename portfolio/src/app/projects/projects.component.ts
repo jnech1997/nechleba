@@ -36,20 +36,15 @@ export class ProjectsComponent implements AfterViewInit, OnInit {
       description: "Mandelbrot Set",
     },
     {
-      href: "https://github.com/jnech1997/matrix",
-      pathImg: "../assets/images/java.png",
-      description: "Matrix Calculator",
+      href: "https://github.com/jnech1997/day-trader",
+      pathImg: "../assets/images/python.png",
+      description: "Algo Day Trader",
     },
     {
       href: "https://github.com/jnech1997/Othello",
       pathImg: "../assets/images/ocaml.jpg",
       description: "Othello in OCaml",
-    },
-    {
-      href: "https://jnech1997.github.io/projects/starsCanvas/index.html",
-      pathImg: "../assets/images/javascript.png",
-      description: "Star Canvas Animation",
-    },
+    }
   ];
 
   constructor(private cdr: ChangeDetectorRef) {}
