@@ -1,2 +1,4 @@
 node_modules
 .env
+config/database.js
+portfolio/src/app/services/server.service.ts
