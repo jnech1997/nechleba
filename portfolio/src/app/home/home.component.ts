@@ -38,19 +38,41 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   updateClock() {
-    let now = new Date().toLocaleString(); // current date
-    // set the content of the element with the ID time to the formatted string
+    function getCountdown() {
+      const targetDate = new Date("February 2, 2026 00:00:00").getTime();
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+      // Time calculations for days, hours, minutes and seconds
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      if (distance <= 0) {
+        return []
+      }
+      else {
+        return [days, hours, minutes, seconds];
+      }
+    }
+
     if (this.mobileQuery.matches) {
-      // stop the timer on mobile devices to save resources
-      now = new Date().toDateString();
+      const times = getCountdown();
+      if (times.length > 0) {
+        const days = times[0];
+        document.getElementById("timeToOdoo").innerHTML = (days + " days");
+      }
     }
-    let timeNode = document.getElementById("currentTime");
-    if (!!timeNode) {
-      timeNode.innerHTML = now;
-    }
-    if (!this.mobileQuery.matches) {
-      // call this function again in 1000ms
-      this.timer_id = setInterval(() => this.updateClock(), 1000);
+    else {
+      this.timer_id = setInterval(function() {
+        const times = getCountdown();
+        if (times.length > 0) {
+          const days = times[0];
+          const hours = times[1];
+          const minutes = times[2];
+          const seconds = times[3];
+          document.getElementById("timeToOdoo").innerHTML = days + "d :: " + hours + "h :: " + minutes + "m :: " + seconds + "s";
+        }
+      }, 1000);
     }
   }
 
