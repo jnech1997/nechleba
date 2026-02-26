@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     let timeNode = document.getElementById("currentTime");
     if (!!timeNode) {
-      timeNode.innerHTML = "2/2/26 - " + now;
+      timeNode.innerHTML = "2/02/2026 - " + now;
     }
     // call this function again in 1000ms
     this.timer_id = setInterval(() => this.updateClock(), 1000);
