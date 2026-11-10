@@ -39,6 +39,8 @@ app.use(
         ],
         "font-src": ["'self'", "data:"],
         "media-src": ["'self'"],
+        // The Mandelbrot renderer runs in a Web Worker created from a blob: URL.
+        "worker-src": ["'self'", "blob:"],
       },
     },
   })
@@ -52,8 +54,11 @@ app.use(
   express.static(distDir, {
     index: false,
     setHeaders(res, filePath) {
-      if (/\.[0-9a-f]{16,}\.(js|css|woff2?|ttf|eot)$/.test(filePath)) {
+      // Angular's esbuild output uses names like chunk-IUGZYUE3.js / styles-LQPA3SP6.css.
+      if (/-[A-Z0-9]{8}\.(js|css|woff2?|ttf|eot)$/.test(filePath)) {
         res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+      } else if (filePath.endsWith(".html")) {
+        res.setHeader("Cache-Control", "no-cache");
       } else {
         res.setHeader("Cache-Control", "public, max-age=3600");
       }
