@@ -1,4 +1,4 @@
-import { NgFor, NgIf, NgStyle } from "@angular/common";
+import { NgStyle } from "@angular/common";
 import { Component, inject, model } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -37,10 +37,8 @@ export interface PokemonData {
     MatDialogActions,
     MatDialogClose,
     NgStyle,
-    NgFor,
-    NgIf,
-    MatCardModule,
-  ],
+    MatCardModule
+],
 })
 export class PokedexDialog {
   readonly dialogRef = inject(MatDialogRef<PokedexDialog>);

@@ -3,11 +3,13 @@
   <mat-form-field>
     <mat-label>{{'LANGUAGE.LANGUAGE' | translate}}</mat-label>
     <mat-select [(value)]="data.language">
-      <a style="text-decoration: none" *ngFor="let language of languages">
-        <mat-option [value]="language.value">
-          {{language.viewValue}}
-        </mat-option>
-      </a>
+      @for (language of languages; track language) {
+        <a style="text-decoration: none">
+          <mat-option [value]="language.value">
+            {{language.viewValue}}
+          </mat-option>
+        </a>
+      }
     </mat-select>
   </mat-form-field>
 </div>

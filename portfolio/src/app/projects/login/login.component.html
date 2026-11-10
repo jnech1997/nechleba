@@ -1,38 +1,44 @@
 <div class="form-container">
-    <mat-card>
-        <h2 class="title">{{'ABOUT.WELCOME' | translate}}</h2>
-        <form class="login-form" [formGroup]="loginFormControl" (ngSubmit)="onSubmit()">
-            <mat-form-field class="username" appearance="outline">
-                <mat-label>{{signup ? ('LOGIN.ENTER_USERNAME' | translate) : ('LOGIN.USERNAME' | translate)}}</mat-label>
-                <input matInput type="text" autocomplete="username" formControlName="username">
-            </mat-form-field>
-            <mat-form-field *ngIf="signup" class="firstName" appearance="outline">
-                <mat-label>{{signup ? ('LOGIN.ENTER_FIRST_NAME' | translate) : ('PROFILE.FIRST_NAME' | translate)}}</mat-label>
-                <input matInput type="text" autocomplete="name" formControlName="firstName">
-            </mat-form-field>
-            <mat-form-field *ngIf="signup" class="lastName" appearance="outline">
-                <mat-label>{{signup ? ('LOGIN.ENTER_LAST_NAME' | translate) : ('PROFILE.LAST_NAME' | translate)}}</mat-label>
-                <input matInput type="text" autocomplete="family-name" formControlName="lastName">
-            </mat-form-field>
-            <mat-form-field class="password" appearance="outline">
-                <mat-label>{{signup ? ('LOGIN.ENTER_PASSWORD' | translate) : ('LOGIN.PASSWORD' | translate)}}</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" autocomplete="current-password" formControlName="password">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-            <div class="alert alert-danger">
-                <div *ngIf="!!requestError">
-                    {{requestError | translate}}
-                </div>
-            </div>
-            <button mat-raised-button class="submit-button" type="submit" [disabled]="loginFormControl.invalid">
-                {{signup ? ('LOGIN.SIGN_UP' | translate) : ('LOGIN.LOGIN' | translate)}}
-            </button>
-            <button mat-raised-button class="submit-button" (click)="toggleRegister()">
-                {{signup ? ('LOGIN.ALREADY_EXIST' | translate) : ('LOGIN.NOT_EXIST' | translate)}} 
-            </button>
-        </form>
-    </mat-card>
-    <div>
+  <mat-card>
+    <h2 class="title">{{'ABOUT.WELCOME' | translate}}</h2>
+    <form class="login-form" [formGroup]="loginFormControl" (ngSubmit)="onSubmit()">
+      <mat-form-field class="username" appearance="outline">
+        <mat-label>{{signup ? ('LOGIN.ENTER_USERNAME' | translate) : ('LOGIN.USERNAME' | translate)}}</mat-label>
+        <input matInput type="text" autocomplete="username" formControlName="username">
+      </mat-form-field>
+      @if (signup) {
+        <mat-form-field class="firstName" appearance="outline">
+          <mat-label>{{signup ? ('LOGIN.ENTER_FIRST_NAME' | translate) : ('PROFILE.FIRST_NAME' | translate)}}</mat-label>
+          <input matInput type="text" autocomplete="name" formControlName="firstName">
+        </mat-form-field>
+      }
+      @if (signup) {
+        <mat-form-field class="lastName" appearance="outline">
+          <mat-label>{{signup ? ('LOGIN.ENTER_LAST_NAME' | translate) : ('PROFILE.LAST_NAME' | translate)}}</mat-label>
+          <input matInput type="text" autocomplete="family-name" formControlName="lastName">
+        </mat-form-field>
+      }
+      <mat-form-field class="password" appearance="outline">
+        <mat-label>{{signup ? ('LOGIN.ENTER_PASSWORD' | translate) : ('LOGIN.PASSWORD' | translate)}}</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" autocomplete="current-password" formControlName="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="alert alert-danger">
+        @if (!!requestError) {
+          <div>
+            {{requestError | translate}}
+          </div>
+        }
+      </div>
+      <button mat-raised-button class="submit-button" type="submit" [disabled]="loginFormControl.invalid">
+        {{signup ? ('LOGIN.SIGN_UP' | translate) : ('LOGIN.LOGIN' | translate)}}
+      </button>
+      <button mat-raised-button class="submit-button" (click)="toggleRegister()">
+        {{signup ? ('LOGIN.ALREADY_EXIST' | translate) : ('LOGIN.NOT_EXIST' | translate)}}
+      </button>
+    </form>
+  </mat-card>
+  <div>
 

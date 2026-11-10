@@ -1,4 +1,4 @@
-import { NgFor, NgIf, NgStyle } from "@angular/common";
+import { NgStyle } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import { FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";

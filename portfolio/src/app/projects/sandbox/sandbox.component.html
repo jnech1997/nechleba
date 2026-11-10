@@ -1,40 +1,45 @@
-<div *ngIf="outlet.isActivated == false" class="projects-container">
-  <div
-    *ngFor="let project of projects"
-    [ngClass]="project.desktopOnly ? 'desktopOnly square' : 'square'"
-  >
-    <a
-      *ngIf="!!project.href"
-      class="links"
-      href="{{ project.href ? project.href : null }}"
-    >
-      <div class="square">
-        <div class="project-image-container">
-          <img src="{{ project.pathImg }}" />
-        </div>
-        <div class="project-description-container">
-          <em
-            ><h3 class="description">{{ project.description }}</h3></em
-          >
-        </div>
+@if (outlet.isActivated == false) {
+  <div class="projects-container">
+    @for (project of projects; track project) {
+      <div
+        [ngClass]="project.desktopOnly ? 'desktopOnly square' : 'square'"
+        >
+        @if (!!project.href) {
+          <a
+            class="links"
+            href="{{ project.href ? project.href : null }}"
+            >
+            <div class="square">
+              <div class="project-image-container">
+                <img src="{{ project.pathImg }}" />
+              </div>
+              <div class="project-description-container">
+                <em
+                  ><h3 class="description">{{ project.description }}</h3></em
+                  >
+                </div>
+              </div>
+            </a>
+          }
+          @if (!!project.routerLink) {
+            <a
+              class="links"
+              routerLink="{{ project.routerLink ? project.routerLink : null }}"
+              >
+              <div class="square">
+                <div class="project-image-container">
+                  <img src="{{ project.pathImg }}" />
+                </div>
+                <div class="project-description-container">
+                  <em
+                    ><h3 class="description">{{ project.description }}</h3></em
+                    >
+                  </div>
+                </div>
+              </a>
+            }
+          </div>
+        }
       </div>
-    </a>
-    <a
-      *ngIf="!!project.routerLink"
-      class="links"
-      routerLink="{{ project.routerLink ? project.routerLink : null }}"
-    >
-      <div class="square">
-        <div class="project-image-container">
-          <img src="{{ project.pathImg }}" />
-        </div>
-        <div class="project-description-container">
-          <em
-            ><h3 class="description">{{ project.description }}</h3></em
-          >
-        </div>
-      </div>
-    </a>
-  </div>
-</div>
-<router-outlet #outlet="outlet"></router-outlet>
+    }
+    <router-outlet #outlet="outlet"></router-outlet>

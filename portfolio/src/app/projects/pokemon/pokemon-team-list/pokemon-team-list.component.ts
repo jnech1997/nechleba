@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,11 +12,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'pokemon-team-list',
   imports: [
-    NgFor,
     MatButton,
     RouterModule,
     MatIconModule
-  ],
+],
   templateUrl: './pokemon-team-list.component.html',
   styleUrl: './pokemon-team-list.component.scss'
 })

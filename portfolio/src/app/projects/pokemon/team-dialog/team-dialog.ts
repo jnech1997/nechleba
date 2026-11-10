@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf, NgStyle } from "@angular/common";
+import { NgClass, NgStyle } from "@angular/common";
 import { AfterViewInit, Component, inject, OnInit, ViewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -68,15 +68,13 @@ const TYPES = ["Normal","Grass","Fire","Water","Fighting","Flying","Poison","Gro
     MatDialogActions,
     MatDialogClose,
     NgStyle,
-    NgFor,
-    NgIf,
     NgClass,
     MatCardModule,
     MatTableModule,
     MatSortModule,
     MatSort,
-    MatIconModule,
-  ],
+    MatIconModule
+],
 })
 export class TeamDialog implements OnInit, AfterViewInit {
   readonly dialogRef = inject(MatDialogRef<TeamDialog>);

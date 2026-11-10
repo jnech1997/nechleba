@@ -1,77 +1,85 @@
 <mat-dialog-content class="dialog-container">
-    <mat-card style="display: flex; flex-direction: column" appearance="outlined">
-        <mat-card-header class="pokedex-header">
-            <div mat-card-avatar 
-                [ngStyle]="{'background-image': 'url('+ data.image['thumbnail'] + ')', 'background-size':'cover'}"></div>
-            <mat-card-title style="text-align: left">#{{computeTripleDigitNumber(data.id)}}: {{data.name["english"]}}</mat-card-title>
-            <mat-card-subtitle style="text-align: left; color: white">{{data.species}}</mat-card-subtitle>
-            <button (click)="soundDescribe(data)" style="margin-left: auto; display: flex; align-items: center; justify-content: center" mat-raised-button>
-                 <svg style="padding-top: 5px;" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="M640-440v-80h160v80H640Zm48 280-128-96 48-64 128 96-48 64Zm-80-480-48-64 128-96 48 64-128 96ZM120-360v-240h160l200-200v640L280-360H120Zm280-246-86 86H200v80h114l86 86v-252ZM300-480Z"/></svg>
-            </button>
-        </mat-card-header>
-        <mat-card-content class="pokedex-container">
-            <div class="pokedex-image">
-                <div class="pokemon-image-wrapper">
-                    <img class="pokemon-image" src="{{data.image['hires']}}" alt="Photo of a {{data.name['english']}}">
+  <mat-card style="display: flex; flex-direction: column" appearance="outlined">
+    <mat-card-header class="pokedex-header">
+      <div mat-card-avatar
+      [ngStyle]="{'background-image': 'url('+ data.image['thumbnail'] + ')', 'background-size':'cover'}"></div>
+      <mat-card-title style="text-align: left">#{{computeTripleDigitNumber(data.id)}}: {{data.name["english"]}}</mat-card-title>
+      <mat-card-subtitle style="text-align: left; color: white">{{data.species}}</mat-card-subtitle>
+      <button (click)="soundDescribe(data)" style="margin-left: auto; display: flex; align-items: center; justify-content: center" mat-raised-button>
+        <svg style="padding-top: 5px;" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="M640-440v-80h160v80H640Zm48 280-128-96 48-64 128 96-48 64Zm-80-480-48-64 128-96 48 64-128 96ZM120-360v-240h160l200-200v640L280-360H120Zm280-246-86 86H200v80h114l86 86v-252ZM300-480Z"/></svg>
+      </button>
+    </mat-card-header>
+    <mat-card-content class="pokedex-container">
+      <div class="pokedex-image">
+        <div class="pokemon-image-wrapper">
+          <img class="pokemon-image" src="{{data.image['hires']}}" alt="Photo of a {{data.name['english']}}">
+        </div>
+      </div>
+      <div class="pokedex-stats">
+        <div class="total-profile-evolution">
+          <div class="base-stats">
+            <p style='font-family: "Saira Semi Condensed", sans-serif; margin: 0; text-decoration: underline'>BASE STATS:</p>
+            <p style="margin: 0; padding: 2px">&nbsp;&nbsp;&nbsp;&nbsp;<em>HP: </em>{{data.base.HP}}</p>
+            <p style="margin: 0; padding: 2px">&nbsp;&nbsp;&nbsp;&nbsp;<em>Attack: </em>{{data.base.Attack}}</p>
+            <p style="margin: 0">&nbsp;&nbsp;&nbsp;&nbsp;<em>Defense: </em>{{data.base.Defense}}</p>
+            <p style="margin: 0">&nbsp;&nbsp;&nbsp;&nbsp;<em>Speed: </em>{{data.base.Speed}}</p>
+            <p style="margin: 0">&nbsp;&nbsp;&nbsp;&nbsp;<em>Sp. Attack: </em>{{data.base.Sp[" Attack"]}}</p>
+            <p style="margin: 0">&nbsp;&nbsp;&nbsp;&nbsp;<em>Sp. Defense: </em>{{data.base.Sp[" Defense"]}}</p>
+            <hr style="width: 100%; height: 1px; border: 1px solid #00FF41;">
+            <p style="margin: 0; margin-top: 5px;">&nbsp;&nbsp;&nbsp;&nbsp;Total:&nbsp;{{data.total}}</p>
+          </div>
+          <div class="profile">
+            <p style="margin: 0; text-decoration: underline">PROFILE:</p>
+            <p style="margin: 0">&nbsp;&nbsp;&nbsp;&nbsp;Height: {{data.profile.height}}</p>
+            <p style="margin: 0">&nbsp;&nbsp;&nbsp;&nbsp;Weight: {{data.profile.weight}}</p>
+            <p style="margin: 0; text-decoration: underline">REGION:</p>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{data.region}}</span>
+            <p style="margin: 0; text-decoration: underline">HABITAT:&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{data.habitat}}</span>
+          </div>
+          @if (data.evolution_chain.length > 0) {
+            <div class="evo-chain">
+              @for (p_info of data.evolution_chain; track p_info) {
+                <div style="display: flex;">
+                  @if (!!p_info[2]) {
+                    <p style="font-size: 8px; width: 50px; padding: 0; line-height: 1em; color: white;">->&nbsp;{{p_info[2]}}</p>
+                  }
+                  <div style="width: 50px;">
+                    <img (click)="switchPokemonModal(p_info[0])" class="sprite" src="{{p_info[1]}}">
+                  </div>
                 </div>
+              }
             </div>
-            <div class="pokedex-stats">
-                <div class="total-profile-evolution">
-                    <div class="base-stats">
-                        <p style='font-family: "Saira Semi Condensed", sans-serif; margin: 0; text-decoration: underline'>BASE STATS:</p>
-                        <p style="margin: 0; padding: 2px">&nbsp;&nbsp;&nbsp;&nbsp;<em>HP: </em>{{data.base.HP}}</p>
-                        <p style="margin: 0; padding: 2px">&nbsp;&nbsp;&nbsp;&nbsp;<em>Attack: </em>{{data.base.Attack}}</p>
-                        <p style="margin: 0">&nbsp;&nbsp;&nbsp;&nbsp;<em>Defense: </em>{{data.base.Defense}}</p>
-                        <p style="margin: 0">&nbsp;&nbsp;&nbsp;&nbsp;<em>Speed: </em>{{data.base.Speed}}</p>
-                        <p style="margin: 0">&nbsp;&nbsp;&nbsp;&nbsp;<em>Sp. Attack: </em>{{data.base.Sp[" Attack"]}}</p>
-                        <p style="margin: 0">&nbsp;&nbsp;&nbsp;&nbsp;<em>Sp. Defense: </em>{{data.base.Sp[" Defense"]}}</p>
-                        <hr style="width: 100%; height: 1px; border: 1px solid #00FF41;">
-                        <p style="margin: 0; margin-top: 5px;">&nbsp;&nbsp;&nbsp;&nbsp;Total:&nbsp;{{data.total}}</p>
-                    </div>
-                    <div class="profile">
-                        <p style="margin: 0; text-decoration: underline">PROFILE:</p>
-                        <p style="margin: 0">&nbsp;&nbsp;&nbsp;&nbsp;Height: {{data.profile.height}}</p>
-                        <p style="margin: 0">&nbsp;&nbsp;&nbsp;&nbsp;Weight: {{data.profile.weight}}</p>
-                        <p style="margin: 0; text-decoration: underline">REGION:</p>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{data.region}}</span>
-                        <p style="margin: 0; text-decoration: underline">HABITAT:&nbsp;</p>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{data.habitat}}</span>
-                    </div>
-                    <div *ngIf="data.evolution_chain.length > 0" class="evo-chain">
-                        <div style="display: flex;" *ngFor="let p_info of data.evolution_chain">
-                            <p *ngIf="!!p_info[2]" style="font-size: 8px; width: 50px; padding: 0; line-height: 1em; color: white;">->&nbsp;{{p_info[2]}}</p>
-                            <div style="width: 50px;">
-                                <img (click)="switchPokemonModal(p_info[0])" class="sprite" src="{{p_info[1]}}">
-                            </div>
-                        </div>
-                    </div>
-                    <div style="padding: 5px;">
-                        <span class="pokemon-type" *ngFor="let type of data.type" 
-                            [ngStyle]="{'background-color': typeToColor(type)}">
-                            {{type}}
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="biology">
-                <p style="width: 100%; margin-bottom: 0; margin-top: 0;"><strong>{{data.description}}</strong></p>
-            </div>
-        </mat-card-content>
-    </mat-card>
+          }
+          <div style="padding: 5px;">
+            @for (type of data.type; track type) {
+              <span class="pokemon-type"
+                [ngStyle]="{'background-color': typeToColor(type)}">
+                {{type}}
+              </span>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="biology">
+        <p style="width: 100%; margin-bottom: 0; margin-top: 0;"><strong>{{data.description}}</strong></p>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </mat-dialog-content>
 <mat-dialog-actions class='pokedex-mat-dialog-actions'>
-    <div>
-        <button mat-raised-button (click)="decrementPokemonModal(data.id)">
-            <svg style="padding-top: 3px; touch-action: manipulation;" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
-        </button>
-        <button mat-raised-button (click)="incrementPokemonModal(data.id)">
-            <svg style="padding-top: 3px; touch-action: manipulation;" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
-        </button>
-    </div>
-    <div class="pokedex-team-close">
-        <button mat-raised-button class="pokedex-team" [mat-dialog-close]="" (click)="data.addToTeam(null, data.id)">
-             <svg style="padding-top: 3px" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#424242"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
-        </button>
-        <button mat-raised-button [mat-dialog-close]="" cdkFocusInitial (click)="cancelSound()">
-            <svg style="padding-top: 3px !important" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#424242"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-        </button>
-    </div>
+  <div>
+    <button mat-raised-button (click)="decrementPokemonModal(data.id)">
+      <svg style="padding-top: 3px; touch-action: manipulation;" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
+    </button>
+    <button mat-raised-button (click)="incrementPokemonModal(data.id)">
+      <svg style="padding-top: 3px; touch-action: manipulation;" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
+    </button>
+  </div>
+  <div class="pokedex-team-close">
+    <button mat-raised-button class="pokedex-team" [mat-dialog-close]="" (click)="data.addToTeam(null, data.id)">
+      <svg style="padding-top: 3px" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#424242"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+    </button>
+    <button mat-raised-button [mat-dialog-close]="" cdkFocusInitial (click)="cancelSound()">
+      <svg style="padding-top: 3px !important" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#424242"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+    </button>
+  </div>
 </mat-dialog-actions>
