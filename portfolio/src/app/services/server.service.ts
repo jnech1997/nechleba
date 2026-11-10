@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-const baseUrl = 'https://www.josephnechleba.com/api';
+// Same-origin API. In development, `ng serve` proxies /api to the local Node server (proxy.conf.json).
+const baseUrl = '/api';
 
 // Service that communicates with the node server
 

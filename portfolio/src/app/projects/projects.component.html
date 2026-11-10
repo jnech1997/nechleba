@@ -9,7 +9,7 @@
 @if (!loading) {
   <div class="loaded-container">
     <!-- view loaded, show projects if not child component, else just child component -->
-    @if (outlet.isActivated == false) {
+    @if (outlet.isActivated === false) {
       <div class="projects-container">
         @for (project of projects; track project) {
           <div>
@@ -20,7 +20,7 @@
                 >
                 <div class="square">
                   <div class="project-image-container">
-                    <img src="{{ project.pathImg }}" />
+                    <img src="{{ project.pathImg }}" alt="{{ project.description }}" loading="lazy" />
                   </div>
                   <div class="project-description-container">
                     <em
@@ -37,7 +37,7 @@
                   >
                   <div class="square">
                     <div class="project-image-container">
-                      <img src="{{ project.pathImg }}" />
+                      <img src="{{ project.pathImg }}" alt="{{ project.description }}" loading="lazy" />
                     </div>
                     <div class="project-description-container">
                       <em

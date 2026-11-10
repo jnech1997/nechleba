@@ -1,7 +1,8 @@
 import { Component, OnInit, HostListener, OnDestroy } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
 import { ServerService } from "../services/server.service";
 import { MediaMatcher } from "@angular/cdk/layout";
+
+const ODOO_START_DATE = "2/02/2026";
 
 @Component({
   selector: "app-home",
@@ -13,18 +14,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   /* Set spinner */
   loading = true;
   scrolledDown = false;
-  timer_id: any;
-  timestamp: number = Date.now();
-  @HostListener("scroll", ["$event"]) public scrolled($event: Event) {
-    this.scrolledDown = true;
-  }
+  clockText = "";
+  emailStatus: "" | "sending" | "sent" | "failed" = "";
+  private timerId?: ReturnType<typeof setInterval>;
   mobileQuery: MediaQueryList;
 
-  constructor(
-    private translate: TranslateService,
-    private server: ServerService,
-    public media: MediaMatcher
-  ) {
+  @HostListener("scroll") public scrolled() {
+    this.scrolledDown = true;
+  }
+
+  constructor(private server: ServerService, public media: MediaMatcher) {
     this.mobileQuery = media.matchMedia("(max-width: 900px)");
   }
 
@@ -35,30 +34,26 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.updateClock();
+    // On mobile, show only the date and skip the per-second timer.
+    if (!this.mobileQuery.matches) {
+      this.timerId = setInterval(() => this.updateClock(), 1000);
+    }
   }
 
-  updateClock() {
-    let now = new Date().toLocaleString(); // current date
-    // set the content of the element with the ID time to the formatted string
-    if (this.mobileQuery.matches) {
-      // stop the timer on mobile devices to save resources
-      now = new Date().toDateString();
-    }
-    let timeNode = document.getElementById("currentTime");
-    if (!!timeNode) {
-      timeNode.innerHTML = "2/02/2026 - " + now;
-    }
-    // call this function again in 1000ms
-    this.timer_id = setInterval(() => this.updateClock(), 1000);
-    if (!this.mobileQuery.matches) {
-      // call this function again in 1000ms
-      this.timer_id = setInterval(() => this.updateClock(), 1000);
-    }
+  ngOnDestroy(): void {
+    clearInterval(this.timerId);
+  }
+
+  private updateClock() {
+    const now = this.mobileQuery.matches
+      ? new Date().toDateString()
+      : new Date().toLocaleString();
+    this.clockText = `${ODOO_START_DATE} - ${now}`;
   }
 
   /** Smooth scroll to element on the page */
-  scrollTo(element: any): void {
-    (document.getElementById(element) as HTMLElement).scrollIntoView({
+  scrollTo(element: string): void {
+    document.getElementById(element)?.scrollIntoView({
       behavior: "smooth",
       block: "start",
       inline: "nearest",
@@ -67,38 +62,26 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.scrolledDown = true;
   }
 
-  handleEnterKey(
-    event: KeyboardEvent,
-    messageInput: HTMLTextAreaElement
-  ): void {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault(); // Prevent newline insertion
-      const message = messageInput.value;
-      this.sendEmail(message);
-      messageInput.value = ""; // Clear the input after sending
+  handleEnterKey(event: Event, messageInput: HTMLTextAreaElement): void {
+    const keyEvent = event as KeyboardEvent;
+    if (keyEvent.shiftKey) return; // Shift+Enter inserts a newline
+    keyEvent.preventDefault();
+    if (this.sendEmail(messageInput.value)) {
+      messageInput.value = "";
     }
   }
 
-  /** Send the user's message using the default mail client via mailto: */
-  sendEmail(message: string): void {
-    if (!message || !message.trim()) return;
-    const request = this.server
-      .request("POST", "/contact", {
-        message: message,
-      })
-      .subscribe(
-        (response: any) => {
-          // console.log("Email sent successfully:", response);
-        },
-        (error: any) => {
-          console.error("Error sending email:", error);
-        }
-      );
-  }
-
-  ngOnDestroy(): void {
-    if (!this.mobileQuery.matches) {
-      clearInterval(this.timer_id);
-    }
+  /** Send the message through the API. Returns false if nothing was sent. */
+  sendEmail(message: string): boolean {
+    if (!message?.trim() || this.emailStatus === "sending") return false;
+    this.emailStatus = "sending";
+    this.server.request("POST", "/contact", { message }).subscribe({
+      next: () => (this.emailStatus = "sent"),
+      error: (error: unknown) => {
+        console.error("Error sending email:", error);
+        this.emailStatus = "failed";
+      },
+    });
+    return true;
   }
 }

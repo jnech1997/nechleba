@@ -7,7 +7,9 @@
   <img
     (load)="onLoad()"
     class="home-image"
-    [src]="'assets/images/home.jpg?t=' + timestamp"
+    src="assets/images/home.jpg"
+    alt=""
+    fetchpriority="high"
   />
   @if (!loading) {
 <p class="welcome-message">
@@ -42,7 +44,7 @@
     </p>
     <p class="shell-script" style="color: whitesmoke" tabindex="0">
       {{ "ABOUT.ODOO" | translate }}: 
-      <span id="currentTime" style="color: #00ff41"></span>
+      <span id="currentTime" style="color: #00ff41">{{ clockText }}</span>
     </p>
     <p class="shell-script" style="color: #ff5f1f" tabindex="0">
       {{ "ABOUT.SABBATICAL" | translate }}: July 2022 - May 2025:
@@ -77,6 +79,11 @@
     (keydown.enter)="handleEnterKey($event, messageInput)"
   ></textarea>
 </div>
+@if (emailStatus === "sent" || emailStatus === "failed") {
+  <p class="shell-script" role="status" [style.color]="emailStatus === 'sent' ? '#00ff41' : '#ff5f1f'">
+    {{ (emailStatus === "sent" ? "ABOUT.EMAIL_SENT" : "ABOUT.EMAIL_FAILED") | translate }}
+  </p>
+}
 </div>
 <div class="separator"></div>
 </div>

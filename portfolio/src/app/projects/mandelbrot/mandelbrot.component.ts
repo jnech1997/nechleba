@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
-import * as canvasSketch from "canvas-sketch";
+import canvasSketch from "canvas-sketch";
 import * as tweakPane from "tweakpane";
 import { MediaMatcher } from "@angular/cdk/layout";
 import { MatSidenav } from "@angular/material/sidenav";
@@ -43,7 +43,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // Get context of canvas
-    let context = this.canvas.getContext("2d");
+    const context = this.canvas.getContext("2d");
 
     // Init settings for CanvasSketch
     const settings = {
@@ -52,7 +52,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
     };
 
     // Init settings for Tweakpane Pane
-    let params = {
+    const params = {
       real_set_start: -2.0,
       real_set_end: 1.0,
       img_set_start: this.mobileQuery.matches ? -1.0 : 1.0,
@@ -73,7 +73,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
 
       return ({ context, width, height }) => {
         // create Mandelbrot Worker from an anonymous function body
-        let blobURL = URL.createObjectURL(
+        const blobURL = URL.createObjectURL(
           new Blob(
             [
               "(",
@@ -88,7 +88,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
                   // complex plane coordinate is calculated by computing the fraction of the pixel coord
                   // on width/height of canvas, then getting the proportional position on the real/complex range
                   // compute for all rows in this column col
-                  let columnArray = [];
+                  const columnArray = [];
                   for (let row = 0; row < data.height; row++) {
                     let x, y;
                     if (data.isMobile) {
@@ -111,17 +111,17 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
                         (row / data.height) *
                           (data.img_set_end - data.img_set_start);
                     }
-                    let c = {
+                    const c = {
                       x: x,
                       y: y,
                     };
                     // compute if c is in the mandelbrot set
-                    let mandelbrot_calculation = mandelbrot(
+                    const mandelbrot_calculation = mandelbrot(
                       c,
                       isMobile,
                       max_iterations
                     );
-                    let column_entry = {
+                    const column_entry = {
                       iterations: mandelbrot_calculation[0],
                       isMandelbrotSet: mandelbrot_calculation[1],
                     };
@@ -138,15 +138,15 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
                     magnitude = 0;
                   while (magnitude <= 2 && count < max_iterations) {
                     // if mobile flip real and img axes so canvas is rendered vertically
-                    let z_squared_real_term =
+                    const z_squared_real_term =
                       Math.pow(z.x, 2) - Math.pow(z.y, 2);
-                    let z_squared_img_term = 2 * z.x * z.y;
-                    let z_squared = {
+                    const z_squared_img_term = 2 * z.x * z.y;
+                    const z_squared = {
                       x: isMobile ? z_squared_img_term : z_squared_real_term,
                       y: isMobile ? z_squared_real_term : z_squared_img_term,
                     };
-                    let z_real_term = z_squared.x + c.x;
-                    let z_img_term = z_squared.y + c.y;
+                    const z_real_term = z_squared.x + c.x;
+                    const z_img_term = z_squared.y + c.y;
                     z = {
                       x: isMobile ? z_img_term : z_real_term,
                       y: isMobile ? z_real_term : z_img_term,
@@ -242,16 +242,16 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
       if (value < 0) value = 0;
       if (value > n) value = n;
       let r, g, b;
-      let mid = n / 2;
+      const mid = n / 2;
       // first half black to red
       if (value < mid) {
-        let ratio = value / mid;
+        const ratio = value / mid;
         r = Math.round(255 * ratio);
         g = 0;
         b = 0;
       } else {
         // second half red to white
-        let ratio = (value - mid) / mid;
+        const ratio = (value - mid) / mid;
         r = 255;
         g = Math.round(255 * ratio);
         b = Math.round(255 * ratio);
@@ -265,8 +265,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
     const createPane = () => {
       this.pane = new tweakPane.Pane();
       document.getElementById("paneContainer").appendChild(this.pane.element);
-      let folder;
-      folder = this.pane.addFolder({
+      const folder = this.pane.addFolder({
         title: "Click to Zoom!",
         expanded: this.mobileQuery.matches ? false : true,
       });
@@ -302,7 +301,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
         title: "Zoom at (a + bi)",
       });
       set_center.on("click", () => {
-        if (!!this.worker) {
+        if (this.worker) {
           this.worker.terminate();
         }
         // Track the bounds of the current canvas so they can be reinitialized
@@ -314,12 +313,12 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
           img_set_end: params.img_set_end,
         });
         // calculate new bounds from center
-        let a = parseFloat(params.a);
-        let b = parseFloat(params.b);
+        const a = parseFloat(params.a);
+        const b = parseFloat(params.b);
         // zoom amount in complex magnitude, standard real as x and img as y
-        let zoom_factor_real =
+        const zoom_factor_real =
           (params.real_set_end - params.real_set_start) / params.zoom_factor;
-        let zoom_factor_img =
+        const zoom_factor_img =
           (params.img_set_end - params.img_set_start) / params.zoom_factor;
         // update bounds based on new center
         params.real_set_start = a - zoom_factor_real;
@@ -345,10 +344,10 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
       // unzoom by reinitializing complex plane real and img
       // bounds to previous values
       unzoom.on("click", () => {
-        if (!!this.worker) {
+        if (this.worker) {
           this.worker.terminate();
         }
-        let last_coords = this.bounds.pop();
+        const last_coords = this.bounds.pop();
         if (last_coords) {
           params.real_set_start = last_coords.real_set_start;
           params.real_set_end = last_coords.real_set_end;
@@ -371,7 +370,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
         title: "Recompute",
       });
       recompute.on("click", () => {
-        if (!!this.worker) {
+        if (this.worker) {
           this.worker.terminate();
         }
         canvasSketch(sketch, settings);
@@ -380,7 +379,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
         title: "Reset",
       });
       reset.on("click", () => {
-        if (!!this.worker) {
+        if (this.worker) {
           this.worker.terminate();
         }
         this.bounds = [];
@@ -407,10 +406,10 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
         title: "Screenshot",
       });
       screenshot.on("click", () => {
-        let downloadLink = document.createElement("a");
+        const downloadLink = document.createElement("a");
         downloadLink.setAttribute("download", "MandelbrotSet.png");
         this.canvas.toBlob((blob) => {
-          let url = URL.createObjectURL(blob);
+          const url = URL.createObjectURL(blob);
           downloadLink.setAttribute("href", url);
           downloadLink.click();
         });
@@ -419,9 +418,9 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
         title: "Save Coordinates",
       });
       coords.on("click", () => {
-        let downloadPositionLink = document.createElement("a");
+        const downloadPositionLink = document.createElement("a");
         downloadPositionLink.setAttribute("download", "coordinates.txt");
-        let text = `a: ${params.a}\nb: ${params.b}\nmax_iterations: ${params.max_iterations}\nzoom_factor: ${params.zoom_factor}`;
+        const text = `a: ${params.a}\nb: ${params.b}\nmax_iterations: ${params.max_iterations}\nzoom_factor: ${params.zoom_factor}`;
         // create a text file with the coordinates of the center point
         downloadPositionLink.setAttribute(
           "href",
@@ -433,7 +432,7 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
 
     // Zoom on click event handler
     this.canvas.addEventListener("click", (e) => {
-      if (!!this.worker) {
+      if (this.worker) {
         this.worker.terminate();
       }
       // Track the bounds of the current canvas so they can be reinitialized
@@ -454,22 +453,22 @@ export class MandelbrotComponent implements OnInit, AfterViewInit {
       const canvasRelativeY =
         (elementRelativeY * this.canvas.height) / rect.height;
       // zoom amount in complex magnitude, standard real as x and img as y
-      let zoom_factor_real =
+      const zoom_factor_real =
         (params.real_set_end - params.real_set_start) / params.zoom_factor;
-      let zoom_factor_img =
+      const zoom_factor_img =
         (params.img_set_end - params.img_set_start) / params.zoom_factor;
-      let isMobile = this.mobileQuery.matches;
+      const isMobile = this.mobileQuery.matches;
       // calculate coordinate of point on canvas in complex plane
-      let fraction_width = canvasRelativeX / this.canvas.width;
-      let fraction_height = canvasRelativeY / this.canvas.height;
+      const fraction_width = canvasRelativeX / this.canvas.width;
+      const fraction_height = canvasRelativeY / this.canvas.height;
       // compute relative to canvas orientation
-      let real_fraction = isMobile ? fraction_height : fraction_width;
-      let img_fraction = isMobile ? fraction_width : fraction_height;
-      let real_difference = params.real_set_end - params.real_set_start;
-      let img_difference = params.img_set_end - params.img_set_start;
+      const real_fraction = isMobile ? fraction_height : fraction_width;
+      const img_fraction = isMobile ? fraction_width : fraction_height;
+      const real_difference = params.real_set_end - params.real_set_start;
+      const img_difference = params.img_set_end - params.img_set_start;
       // --> coords in complex plane
-      let real_value = params.real_set_start + real_fraction * real_difference;
-      let img_value = params.img_set_start + img_fraction * img_difference;
+      const real_value = params.real_set_start + real_fraction * real_difference;
+      const img_value = params.img_set_start + img_fraction * img_difference;
       // update the real and imaginary set's start and end to create a zoomed in square
       params.real_set_start = real_value - zoom_factor_real;
       params.real_set_end = real_value + zoom_factor_real;

@@ -22,7 +22,6 @@ import {
 } from "@angular/common/http";
 import { HomeComponent } from "./home/home.component";
 import { TranslateService } from "@ngx-translate/core";
-import { ProjectsModule } from "./projects/projects.module";
 import { AuthService } from "./services/auth.service";
 import { ServerService } from "./services/server.service";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
@@ -57,7 +56,6 @@ import { NgOptimizedImage } from "@angular/common";
         deps: [HttpClient],
       },
     }),
-    ProjectsModule,
     NgOptimizedImage,
   ],
   providers: [

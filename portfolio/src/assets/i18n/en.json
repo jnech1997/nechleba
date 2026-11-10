@@ -13,7 +13,9 @@
     "FREELANCE": "Freelance Software Developer",
     "SABBATICAL": "Sabbatical | Freelance",
     "SABBATICAL_DESCRIPTION": "Traveled across 19 countries; worked as a developer, English teacher, and in hospitality.",
-    "SEND_EMAIL": "Type message and press Enter to email."
+    "SEND_EMAIL": "Type message and press Enter to email.",
+    "EMAIL_SENT": "Message sent. Thank you!",
+    "EMAIL_FAILED": "Message could not be sent. Please email me directly."
   },
   "MENU": {
     "HOME": "Home",

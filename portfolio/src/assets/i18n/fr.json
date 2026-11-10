@@ -13,7 +13,9 @@
     "FREELANCE": "Développeur de logiciels indépendant",
     "SABBATICAL": "Sabbatique | Freelance",
     "SABBATICAL_DESCRIPTION": "J'ai voyagé à travers 19 pays et travaillé en tant que développeur, professeur d'anglais et dans l'hôtellerie.",
-    "SEND_EMAIL": "Tapez le message et appuyez sur Entrée pour envoyer un e-mail."
+    "SEND_EMAIL": "Tapez le message et appuyez sur Entrée pour envoyer un e-mail.",
+    "EMAIL_SENT": "Message envoyé. Merci !",
+    "EMAIL_FAILED": "Le message n'a pas pu être envoyé. Veuillez m'écrire directement."
   },
   "MENU": {
     "HOME": "Accueil",

@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'custom_theme.scss';
-@use 'material-icons/iconfont/material-icons.scss';
+@use 'material-icons/iconfont/filled.scss';
 /* blank slate the project */
 html, body, app-root, application-shell { 
   height: 100%;

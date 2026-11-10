@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { ServerService } from './server.service';
-import { map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 export interface User {
   username: string;
@@ -28,28 +28,31 @@ export class AuthService {
     }
   }
 
-  /** Login the @user */
-  login(user: User, returnUrl: string) {
-    if (user.username !== '' && user.password !== '') {
-      // make the login request wrapped in an observable so outside
-      // components that call the service can know whether the login was successfull
-      return new Observable(subscriber => {
-        this.server.request('POST', '/login', {
-          username: user.username,
-          password: user.password
-        }).subscribe((response: any) => {
-          if (response.token !== undefined) {
-            localStorage.setItem('authToken', response.token);
-            this.loggedIn.next(true);
-            subscriber.next(true);
-            this.router.navigateByUrl(returnUrl ? returnUrl : '/projects/sandbox/profile');
-          }
-        }, (error: any) => {
-            subscriber.next(false);
-            subscriber.complete();
-        });
-      });
+  /** Login the @user. Emits true on success, false on failure, then completes. */
+  login(user: User, returnUrl: string): Observable<boolean> {
+    if (!user.username || !user.password) {
+      return of(false);
     }
+    return this.server.request('POST', '/login', {
+      username: user.username,
+      password: user.password
+    }).pipe(
+      map((response: any) => {
+        if (!response?.token) return false;
+        localStorage.setItem('authToken', response.token);
+        this.loggedIn.next(true);
+        this.router.navigateByUrl(this.safeReturnUrl(returnUrl));
+        return true;
+      }),
+      catchError(() => of(false))
+    );
+  }
+
+  /** Only allow in-app redirects after login (prevents open redirects). */
+  private safeReturnUrl(returnUrl: string): string {
+    return returnUrl && returnUrl.startsWith('/') && !returnUrl.startsWith('//')
+      ? returnUrl
+      : '/projects/sandbox/profile';
   }
 
   /** Refresh auth token */
@@ -68,7 +71,7 @@ export class AuthService {
     this.loggedIn.next(false);
     localStorage.clear();
     sessionStorage.clear();
-    this.server.request('POST', '/logout').subscribe(response => {})
+    this.server.request('POST', '/logout').subscribe({ error: () => {} });
     this.router.navigateByUrl('/projects/sandbox/login');
   }
 }

@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { ServerService } from 'src/app/services/server.service';
 import { TeamDialog } from '../team-dialog/team-dialog';
-import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -26,7 +25,7 @@ export class PokemonTeamListComponent implements OnInit {
   private _snackBar = inject(MatSnackBar);
   readonly dialog = inject(MatDialog);
 
-  constructor(private http: HttpClient, private server: ServerService, private router: Router) {}
+  constructor(private server: ServerService, private router: Router) {}
 
   ngOnInit() {
     if (window.sessionStorage.getItem('pokemon')) {
@@ -37,7 +36,7 @@ export class PokemonTeamListComponent implements OnInit {
       });
     }
     else {
-      this.http.get("/api/pokemon").subscribe(
+      this.server.request("GET", "/pokemon").subscribe(
         (pokemon_list) => {
           this.loading = false;
           this.server.request('GET', '/pokemonteam').subscribe((teams: any) => {
@@ -80,8 +79,8 @@ export class PokemonTeamListComponent implements OnInit {
 
   isValidPokemon(pokemon): boolean {
     // following images from database are invalid, clean data todo
-    let img = pokemon["image"]["hires"];
-    let name = pokemon["name"]["english"];
+    const img = pokemon["image"]["hires"];
+    const name = pokemon["name"]["english"];
     return !!img && !!name && pokemon.id < 810;
   }
 }

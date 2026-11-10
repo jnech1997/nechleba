@@ -12,7 +12,7 @@
       <mat-spinner color="accent"></mat-spinner>
     </div>
   }
-  @if (!loading && outlet.isActivated == false) {
+  @if (!loading && outlet.isActivated === false) {
     <div
       style="height: fit-content; width: 100%"
       >
@@ -39,7 +39,7 @@
             </button>
           }
           @if (!mobileQuery.matches) {
-            <audio controls loop>
+            <audio controls loop preload="none">
               <source src="assets/pokemon.mp3" type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
