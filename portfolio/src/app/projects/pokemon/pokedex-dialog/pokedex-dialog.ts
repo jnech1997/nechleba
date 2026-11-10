@@ -50,14 +50,14 @@ export class PokedexDialog {
   }
 
   incrementPokemonModal(pokemon_id) {
-    let inced = parseInt(pokemon_id) + 1;
+    const inced = parseInt(pokemon_id) + 1;
     if (inced < 810) {
       this.switchPokemonModal(inced);
     }
   }
 
   decrementPokemonModal(pokemon_id) {
-    let inced = parseInt(pokemon_id) - 1;
+    const inced = parseInt(pokemon_id) - 1;
     if (inced > 0) {
       this.switchPokemonModal(inced);
     }
@@ -65,7 +65,7 @@ export class PokedexDialog {
 
   switchPokemonModal(pokemon_id) {
     if (pokemon_id != this.data.id) {
-      let p = this.data.pokemon.find(p_info => p_info.id === pokemon_id);
+      const p = this.data.pokemon.find(p_info => p_info.id === pokemon_id);
       this.data = {
         name: p.name, 
         id: p.id,
@@ -86,11 +86,11 @@ export class PokedexDialog {
   }
 
   getEvolutionChain(evolution_ids) {
-    if (!!evolution_ids) {
-      let evo_chain = []
+    if (evolution_ids) {
+      const evo_chain = []
       for (const evolution of evolution_ids) {
-        let p_info = this.data.pokemon.find(p => !!p && p.id == evolution["id"] && p.id < 810);
-        if (!!p_info) {
+        const p_info = this.data.pokemon.find(p => !!p && p.id == evolution["id"] && p.id < 810);
+        if (p_info) {
           evo_chain.push([p_info.id, p_info.image['sprite'], evolution["condition"]]);
         }
       }
@@ -100,18 +100,18 @@ export class PokedexDialog {
   }
 
   cancelSound() {
-    let synth = window.speechSynthesis;
+    const synth = window.speechSynthesis;
     synth.cancel();
   }
 
   soundDescribe(data) {
-    let synth = window.speechSynthesis;
+    const synth = window.speechSynthesis;
     if (!!synth && synth.speaking) {
       synth.cancel();
     }
-    else if (!!synth) {
-      let textToSpeak = data.name['english'] + ", a " + data.species + "! " + data.description;
-      let msg = new SpeechSynthesisUtterance(textToSpeak);
+    else if (synth) {
+      const textToSpeak = data.name['english'] + ", a " + data.species + "! " + data.description;
+      const msg = new SpeechSynthesisUtterance(textToSpeak);
       synth.speak(msg);
     }
   }
@@ -161,7 +161,7 @@ export class PokedexDialog {
 
   linearGradient(types: string[]): string {
     let l = "linear-gradient(";
-    for (let type of types) {
+    for (const type of types) {
       l += this.typeToColor(type) + ","
     }
     l = l.slice(0, -1);

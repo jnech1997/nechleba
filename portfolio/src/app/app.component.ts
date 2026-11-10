@@ -21,12 +21,15 @@ export class AppComponent implements AfterViewInit {
     translate.setDefaultLang('en');
     const browserLang = translate.getBrowserLang();
     const sessionLang = window.sessionStorage.getItem('language');
-    const lang = !!sessionLang ? sessionLang : browserLang.match(/en|fr|es|zh|ja|ar/) ? browserLang : 'en';
+    const lang = sessionLang ? sessionLang : browserLang.match(/en|fr|es|zh|ja|ar/) ? browserLang : 'en';
     translate.use(lang);
   }
 
   ngAfterViewInit(): void {
-    document.getElementById("pre-angular-spinner-container").style.display="none";
-    document.getElementById("angularRoot").style.display="block";
+    // Swap the pre-bootstrap spinner in index.html for the app.
+    const spinner = document.getElementById("pre-angular-spinner-container");
+    const root = document.getElementById("angularRoot");
+    if (spinner) spinner.style.display = "none";
+    if (root) root.style.display = "block";
   }
 }

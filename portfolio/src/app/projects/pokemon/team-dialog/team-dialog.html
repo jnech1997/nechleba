@@ -11,7 +11,7 @@
       <h2 style="color: white; background-color: black; padding: 20px; border-radius: 5px;">{{data.team.name}}<img style="width: 20px; height: 20px; margin-left: 10px;" src="assets/images/pokeball.svg"/></h2>
     }
   </div>
-  @if (!data.viewMode && data.team.pokemon_ids.length == 0) {
+  @if (!data.viewMode && data.team.pokemon_ids.length === 0) {
     <p class="add-pokemon-message">Add Pokemon to your team!</p>
   }
   <div class="table-container">
@@ -115,7 +115,7 @@
       }
     </div>
   }
-  @if (team_non_advantages.length == 0) {
+  @if (team_non_advantages.length === 0) {
     <div style="width: 100%;">
       <p style="color: white;">Congratulations! At least one pokemon on your team has an advantage over each type of pokemon!</p>
     </div>

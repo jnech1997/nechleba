@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject, OnInit, OnDestroy } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MediaMatcher } from "@angular/cdk/layout";
@@ -17,7 +17,7 @@ import { Subscription } from "rxjs";
   styleUrls: ["./pokemon-team-builder.component.scss"],
   standalone: false,
 })
-export class PokemonTeamBuilderComponent implements OnInit {
+export class PokemonTeamBuilderComponent implements OnInit, OnDestroy {
   public pokemon = [];
   public loading = true;
   public filteredPokemon = [];
@@ -91,7 +91,6 @@ export class PokemonTeamBuilderComponent implements OnInit {
 
   onScrollDown() {
     this.page++;
-    this.filteredPokemon = this.filteredPokemon;
   }
 
   deleteTeam() {
@@ -166,7 +165,7 @@ export class PokemonTeamBuilderComponent implements OnInit {
     ) {
       this.team.pokemon_ids.push(pokemon_id);
       if (!this.mobileQuery.matches) {
-        let name = this.pokemon.filter((p) => p.id == pokemon_id)[0].name[
+        const name = this.pokemon.filter((p) => p.id == pokemon_id)[0].name[
           "english"
         ];
         const message = "Added " + name + " to your team!";
@@ -191,21 +190,21 @@ export class PokemonTeamBuilderComponent implements OnInit {
     this.filteredPokemon = this.pokemon;
     this.page = 1;
     document.getElementById("pokemon-team-builder-container").scrollTo(0, 0);
-    if (!!searchTerm) {
+    if (searchTerm) {
       this.filteredPokemon = this.filteredPokemon.filter((item) => {
         return item.name["english"]
           .toLowerCase()
           .includes(searchTerm.toLowerCase());
       });
     }
-    if (!!region) {
+    if (region) {
       this.filteredPokemon = this.filteredPokemon.filter((p) => {
         return p.region == region;
       });
     }
-    if (!!types) {
+    if (types) {
       this.filteredPokemon = this.filteredPokemon.filter((p) => {
-        for (let type in types) {
+        for (const type in types) {
           if (types[type] && !p.type.includes(type)) {
             return false;
           }
@@ -263,13 +262,13 @@ export class PokemonTeamBuilderComponent implements OnInit {
   }
 
   getEvolutionChain(evolution_ids) {
-    if (!!evolution_ids) {
-      let evo_chain = [];
+    if (evolution_ids) {
+      const evo_chain = [];
       for (const evolution of evolution_ids) {
-        let p_info = this.pokemon.find(
+        const p_info = this.pokemon.find(
           (p) => !!p && p.id == evolution["id"] && p.id < 810
         );
-        if (!!p_info) {
+        if (p_info) {
           evo_chain.push([
             p_info.id,
             p_info.image["sprite"],
@@ -286,7 +285,7 @@ export class PokemonTeamBuilderComponent implements OnInit {
 
   linearGradient(types: string[]): string {
     let l = "linear-gradient(";
-    for (let type of types) {
+    for (const type of types) {
       l += this.typeToColor(type) + ",";
     }
     l = l.slice(0, -1);
@@ -349,8 +348,8 @@ export class PokemonTeamBuilderComponent implements OnInit {
 
   isValidPokemon(pokemon): boolean {
     // following images from database are invalid, clean data todo
-    let img = pokemon["image"]["hires"];
-    let name = pokemon["name"]["english"];
+    const img = pokemon["image"]["hires"];
+    const name = pokemon["name"]["english"];
     return !!img && !!name && pokemon.id < 810;
   }
 

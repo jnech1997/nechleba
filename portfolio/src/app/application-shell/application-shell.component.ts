@@ -31,7 +31,7 @@ export class ApplicationShellComponent {
   faLinkedinIn = faLinkedinIn;
   mobileQuery: MediaQueryList;
   @ViewChild('snav', {static: false}) snav: ElementRef;
-  darkMode : boolean = !!(sessionStorage.getItem('darkMode')) ? coerceBooleanProperty(sessionStorage.getItem('darkMode')) : true;
+  darkMode : boolean = sessionStorage.getItem('darkMode') ? coerceBooleanProperty(sessionStorage.getItem('darkMode')) : true;
   language : string;
   user : any;
 
@@ -53,7 +53,7 @@ export class ApplicationShellComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       this.language = result;
-      if (!!this.language) {
+      if (this.language) {
         this.translate.use(this.language);
         window.sessionStorage.setItem('language', this.language);
       }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,7 +11,7 @@ import { ServerService } from 'src/app/services/server.service';
   styleUrls: ['./login.component.scss'],
   standalone: false
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   loginFormControl = new UntypedFormGroup({
     username: new UntypedFormControl(''),
@@ -72,7 +72,7 @@ export class LoginComponent {
     }
     else {
       // login 
-      let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/projects/sandbox/profile';
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/projects/sandbox/profile';
       this.authService.login(this.loginFormControl.value, returnUrl).subscribe((isLoggedIn) => {
         if (!isLoggedIn) {
           this.requestError = this.invalidCredentials;

@@ -133,20 +133,20 @@ export class TeamDialog implements OnInit, AfterViewInit {
   processTeamAdvantages() {
     let type_ads = [];
     let type_disads = [];
-    for (let p of this.pokemon.filteredData) {
-      for (let type of p.type) {
+    for (const p of this.pokemon.filteredData) {
+      for (const type of p.type) {
         type_ads = type_ads.concat(TYPE_ADVANTAGES[type]);
         type_disads = type_disads.concat(TYPE_DISADVANTAGES[type])
       }
     }
-    for (let type of TYPES) {
+    for (const type of TYPES) {
       if (!type_ads.includes(type) && !this.team_non_advantages.includes(type)) {
         this.team_non_advantages.push(type);
       }
     }
     // compute top five type disadvantages
-    let type_disad_counter = {};
-    for (let type of type_disads) {
+    const type_disad_counter = {};
+    for (const type of type_disads) {
       if (type_disad_counter[type]) {
         type_disad_counter[type] = type_disad_counter[type] + 1;
       }
@@ -161,8 +161,8 @@ export class TeamDialog implements OnInit, AfterViewInit {
     arr_disad.sort((a:any[], b: any[]) => b[0] - a[0]);
     this.team_weaknesses = arr_disad.slice(0, arr_disad.length >= 5 ? 5 : arr_disad.length).map((pair) => pair[1]);
     // compute top five type advantages
-    let type_ad_counter = {};
-    for (let type of type_ads) {
+    const type_ad_counter = {};
+    for (const type of type_ads) {
       if (type_ad_counter[type]) {
         type_ad_counter[type] = type_ad_counter[type] + 1;
       }

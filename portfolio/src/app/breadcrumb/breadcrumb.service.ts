@@ -9,7 +9,7 @@ export interface Breadcrumb {
 }
 
 @Injectable({
-  providedIn: 'platform'
+  providedIn: 'root'
 })
 export class BreadcrumbService {
   
