@@ -1,16 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-
 import { BreadcrumbService } from './breadcrumb.service';
+import { commonTestProviders } from 'src/testing/test-setup';
 
 describe('BreadcrumbService', () => {
-  let service: BreadcrumbService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(BreadcrumbService);
-  });
+  beforeEach(() => TestBed.configureTestingModule({ providers: commonTestProviders }));
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(TestBed.inject(BreadcrumbService)).toBeTruthy();
   });
 });

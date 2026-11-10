@@ -1,16 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-
 import { ServerService } from './server.service';
+import { commonTestProviders } from 'src/testing/test-setup';
 
 describe('ServerService', () => {
-  let service: ServerService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ServerService);
-  });
+  beforeEach(() => TestBed.configureTestingModule({ providers: commonTestProviders }));
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(TestBed.inject(ServerService)).toBeTruthy();
   });
 });

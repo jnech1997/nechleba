@@ -1,25 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { PokemonTeamBuilderComponent } from './pokemon-team-builder.component';
+import { ProjectsModule } from 'src/app/projects/projects.module';
+import { configureTestBed } from 'src/testing/test-setup';
 
-describe('PokemonComponent', () => {
-  let component: PokemonTeamBuilderComponent;
-  let fixture: ComponentFixture<PokemonTeamBuilderComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ PokemonTeamBuilderComponent ]
-    })
-    .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PokemonTeamBuilderComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+describe('PokemonTeamBuilderComponent', () => {
+  beforeEach(() => configureTestBed({ modules: [ProjectsModule] }));
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(PokemonTeamBuilderComponent);
+    fixture.detectChanges();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

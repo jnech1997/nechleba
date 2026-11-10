@@ -15,17 +15,19 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/portfolio",
+            "outputPath": {
+              "base": "dist/portfolio",
+              "browser": ""
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "polyfills": [
-              "src/polyfills.ts",
-              "@angular/localize/init"
+              "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -35,63 +37,11 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "allowedCommonJsDependencies": [
+              "canvas-sketch"
+            ]
           },
           "configurations": {
-            "es": {
-              "aot": true,
-              "i18nMissingTranslation": "error",
-              "localize": [
-                "es"
-              ]
-            },
-            "fr": {
-              "aot": true,
-              "i18nMissingTranslation": "error",
-              "localize": [
-                "fr"
-              ]
-            },
-            "ch": {
-              "aot": true,
-              "i18nMissingTranslation": "error",
-              "localize": [
-                "ch"
-              ]
-            },
-            "hi": {
-              "aot": true,
-              "i18nMissingTranslation": "error",
-              "localize": [
-                "hi"
-              ]
-            },
-            "en": {
-              "aot": true,
-              "i18nMissingTranslation": "error",
-              "localize": [
-                "en"
-              ]
-            },
-            "ar": {
-              "aot": true,
-              "i18nMissingTranslation": "error",
-              "localize": [
-                "ar"
-              ]
-            },
-            "jp": {
-              "aot": true,
-              "i18nMissingTranslation": "error",
-              "localize": [
-                "jp"
-              ]
-            },
             "production": {
               "fileReplacements": [
                 {
@@ -104,20 +54,18 @@
                 "styles": {
                   "minify": true,
                   "inlineCritical": false
-                }
+                },
+                "fonts": true
               },
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "1.5mb",
+                  "maximumError": "2.5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -125,58 +73,40 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "options": {
-            "buildTarget": "portfolio:build"
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
               "buildTarget": "portfolio:build:production"
             },
-            "es": {
-              "buildTarget": "i18nDemo:build:es"
-            },
-            "fr": {
-              "buildTarget": "i18nDemo:build:fr"
-            },
-            "hi": {
-              "buildTarget": "i18nDemo:build:hi"
-            },
-            "en": {
-              "buildTarget": "i18nDemo:build:en"
-            },
-            "ch": {
-              "buildTarget": "i18nDemo:build:ch"
-            },
-            "jp": {
-              "buildTarget": "i18nDemo:build:jp"
-            },
-            "ar": {
-              "buildTarget": "i18nDemo:build:ar"
+            "development": {
+              "buildTarget": "portfolio:build:development"
             }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "portfolio:build"
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
-            "main": "src/test.ts",
             "polyfills": [
-              "src/polyfills.ts",
-              "@angular/localize/init"
+              "zone.js",
+              "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -188,55 +118,23 @@
             "scripts": []
           }
         },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "portfolio:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "portfolio:serve:production"
-            }
-          }
-        }
-      },
-      "i18n": {
-        "locales": {
-          "es": {
-            "translation": "src/translate/messages.es.xlf",
-            "baseHref": ""
-          },
-          "fr": {
-            "translation": "src/translate/messages.fr.xlf",
-            "baseHref": ""
-          },
-          "ch": {
-            "translation": "src/translate/messages.ch.xlf",
-            "baseHref": ""
-          },
-          "hi": {
-            "translation": "src/translate/messages.hi.xlf",
-            "baseHref": ""
-          },
-          "en": {
-            "translation": "src/translate/messages.en.xlf",
-            "baseHref": ""
-          },
-          "ar": {
-            "translation": "src/translate/messages.ar.xlf",
-            "baseHref": ""
-          },
-          "jp": {
-            "translation": "src/translate/messages.jp.xlf",
-            "baseHref": ""
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
     }
   },
   "cli": {
-    "analytics": "e7eb555f-d630-40ce-ae7b-2710433e154f"
+    "analytics": false,
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   },
   "schematics": {
     "@schematics/angular:component": {

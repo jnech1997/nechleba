@@ -1,23 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { MandelbrotComponent } from './mandelbrot.component';
+import { ProjectsModule } from 'src/app/projects/projects.module';
+import { configureTestBed } from 'src/testing/test-setup';
 
 describe('MandelbrotComponent', () => {
-  let component: MandelbrotComponent;
-  let fixture: ComponentFixture<MandelbrotComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [MandelbrotComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(MandelbrotComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  beforeEach(() => configureTestBed({ modules: [ProjectsModule] }));
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(MandelbrotComponent);
+    fixture.detectChanges();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });
