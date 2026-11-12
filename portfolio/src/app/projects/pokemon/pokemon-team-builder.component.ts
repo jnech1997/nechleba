@@ -90,7 +90,11 @@ export class PokemonTeamBuilderComponent implements OnInit, OnDestroy {
   }
 
   onScrollDown() {
-    this.page++;
+    // alwaysCallback is on: the directive otherwise skips a scroll height it
+    // already fired at, which breaks paging after a filter resets page to 1.
+    if (this.page * this.limit < this.filteredPokemon.length) {
+      this.page++;
+    }
   }
 
   deleteTeam() {
