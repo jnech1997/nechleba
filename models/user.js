@@ -5,6 +5,8 @@ const UserSchema = new mongoose.Schema({
   last_name: { type: String, default: null },
   username: { type: String, unique: true },
   password: { type: String },
+  // Increment to revoke every refresh token issued before now (see logout).
+  token_version: { type: Number, default: 0 },
 });
 
 // Export User model

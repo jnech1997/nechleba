@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const User = require("../models/user");
 const PokemonTeam = require("../models/pokemon-team");
 
@@ -13,7 +14,13 @@ const refreshCookieOptions = {
   path: "/api",
 };
 
+const BCRYPT_COST = 12;
+// Compared against when the username does not exist, so a failed login
+// takes the same time whether or not the user exists.
+const DUMMY_HASH = bcrypt.hashSync("dummy-password-for-timing", BCRYPT_COST);
+
 const isString = (value) => typeof value === "string";
+const tokenVersion = (value) => value ?? 0;
 
 function signAccessToken(user) {
   return jwt.sign(
@@ -25,7 +32,7 @@ function signAccessToken(user) {
 
 function setRefreshCookie(res, user) {
   const refreshToken = jwt.sign(
-    { user_id: user._id, username: user.username },
+    { user_id: user._id, username: user.username, ver: tokenVersion(user.token_version) },
     process.env.REFRESH_TOKEN_KEY,
     { expiresIn: REFRESH_TOKEN_TTL }
   );
@@ -77,8 +84,8 @@ exports.signup = async function (req, res) {
   }
 
   // A random salt per password defeats precomputed hash tables;
-  // 10 is the cost factor, not the salt length.
-  const encryptedUserPassword = await bcrypt.hash(password, 10);
+  // BCRYPT_COST is the cost factor, not the salt length.
+  const encryptedUserPassword = await bcrypt.hash(password, BCRYPT_COST);
 
   try {
     const user = await User.create({
@@ -106,8 +113,16 @@ exports.login = async function (req, res) {
   }
 
   const user = await User.findOne({ username });
-  if (!user || !(await bcrypt.compare(password, user.password))) {
+  // Always run bcrypt, even for unknown users, so timing does not reveal usernames.
+  const passwordOk = await bcrypt.compare(password, user?.password ?? DUMMY_HASH);
+  if (!user || !passwordOk) {
     return res.status(400).send("Invalid Credentials");
+  }
+
+  // Upgrade hashes made with an older, lower cost factor.
+  if (bcrypt.getRounds(user.password) < BCRYPT_COST) {
+    user.password = await bcrypt.hash(password, BCRYPT_COST);
+    await user.save();
   }
 
   setRefreshCookie(res, user);
@@ -128,7 +143,8 @@ exports.refresh = async (req, res) => {
   }
 
   const user = await User.findById(payload.user_id);
-  if (!user) {
+  // A version mismatch means the token was revoked by a logout.
+  if (!user || tokenVersion(payload.ver) !== tokenVersion(user.token_version)) {
     clearRefreshCookie(res);
     return res.status(403).json({ error: "Invalid or expired refresh token" });
   }
@@ -137,8 +153,29 @@ exports.refresh = async (req, res) => {
   return res.json({ accessToken: signAccessToken(user) });
 };
 
-// clear cookies
+// Revoke the user's refresh tokens and clear the cookie.
 exports.logout = async (req, res) => {
+  const refreshToken = req.cookies?.[REFRESH_COOKIE];
+  if (refreshToken) {
+    let payload = null;
+    try {
+      payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_KEY);
+    } catch {
+      // Expired or invalid: nothing to revoke.
+    }
+    if (payload) {
+      // Signs out every session of this user. Only increment if the token is
+      // still current, so a replayed old token cannot keep bumping the version.
+      const ver = tokenVersion(payload.ver);
+      // Users created before token_version existed have no field (matched by null).
+      // trusted(): this $in is ours, so sanitizeFilter must not strip it.
+      const current = ver === 0 ? mongoose.trusted({ $in: [0, null] }) : ver;
+      await User.updateOne(
+        { _id: payload.user_id, token_version: current },
+        { $inc: { token_version: 1 } }
+      );
+    }
+  }
   clearRefreshCookie(res);
   res.json({ success: true });
 };

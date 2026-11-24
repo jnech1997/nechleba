@@ -12,8 +12,11 @@ const jwt = require("jsonwebtoken");
 // Fail fast instead of buffering if a test reaches the database by mistake.
 mongoose.set("bufferCommands", false);
 
+const bcrypt = require("bcryptjs");
 const app = require("../app");
+const User = require("../models/user");
 const { parseTeamInput } = require("../controllers/pokemonController");
+const { validateEnv } = require("../config/env");
 
 let server;
 let base;
@@ -124,4 +127,61 @@ test("contact form is rate limited", async () => {
   let last;
   for (let i = 0; i < 6; i++) last = await post("/api/contact", {});
   assert.equal(last.status, 429);
+});
+
+test("validateEnv requires two different token secrets", () => {
+  assert.deepEqual(validateEnv({ TOKEN_KEY: "a", REFRESH_TOKEN_KEY: "b" }), []);
+  assert.equal(validateEnv({}).length, 2);
+  assert.match(validateEnv({ TOKEN_KEY: "a", REFRESH_TOKEN_KEY: "a" })[0], /must be different/);
+});
+
+const userId = new mongoose.Types.ObjectId();
+const refreshCookie = (payload) =>
+  `refreshToken=${jwt.sign({ user_id: userId, username: "ash", ...payload }, "test-refresh-key")}`;
+const refreshWith = (cookie) =>
+  fetch(`${base}/api/refresh`, { method: "POST", headers: { Cookie: cookie } });
+
+test("refresh rejects a token revoked by a newer token_version", async (t) => {
+  t.mock.method(User, "findById", async () => ({ _id: userId, username: "ash", token_version: 1 }));
+  assert.equal((await refreshWith(refreshCookie({ ver: 0 }))).status, 403);
+  const ok = await refreshWith(refreshCookie({ ver: 1 }));
+  assert.equal(ok.status, 200);
+  assert.ok((await ok.json()).accessToken);
+});
+
+test("refresh accepts tokens issued before versioning (no ver claim)", async (t) => {
+  t.mock.method(User, "findById", async () => ({ _id: userId, username: "ash", token_version: 0 }));
+  assert.equal((await refreshWith(refreshCookie({}))).status, 200);
+});
+
+test("logout increments token_version for the cookie's user", async (t) => {
+  const update = t.mock.method(User, "updateOne", async () => ({ modifiedCount: 1 }));
+  const res = await fetch(`${base}/api/logout`, {
+    method: "POST",
+    headers: { Cookie: refreshCookie({ ver: 0 }) },
+  });
+  assert.equal(res.status, 200);
+  assert.equal(update.mock.callCount(), 1);
+  const [filter, change] = update.mock.calls[0].arguments;
+  assert.equal(String(filter._id), String(userId));
+  assert.deepEqual(change, { $inc: { token_version: 1 } });
+  // The $in for legacy users must survive mongoose's sanitizeFilter.
+  const sanitized = mongoose.sanitizeFilter({ ...filter });
+  assert.deepEqual(sanitized.token_version.$in, [0, null]);
+  assert.equal(sanitized.token_version.$eq, undefined);
+});
+
+test("logout without a valid cookie does not touch the database", async (t) => {
+  const update = t.mock.method(User, "updateOne", async () => ({}));
+  await fetch(`${base}/api/logout`, { method: "POST", headers: { Cookie: "refreshToken=garbage" } });
+  await fetch(`${base}/api/logout`, { method: "POST" });
+  assert.equal(update.mock.callCount(), 0);
+});
+
+test("login runs bcrypt even when the user does not exist", async (t) => {
+  t.mock.method(User, "findOne", async () => null);
+  const compare = t.mock.method(bcrypt, "compare");
+  const res = await post("/api/login", { username: "nobody", password: "whatever123" });
+  assert.equal(res.status, 400);
+  assert.equal(compare.mock.callCount(), 1);
 });
