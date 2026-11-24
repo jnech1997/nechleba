@@ -29,6 +29,7 @@ export class ApplicationShellComponent {
   faGithubAlt = faGithubAlt;
   faYoutube = faYoutube;
   faLinkedinIn = faLinkedinIn;
+  readonly currentYear = new Date().getFullYear();
   mobileQuery: MediaQueryList;
   @ViewChild('snav', {static: false}) snav: ElementRef;
   darkMode : boolean = sessionStorage.getItem('darkMode') ? coerceBooleanProperty(sessionStorage.getItem('darkMode')) : true;
